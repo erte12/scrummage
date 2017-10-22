@@ -25,16 +25,40 @@ namespace Scrummage.Controllers.Api
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            teamDto.CreatedAt = DateTime.Now;
-
             var team = Mapper.Map<Team>(teamDto);
+
+            team.CreatedAt = DateTime.Now;
 
             _context.Teams.Add(team);
             _context.SaveChanges();
 
             teamDto.Id = team.Id;
 
-            return Ok(teamDto.Id);
+            return Ok(teamDto);
+        }
+
+        public IHttpActionResult GetTeams()
+        {
+            var teams = _context.Teams
+                .OrderBy(t => t.Name)
+                .ToList()
+                .Select(Mapper.Map<Team, TeamDto>);
+
+            return Ok(teams);
+        }
+
+        [HttpDelete]
+        public IHttpActionResult DeleteTeam(int id)
+        {
+            var team = _context.Teams.SingleOrDefault(t => t.Id == id);
+
+            if (team == null)
+                return NotFound();
+
+            _context.Teams.Remove(team);
+            _context.SaveChanges();
+
+            return Ok();
         }
     }
 }

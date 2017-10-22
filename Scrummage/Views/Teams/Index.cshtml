@@ -10,29 +10,80 @@
 <form id ="newTeam">
     <div class="form-group">
         <label class="control-label">Name</label>
-        <input name="name" type="text" value="" class="form-control" />
+        <input name="name" required type="text" value="" class="form-control" />
     </div>
     <button class="btn btn-primary">Submit</button>
 </form>
+<hr/>
+<h3>Your teams</h3>
+<div class="row">
+    <div class="col-md-4">
+        <div id="teams" class="list-group">
+        </div>
+    </div>
+</div>
 
 @section scripts
 {
-    <script>
-        $('#newTeam').submit(function(e) {
+    @Scripts.Render("~/bundles/jqueryval")
 
-            $.ajax({
-                    url: "/api/teams",
-                    method: "post",
-                    data: $('#newTeam').serialize()
+    <script>
+        function createListItem(teamId, teamName) {
+            $('#teams')
+                .append(
+                    '<div class="list-group-item">' +
+                    '<a href="/teams/' + teamId + '">' + teamName + '</a>' +
+                    '<span data-team-id="' + teamId + '" class="glyphicon glyphicon-remove js-remove pull-right"></span>' +
+                    '</div>'
+                );
+        }
+
+        $.ajax({
+            url: '/api/teams',
+            method: 'get'
+        })
+        .done(function(teams) {
+            teams.forEach(function(team) {
+                createListItem(team.id, team.name);
+            });
+        });
+
+        $('#newTeam').validate({
+            submitHandler: function() {
+                $.ajax({
+                        url: '/api/teams',
+                        method: 'post',
+                        data: $('#newTeam').serialize()
                 })
-                .done(function() {
-                    toastr.success("New team has been created!");
+                .done(function(newTeam) {
+                    toastr.success('New team has been created!');
+
+                    createListItem(newTeam.id, newTeam.name);
                 })
                 .fail(function() {
-                    toastr.error("Something went wrong!")
+                    toastr.error('Something went wrong!');
                 });
 
-            return false;
+                return false;
+            }
+        });
+
+        $('#teams').on('click', '.js-remove', function () {
+            var id = $(this).attr('data-team-id');
+            var element = $(this).parent();
+
+            $.ajax({
+                url: '/api/teams/' + id,
+                method: 'delete'
+            })
+            .done(function () {
+                toastr.success('Team successfully deleted.');
+
+                element.remove();
+            })
+            .fail(function () {
+                toastr.error('Something went wrong!');
+            });
         });
     </script>
 }
