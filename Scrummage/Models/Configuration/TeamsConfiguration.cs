@@ -15,6 +15,15 @@ namespace Scrummage.Models.Configuration
             Property(p => p.Name)
                 .IsRequired()
                 .HasMaxLength(60);
+
+            HasMany(t => t.Users)
+                .WithMany(u => u.Teams)
+                .Map(cs =>
+                {
+                    cs.MapLeftKey("TeamId");
+                    cs.MapRightKey("MemberId");
+                    cs.ToTable("MemberTeam");
+                });
         }
     }
 }
