@@ -13,7 +13,8 @@ namespace Scrummage
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/bootbox.js",
                         "~/Scripts/respond.js",
-                        "~/Scripts/toastr.js"
+                        "~/Scripts/toastr.js",
+                        "~/Scripts/typeahead.bundle.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -27,6 +28,7 @@ namespace Scrummage
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-united.css",
                       "~/Content/toastr.css",
+                      "~/Content/typeahead.css",
                       "~/Content/custom.css",
                       "~/Content/site.css"));
         }
