@@ -58,6 +58,8 @@
                 .done(function(newTeam) {
                     toastr.success('New team has been created!');
 
+                    $('#newTeam').find('input').val('');
+
                     createListItem(newTeam.id, newTeam.name);
                 })
                 .fail(function() {
@@ -72,18 +74,25 @@
             var id = $(this).attr('data-team-id');
             var element = $(this).parent();
 
-            $.ajax({
-                url: '/api/teams/' + id,
-                method: 'delete'
-            })
-            .done(function () {
-                toastr.success('Team successfully deleted.');
+            bootbox.confirm('Are you sure?', function (result) {
+                if (result === true) {
+                    $.ajax({
+                        url: '/api/teams/' + id,
+                        method: 'delete'
+                    })
+                    .done(function () {
+                        toastr.success('Team successfully deleted.');
 
-                element.remove();
-            })
-            .fail(function () {
-                toastr.error('Something went wrong!');
+                        element.remove();
+                    })
+                    .fail(function () {
+                        toastr.error('Something went wrong!');
+                    });
+                }
             });
+
+
+
         });
     </script>
 }
