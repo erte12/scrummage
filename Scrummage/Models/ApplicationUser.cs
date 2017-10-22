@@ -8,6 +8,8 @@ namespace Scrummage.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public string Name { get; set; }
+        public string Surname { get; set; }
         public List<Team> Teams { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

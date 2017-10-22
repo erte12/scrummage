@@ -5,6 +5,16 @@ namespace Scrummage.Models
     public class RegisterViewModel
     {
         [Required]
+        [MaxLength(60)]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Required]
+        [MaxLength(60)]
+        [Display(Name = "Surname")]
+        public string Surname { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

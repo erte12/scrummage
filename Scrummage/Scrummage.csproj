@@ -208,6 +208,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
+    <Compile Include="Dtos\MemberTeamDto.cs" />
     <Compile Include="Dtos\TeamDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -224,19 +225,24 @@
     <Compile Include="Migrations\201710222001502_AddMembersTeamsManyToManyRelationship.Designer.cs">
       <DependentUpon>201710222001502_AddMembersTeamsManyToManyRelationship.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710222037347_AddNameAndSurnameColumnsToUsersTable.cs" />
+    <Compile Include="Migrations\201710222037347_AddNameAndSurnameColumnsToUsersTable.Designer.cs">
+      <DependentUpon>201710222037347_AddNameAndSurnameColumnsToUsersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Views\ForgotPasswordViewModel.cs" />
+    <Compile Include="Models\Configuration\ApplicationUsersConfiguration.cs" />
+    <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Configuration\TeamsConfiguration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Views\ExternalLoginConfirmationViewModel.cs" />
-    <Compile Include="Views\ExternalLoginListViewModel.cs" />
-    <Compile Include="Views\ForgotViewModel.cs" />
-    <Compile Include="Views\LoginViewModel.cs" />
-    <Compile Include="Views\ManageViewModels.cs" />
-    <Compile Include="Views\RegisterViewModel.cs" />
-    <Compile Include="Views\ResetPasswordViewModel.cs" />
-    <Compile Include="Views\SendCodeViewModel.cs" />
+    <Compile Include="ViewModels\ExternalLoginConfirmationViewModel.cs" />
+    <Compile Include="ViewModels\ExternalLoginListViewModel.cs" />
+    <Compile Include="ViewModels\ForgotViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ManageViewModels.cs" />
+    <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\ResetPasswordViewModel.cs" />
+    <Compile Include="ViewModels\SendCodeViewModel.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\VerifyCodeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -314,7 +320,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -338,6 +343,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710222001502_AddMembersTeamsManyToManyRelationship.resx">
       <DependentUpon>201710222001502_AddMembersTeamsManyToManyRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710222037347_AddNameAndSurnameColumnsToUsersTable.resx">
+      <DependentUpon>201710222037347_AddNameAndSurnameColumnsToUsersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

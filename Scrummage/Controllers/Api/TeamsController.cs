@@ -60,5 +60,26 @@ namespace Scrummage.Controllers.Api
 
             return Ok();
         }
+
+        [HttpPut]
+        public IHttpActionResult AddMember(MemberTeamDto memberTeam)
+        {
+            var user = _context.Users
+                .SingleOrDefault(u => u.Id.Equals(memberTeam.MemberId));
+
+            if (user == null)
+                return BadRequest();
+
+            var team = _context.Teams
+                .SingleOrDefault(t => t.Id == memberTeam.TeamId);
+
+            if (team == null)
+                return NotFound();
+
+            team.Users.Add(user);
+            _context.SaveChanges();
+
+            return Ok();
+        }
     }
 }

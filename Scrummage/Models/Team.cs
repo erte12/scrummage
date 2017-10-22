@@ -15,5 +15,10 @@ namespace Scrummage.Models
         public DateTime CreatedAt { get; set; }
 
         public List<ApplicationUser> Users { get; set; }
+
+        public Team()
+        {
+            Users = new List<ApplicationUser>();
+        }
     }
 }
