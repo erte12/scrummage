@@ -5,3 +5,34 @@
 }
 
 <h2>Manage Teams</h2>
+<hr/>
+<h3>Add new team</h3>
+<form id ="newTeam">
+    <div class="form-group">
+        <label class="control-label">Name</label>
+        <input name="name" type="text" value="" class="form-control" />
+    </div>
+    <button class="btn btn-primary">Submit</button>
+</form>
+
+@section scripts
+{
+    <script>
+        $('#newTeam').submit(function(e) {
+
+            $.ajax({
+                    url: "/api/teams",
+                    method: "post",
+                    data: $('#newTeam').serialize()
+                })
+                .done(function() {
+                    toastr.success("New team has been created!");
+                })
+                .fail(function() {
+                    toastr.error("Something went wrong!")
+                });
+
+            return false;
+        });
+    </script>
+}
