@@ -10,6 +10,8 @@ namespace Scrummage.App_Start
         {
             CreateMap<TeamDto, Team>();
             CreateMap<Team, TeamDto>();
+
+            CreateMap<ApplicationUser, UserDto>();
         }
     }
 }

@@ -68,7 +68,7 @@ namespace Scrummage.Controllers.Api
                 .SingleOrDefault(u => u.Id.Equals(memberTeam.MemberId));
 
             if (user == null)
-                return BadRequest();
+                return NotFound();
 
             var team = _context.Teams
                 .SingleOrDefault(t => t.Id == memberTeam.TeamId);
@@ -77,6 +77,27 @@ namespace Scrummage.Controllers.Api
                 return NotFound();
 
             team.Users.Add(user);
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IHttpActionResult RemoveMember(MemberTeamDto memberTeam)
+        {
+            var user = _context.Users
+                .SingleOrDefault(u => u.Id.Equals(memberTeam.MemberId));
+
+            if (user == null)
+                return BadRequest();
+
+            var team = _context.Teams
+                .SingleOrDefault(t => t.Id == memberTeam.TeamId);
+
+            if (team == null)
+                return BadRequest();
+
+            team.Users.Remove(user);
             _context.SaveChanges();
 
             return Ok();

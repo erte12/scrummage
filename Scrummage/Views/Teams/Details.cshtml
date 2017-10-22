@@ -6,11 +6,11 @@
 
 <h2>Team Details - @Model.Name</h2>
 <hr/>
-<h3>Members</h3>
 
 <div class="row">
     <div class="col-md-4">
-        <div class="list-group">
+        <h3>Members</h3>
+        <div id="members" class="list-group">
             @foreach (var member in Model.Users)
             {
                 <div class="list-group-item">
@@ -22,15 +22,93 @@
     </div>
 </div>
 <hr />
-<h3>Add New Members</h3>
+<h3>Add New Member</h3>
 
 <form id="newMemberForm">
     <div class="form-group">
-        <input name="nameAndSurname" type="text" class="form-control"/>
+        <div class="tt-container">
+            <input id="user" name="user" type="text" class="form-control" />
+        </div>
     </div>
-    <button class="btn btn-primary">Add</button>
 </form>
 
+@section scripts
+{
+    <script>
+        function createListItem(user) {
+            $('#members')
+                .append(
+                    '<div class="list-group-item">' +
+                     user.name + ' ' + user.surname + 
+                    '<span data-member-id="' + user.id + '" class="glyphicon glyphicon-remove js-remove pull-right"></span>' +
+                    '</div>'
+                );
+        }
+
+        var users = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name' + 'surname'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                url: '/api/users?query=%QUERY',
+                wildcard: '%QUERY'
+            }
+        });
+
+        $('#user').typeahead({
+            minLength: 3,
+            highlight: true
+        }, {
+            name: 'users',
+            display: function(user) {
+                return user.name + ' ' + user.surname;
+            },
+            source: users
+        }).on('typeahead:select', function(e, user) {
+            
+            $.ajax({
+                url: '/api/teams',
+                method: 'put',
+                data: {
+                    memberId: user.id,
+                    teamId: @Model.Id
+                }
+            })
+            .done(function() {
+                toastr.success('New member successfully added.');
+                $('#user').typeahead('val', '');
+                createListItem(user);
+            })
+            .error(function() {
+                toastr.error('Something went wrong!');
+            });
+        });
+
+        //TODO: It doesnt work properly :(
+        $('#members').on('click', '.js-remove', function() {
+            var memberId = $(this).attr('data-member-id');
+            var element = $(this).parent();
+
+            bootbox.confirm('Are you sure?',
+                function(result) {
+                    if (result === true) {
+                        $.ajax({
+                            url: '/api/teams',
+                            method: 'delete',
+                            data: { memberId: memberId, teamId: @Model.Id}
+                        })
+                        .done(function() {
+                            toastr.success('Member successfully deleted.');
+
+                            element.remove();
+                        })
+                        .fail(function() {
+                            toastr.error('Something went wrong!');
+                        });
+                    }
+                });
+        });
+    </script>
+}
 
 
 
