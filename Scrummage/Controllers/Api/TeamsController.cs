@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -92,6 +93,7 @@ namespace Scrummage.Controllers.Api
                 return BadRequest();
 
             var team = _context.Teams
+                .Include(t => t.Users)
                 .SingleOrDefault(t => t.Id == memberTeam.TeamId);
 
             if (team == null)
