@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Scrummage.Models;
 using System.Data.Entity;
+using Scrummage.ViewModels;
 
 namespace Scrummage.Controllers
 {
@@ -22,7 +23,22 @@ namespace Scrummage.Controllers
                 .Include(t => t.Sprints)
                 .SingleOrDefault(t => t.Id == teamId);
 
-            return View(team);
+            if (team == null)
+                return HttpNotFound();
+
+            var sprint = new Sprint();
+
+            sprint = sprintId == 0 
+                ? team.Sprints.OrderByDescending(s => s.CreatedAt).FirstOrDefault() 
+                : team.Sprints.SingleOrDefault(s => s.Id == sprintId);
+
+            var viewModel = new BoardViewModel
+            {
+                Sprint = sprint,
+                Team = team
+            };
+
+            return View(viewModel);
         }
     }
 }

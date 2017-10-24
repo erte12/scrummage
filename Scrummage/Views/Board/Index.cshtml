@@ -1,23 +1,23 @@
-﻿@model Scrummage.Models.Team
+﻿@model Scrummage.ViewModels.BoardViewModel
 
 @{
     ViewBag.Title = "title";
 }
 
-<h2>Scrum board - @Model.Name</h2>
+<h2>Scrum board - @Model.Team.Name</h2>
 <hr/>
 <div class="row">
     <div class="col-md-4">
         <select id="sprintsList" class="form-control">
-            @foreach (var sprint in @Model.Sprints)
+            @foreach (var sprint in @Model.Team.Sprints)
             {
-                <option value="@sprint.Id">@sprint.Name</option>
+                <option @((sprint.Id == @Model.Sprint.Id) ? "selected" : null) value="@sprint.Id">@sprint.Name</option>
             }
         </select>
     </div>
     <div class="col-md-2">
         @Html.ActionLink("New sprint", "New", "Sprint",
-            new {teamId = @Model.Id},
+            new {teamId = @Model.Team.Id},
             new {@class = "btn btn-primary btn-block"})
     </div>
 </div>
@@ -28,7 +28,7 @@
     <script>
         $('#sprintsList').on('change',
             function () {
-                location.href = '/board/' + @Model.Id + '/' + $(this).val();
+                location.href = '/board/' + @Model.Team.Id + '/' + $(this).val();
             });
     </script>
 }

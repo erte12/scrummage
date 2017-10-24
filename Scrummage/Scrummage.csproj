@@ -241,6 +241,7 @@
     <Compile Include="Models\Configuration\ApplicationUsersConfiguration.cs" />
     <Compile Include="Models\Configuration\SprintConfiguration.cs" />
     <Compile Include="Models\Sprint.cs" />
+    <Compile Include="ViewModels\BoardViewModel.cs" />
     <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Configuration\TeamsConfiguration.cs" />
