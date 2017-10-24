@@ -9,6 +9,7 @@ namespace Scrummage.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Team> Teams { get; set; }
+        public DbSet<Sprint> Sprints { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

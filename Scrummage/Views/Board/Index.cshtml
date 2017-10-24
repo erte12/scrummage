@@ -5,3 +5,6 @@
 }
 
 <h2>Scrum board - @Model.Name</h2>
+<hr/>
+@Html.ActionLink("New sprint", "New", "Sprint", new {teamId = @Model.Id}, new {@class="btn btn-primary"})
+<hr/>

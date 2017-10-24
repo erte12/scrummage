@@ -209,6 +209,7 @@
     <Compile Include="Controllers\BoardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SprintController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Dtos\MemberTeamDto.cs" />
     <Compile Include="Dtos\TeamDto.cs" />
@@ -256,6 +257,7 @@
     <Compile Include="Models\VerifyCodeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\SprintViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-united.css" />
@@ -333,6 +335,7 @@
     <Content Include="Views\Teams\Index.cshtml" />
     <Content Include="Views\Teams\Details.cshtml" />
     <Content Include="Views\Board\Index.cshtml" />
+    <Content Include="Views\Sprint\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,28 @@
+﻿@model Scrummage.ViewModels.SprintViewModel
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h2>New Sprint</h2>
+<hr/>
+
+@using (@Html.BeginForm("Save", "Sprint", "POST"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new {@class="form-control"})
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, new {@class="form-control"})
+        @Html.ValidationMessageFor(m => m.Description)
+    </div>
+    @Html.HiddenFor(m => m.TeamId)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-default">Submit</button>
+}
+
+
+
