@@ -206,6 +206,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\TeamsController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
+    <Compile Include="Controllers\BoardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
@@ -231,8 +232,14 @@
     <Compile Include="Migrations\201710222037347_AddNameAndSurnameColumnsToUsersTable.Designer.cs">
       <DependentUpon>201710222037347_AddNameAndSurnameColumnsToUsersTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710240925515_AddSprintTable.cs" />
+    <Compile Include="Migrations\201710240925515_AddSprintTable.Designer.cs">
+      <DependentUpon>201710240925515_AddSprintTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Configuration\ApplicationUsersConfiguration.cs" />
+    <Compile Include="Models\Configuration\SprintConfiguration.cs" />
+    <Compile Include="Models\Sprint.cs" />
     <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Configuration\TeamsConfiguration.cs" />
@@ -325,6 +332,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Teams\Index.cshtml" />
     <Content Include="Views\Teams\Details.cshtml" />
+    <Content Include="Views\Board\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -354,6 +362,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710222037347_AddNameAndSurnameColumnsToUsersTable.resx">
       <DependentUpon>201710222037347_AddNameAndSurnameColumnsToUsersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710240925515_AddSprintTable.resx">
+      <DependentUpon>201710240925515_AddSprintTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

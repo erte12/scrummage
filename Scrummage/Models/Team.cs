@@ -16,9 +16,12 @@ namespace Scrummage.Models
 
         public List<ApplicationUser> Users { get; set; }
 
+        public List<Sprint> Sprints { get; set; }
+
         public Team()
         {
             Users = new List<ApplicationUser>();
+            Sprints = new List<Sprint>();
         }
     }
 }

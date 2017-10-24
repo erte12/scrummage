@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Scrummage.Controllers
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -23,6 +24,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Manage Teams", "Index", "Teams")</li>
+                    <li>@Html.ActionLink("Scrum Board", "Index", "Board")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
