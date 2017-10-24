@@ -22,6 +22,8 @@ namespace Scrummage.Models
         public int SprintId { get; set; }
 
         public ApplicationUser User { get; set; }
+
+        public string UserId { get; set; }
     }
 
     public enum TaskType : byte

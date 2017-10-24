@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Web.Http;
 using Scrummage.Models;
 using AutoMapper;
 using Scrummage.Dtos;
@@ -25,7 +26,29 @@ namespace Scrummage.Controllers.Api
             _context.ScrumTasks.Add(newScrumTask);
             _context.SaveChanges();
 
-            return Ok(newScrumTask.Content);
+            return Ok(new {id = newScrumTask.Id, content = newScrumTask.Content});
+        }
+
+        [HttpPatch]
+        public IHttpActionResult UpdateScrumTask(int id, ScrumTaskDto scrumTaskDto)
+        {
+            var scrumTaskFromDb = _context.ScrumTasks
+                .SingleOrDefault(s => s.Id == id);
+
+            if (scrumTaskFromDb == null)
+                return NotFound();
+
+            if (!string.IsNullOrWhiteSpace(scrumTaskDto.UserId))
+            {
+                var user = _context.Users.SingleOrDefault(u => u.Id.Equals(scrumTaskDto.UserId));
+
+                //TODO: doesnt work properly!
+                scrumTaskFromDb.User = user;
+            }
+            
+            _context.SaveChanges();
+
+            return Ok();
         }
     }
 }

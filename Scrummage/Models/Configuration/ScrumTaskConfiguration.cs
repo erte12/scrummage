@@ -16,10 +16,7 @@ namespace Scrummage.Models.Configuration
 
             HasOptional(s => s.User)
                 .WithMany(m => m.ScrumTasks)
-                .Map(cs =>
-                {
-                    cs.MapKey("UserId");
-                });
+                .HasForeignKey(s => s.UserId);
 
         }
     }

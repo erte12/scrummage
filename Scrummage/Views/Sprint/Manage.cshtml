@@ -36,9 +36,10 @@
 
 
 <hr/>
+<h2>Backlog</h2>
 <table id="tasks" class="table table-bordered table-hover">
     <thead>
-        <th>Content</th>
+        <th>Task content</th>
         <th>Who</th>
         <th>Estimation</th>
     </thead>
@@ -48,7 +49,7 @@
     {
         foreach (var task in Model.Tasks)
         {
-            <tr class="js-task-row">
+            <tr data-task-id="@task.Id" class="js-task-row">
                 <td class="task-content-col js-task-content">
                     @task.Content
                 </td>
@@ -57,7 +58,12 @@
                         <option value="0">-</option>
                         @foreach (var user in Model.Users)
                         {
-                            <option value="@user.Id">@user.Name</option>
+                            <option @((task.UserId != null
+                                       && user.Id == task.UserId)
+                                          ? "selected"
+                                          : null) value="@user.Id">
+                                @user.Name @user.Surname
+                            </option>
                         }
                     </select>
                 </td>
@@ -128,12 +134,13 @@
                     method: 'post',
                     data: $('#newTask').serialize()
                 })
-                .done(function(newTaskContent) {
+                .done(function(data) {
                     toastr.success('New task has been created!');
                     $('.js-task-row').first().clone().appendTo($('#tasks tbody'));
-                    $('.js-task-row').last().show();
-                    var newElement = $('.js-task-row .js-task-content').last();
-                    newElement.text(newTaskContent);
+                    var newElement = $('.js-task-row').last().show();
+
+                    newElement.attr('data-task-id', data.id);
+                    newElement.find('.js-task-content').last().text(data.content);
                 })
                 .fail(function() {
                     toastr.error('Something went wrong!');
@@ -143,5 +150,22 @@
         }
     });
 
+    $('.js-members').on('change',
+        function() {
+            var userId = $(this).val();
+            var scrumTaskId = $(this).parents('tr').attr('data-task-id');
+
+            $.ajax({
+                url: '/api/scrumtasks/' + scrumTaskId,
+                method: 'patch',
+                data: { userId: userId }
+            })
+            .done(function() {
+                toastr.success('User set successfully!');
+            })
+            .fail(function() {
+                toastr.error('Something went wrong!');
+            });
+        });
     </script>
 }

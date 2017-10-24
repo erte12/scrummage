@@ -20,7 +20,7 @@
     @if (@Model.Sprint != null)
     {
         <div class="col-md-2">
-            @Html.ActionLink("Manage sprint", "Manage", "Sprint",
+            @Html.ActionLink("Backlog", "Manage", "Sprint",
                 new {id = @Model.Sprint.Id},
                 new {@class = "btn btn-primary btn-block"})
         </div>
@@ -41,26 +41,33 @@
         <th>Done</th>
         </thead>
         <tbody>
-        <tr>
-            <td class="scrum-who-col">
-                Bartek Iskrzycki
-            </td>
-            <td class="scrum-task-col">
-                <div class="col-md-6">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            Task test description
-                        </div>
-                        <div class="panel-footer">
-                            <div><strong>Estimation: </strong></div>
-                            <div><strong>Took: </strong></div>
+        
+        @foreach (var user in Model.Team.Users)
+        {
+            <tr>
+                <td class="scrum-who-col">
+                    @user.Name @user.Surname
+                </td>
+                <td class="scrum-task-col">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                Task test description
+                            </div>
+                            <div class="panel-footer">
+                                <div><strong>Estimation: </strong>
+                                </div>
+                                <div><strong>Took: </strong>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </td>
-            <td class="scrum-task-col"></td>
-            <td class="scrum-task-col"></td>
-        </tr>
+                </td>
+                <td class="scrum-task-col"></td>
+                <td class="scrum-task-col"></td>
+            </tr>
+        }
+            
         </tbody>
     </table>
 }
