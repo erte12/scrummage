@@ -16,7 +16,6 @@ namespace Scrummage.Controllers
         }
 
         //teamId temporarly hardcoded
-        [Route("board/{teamId?}/{sprintId?}")]
         public ActionResult Index(int teamId = 24, int sprintId = 0)
         {
             Sprint sprint;

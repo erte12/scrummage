@@ -17,34 +17,16 @@ namespace Scrummage.Controllers
             _context = new ApplicationDbContext();
         }
 
-        [Route("sprint/{sprintId}")]
-        public ActionResult Index(int sprintId)
-        {
-            return View();
-        }
-
-        [Route("sprint/new/{teamId}")]
-        public ActionResult New(int teamId)
-        {
-            var team = _context.Teams
-                .SingleOrDefault(t => t.Id == teamId);
-
-            if (team == null)
-                return HttpNotFound();
-
-            var viewModel = new SprintViewModel { TeamId = team.Id };
-
-            return View(viewModel);
-        }
-
         [HttpPost]
-        public ActionResult Save(SprintViewModel sprint)
+
+        public ActionResult Save(NewSprintViewModel sprint)
         {
             if (!ModelState.IsValid)
                 return View("New", sprint);
 
             var newSprint = new Sprint
             {
+                Id = sprint.Id,
                 Name = sprint.Name,
                 Description = sprint.Description,
                 TeamId = sprint.TeamId,
@@ -54,8 +36,35 @@ namespace Scrummage.Controllers
             _context.Sprints.Add(newSprint);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Board",
-                new {teamId = newSprint.TeamId, sprintId = newSprint.Id});
+            return RedirectToAction("Manage", new {id = newSprint.Id});
+        }
+
+        public ActionResult New(int teamId)
+        {
+            var team = _context.Teams
+                .SingleOrDefault(t => t.Id == teamId);
+
+            if (team == null)
+                return HttpNotFound();
+
+            var viewModel = new NewSprintViewModel { TeamId = team.Id };
+
+            return View(viewModel);
+        }
+
+        public ActionResult Manage(int id)
+        {
+            var sprint = _context.Sprints
+                .SingleOrDefault(s => s.Id == id);
+
+            var viewModel = new ManageSprintViewModel
+            {
+                Id = sprint.Id,
+                Name = sprint.Name,
+                Description = sprint.Description
+            };
+
+            return View(viewModel);
         }
     }
 }

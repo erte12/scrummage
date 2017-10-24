@@ -1,4 +1,4 @@
-﻿@model Scrummage.ViewModels.SprintViewModel
+﻿@model Scrummage.ViewModels.NewSprintViewModel
 
 @{
     ViewBag.Title = "title";
@@ -24,5 +24,9 @@
     <button type="submit" class="btn btn-default">Submit</button>
 }
 
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
 
 

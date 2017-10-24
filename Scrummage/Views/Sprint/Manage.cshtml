@@ -1,0 +1,47 @@
+﻿@model Scrummage.ViewModels.ManageSprintViewModel
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h2>Manage Sprint</h2>
+<form id="sprintForm">
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, new {@class="form-control"})
+    </div>
+    <button type="submit" class="btn btn-default">Save</button>
+</form>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+    //validaiton doesn't work properly'
+    $('#sprintForm').validate({
+        submitHandler: function () {
+
+            $.ajax({
+                url: '/api/sprint/@Model.Id',
+                method: 'patch',
+                data: $('#sprintForm').serialize()
+            })
+            .done(function() {
+                toastr.success('Changes has been saved!')
+            })
+            .fail(function() {
+                toastr.error('Something went wrong!');
+            });
+
+            return false;
+        }
+    });
+
+
+    </script>
+}

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using Scrummage.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Scrummage.ViewModels
 {
-    public class SprintViewModel
+    public class NewSprintViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         [MaxLength(60)]
         public string Name { get; set; }
