@@ -205,6 +205,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\SprintController.cs" />
+    <Compile Include="Controllers\Api\ScrumTasksController.cs" />
     <Compile Include="Controllers\Api\TeamsController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\BoardController.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Controllers\SprintController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Dtos\MemberTeamDto.cs" />
+    <Compile Include="Dtos\ScrumTaskDto.cs" />
     <Compile Include="Dtos\SprintDto.cs" />
     <Compile Include="Dtos\TeamDto.cs" />
     <Compile Include="Dtos\UserDto.cs" />
@@ -242,6 +244,10 @@
     <Compile Include="Migrations\201710241142471_AddTaskTable.cs" />
     <Compile Include="Migrations\201710241142471_AddTaskTable.Designer.cs">
       <DependentUpon>201710241142471_AddTaskTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710241806292_ScrumTasksTableProperitesChange.cs" />
+    <Compile Include="Migrations\201710241806292_ScrumTasksTableProperitesChange.Designer.cs">
+      <DependentUpon>201710241806292_ScrumTasksTableProperitesChange.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Configuration\ApplicationUsersConfiguration.cs" />
@@ -618,6 +624,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710241142471_AddTaskTable.resx">
       <DependentUpon>201710241142471_AddTaskTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710241806292_ScrumTasksTableProperitesChange.resx">
+      <DependentUpon>201710241806292_ScrumTasksTableProperitesChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Scrummage.Models;
 
-namespace Scrummage.Models
+namespace Scrummage.Dtos
 {
-    public class ScrumTask
+    public class ScrumTaskDto
     {
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(400)]
         public string Content { get; set; }
 
         public byte? Estimation { get; set; }
@@ -22,13 +26,5 @@ namespace Scrummage.Models
         public int SprintId { get; set; }
 
         public ApplicationUser User { get; set; }
-    }
-
-    public enum TaskType : byte
-    {
-        Awaiting,
-        Ongoing,
-        Done,
-        Cancelled
     }
 }

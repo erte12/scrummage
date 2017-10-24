@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Scrummage.Models;
 
 namespace Scrummage.ViewModels
 {
@@ -16,5 +17,9 @@ namespace Scrummage.ViewModels
 
         [MaxLength(1000)]
         public string Description { get; set; }
+
+        public List<ApplicationUser> Users { get; set; }
+
+        public List<ScrumTask> Tasks { get; set; }
     }
 }

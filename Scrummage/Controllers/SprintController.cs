@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Web;
 using System.Web.Mvc;
 using Scrummage.Models;
@@ -55,13 +56,20 @@ namespace Scrummage.Controllers
         public ActionResult Manage(int id)
         {
             var sprint = _context.Sprints
+                .Include(s => s.Team.Users)
+                .Include(s => s.Tasks)
                 .SingleOrDefault(s => s.Id == id);
+
+            if (sprint == null)
+                return HttpNotFound();
 
             var viewModel = new ManageSprintViewModel
             {
                 Id = sprint.Id,
                 Name = sprint.Name,
-                Description = sprint.Description
+                Description = sprint.Description,
+                Users = sprint.Team.Users,
+                Tasks = sprint.Tasks
             };
 
             return View(viewModel);

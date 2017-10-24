@@ -5,22 +5,99 @@
 }
 
 <h2>Manage Sprint</h2>
-<form id="sprintForm">
-    <div class="form-group">
-        @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>Add new task to backlog</h3>
+        <form id="newTask">
+            <div class="form-group">
+                <label class="control-label">Content</label>
+                <textarea rows="6" name="content" required value="" class="form-control"></textarea>
+            </div>
+            <input name="sprintId" type="hidden" value="@Model.Id"/>
+            <button class="btn btn-primary">Submit</button>
+        </form>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Description)
-        @Html.TextAreaFor(m => m.Description, new {@class="form-control"})
+    <div class="col-md-6">
+        <h3>Sprint Information</h3>
+        <form id="sprintForm">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Description)
+                @Html.TextAreaFor(m => m.Description, new {@class="form-control"})
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
     </div>
-    <button type="submit" class="btn btn-default">Save</button>
-</form>
+</div>
+
+
+<hr/>
+<table id="tasks" class="table table-bordered table-hover">
+    <thead>
+        <th>Content</th>
+        <th>Who</th>
+        <th>Estimation</th>
+    </thead>
+    <tbody>
+    
+    @if (Model.Tasks.Any())
+    {
+        foreach (var task in Model.Tasks)
+        {
+            <tr class="js-task-row">
+                <td class="task-content-col js-task-content">
+                    @task.Content
+                </td>
+                <td class="selectbox-col">
+                    <select class="form-control js-members">
+                        <option value="0">-</option>
+                        @foreach (var user in Model.Users)
+                        {
+                            <option value="@user.Id">@user.Name</option>
+                        }
+                    </select>
+                </td>
+                <td class="selectbox-col">
+                    <select id="estimation" class="form-control">
+                        <option>test</option>
+                    </select>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr class="js-task-row" style="display: none;">
+            <td class="task-content-col js-task-content"></td>
+            <td class="selectbox-col">
+                <select class="form-control js-members">
+                    <option value="0">-</option>
+                    @foreach (var user in Model.Users)
+                    {
+                        <option value="@user.Id">@user.Name</option>
+                    }
+                </select>
+            </td>
+            <td class="selectbox-col">
+                <select id="estimation" class="form-control">
+                    <option>test</option>
+                </select>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
 
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
+
+    $('#tasks').dataTable();
 
     //validaiton doesn't work properly'
     $('#sprintForm').validate({
@@ -32,7 +109,8 @@
                 data: $('#sprintForm').serialize()
             })
             .done(function() {
-                toastr.success('Changes has been saved!')
+                toastr.success('Changes has been saved!');
+
             })
             .fail(function() {
                 toastr.error('Something went wrong!');
@@ -42,6 +120,28 @@
         }
     });
 
+    $('#newTask').validate({
+        submitHandler: function () {
+
+            $.ajax({
+                    url: '/api/scrumtasks/',
+                    method: 'post',
+                    data: $('#newTask').serialize()
+                })
+                .done(function(newTaskContent) {
+                    toastr.success('New task has been created!');
+                    $('.js-task-row').first().clone().appendTo($('#tasks tbody'));
+                    $('.js-task-row').last().show();
+                    var newElement = $('.js-task-row .js-task-content').last();
+                    newElement.text(newTaskContent);
+                })
+                .fail(function() {
+                    toastr.error('Something went wrong!');
+                });
+
+            return false;
+        }
+    });
 
     </script>
 }

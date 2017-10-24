@@ -14,7 +14,7 @@ namespace Scrummage.Models.Configuration
                 .IsRequired()
                 .HasMaxLength(400);
 
-            HasRequired(s => s.User)
+            HasOptional(s => s.User)
                 .WithMany(m => m.ScrumTasks)
                 .Map(cs =>
                 {

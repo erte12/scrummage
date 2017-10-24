@@ -14,3 +14,11 @@ td.scrum-who-col {
 td.scrum-task-col {
     width: 30%;
 }
+
+td.task-content-col {
+    width: 50%
+}
+
+td.selectbox-col {
+    width: 25%
+}
