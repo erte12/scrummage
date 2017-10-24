@@ -32,13 +32,21 @@
     </div>
     <div class="container body-content">
         @RenderBody()
+    </div>
+    
+<div class="container-fluid">
+    @RenderSection("fullWidth", required: false)
+</div>
+
+    <div class="container body-content">
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
+    
 
-    @Scripts.Render("~/bundles/lib")
+@Scripts.Render("~/bundles/lib")
     @RenderSection("scripts", required: false)
 </body>
 </html>

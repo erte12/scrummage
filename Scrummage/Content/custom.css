@@ -5,3 +5,12 @@
 input.error {
     border: 2px red solid;
 }
+
+td.scrum-who-col {
+    width: 10%;
+    text-align: center;
+}
+
+td.scrum-task-col {
+    width: 30%;
+}

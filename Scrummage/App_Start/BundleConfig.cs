@@ -12,6 +12,8 @@ namespace Scrummage
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/bootbox.js",
+                        "~/Scripts/datatables/jquery.datatables.js",
+                        "~/Scripts/datatables/datatables.bootstrap.js",
                         "~/Scripts/respond.js",
                         "~/Scripts/toastr.js",
                         "~/Scripts/typeahead.bundle.js"
@@ -28,6 +30,7 @@ namespace Scrummage
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-united.css",
                       "~/Content/toastr.css",
+                      "~/Content/datatables/css/datatables.bootstrap.css",
                       "~/Content/typeahead.css",
                       "~/Content/custom.css",
                       "~/Content/site.css"));

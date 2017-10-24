@@ -3,7 +3,8 @@
 @{
     ViewBag.Title = "title";
 }
-
+@section fullWidth
+{
 <h2>Scrum board - @Model.Team.Name</h2>
 <hr/>
 <div class="row">
@@ -23,9 +24,47 @@
 </div>
 <hr/>
 
+
+    <table id="scrumBoard" class="table table-bordered table-hover">
+        <thead>
+            <th>Who</th>
+            <th>Tasks</th>
+            <th>Ongoing</th>
+            <th>Done</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="scrum-who-col">
+                Bartek Iskrzycki
+            </td>
+            <td class="scrum-task-col">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            Task test description
+                        </div>
+                        <div class="panel-footer">
+                            <div><strong>Estimation: </strong></div>
+                            <div><strong>Took: </strong></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="scrum-task-col"></td>
+            <td class="scrum-task-col"></td>
+        </tr>
+        </tbody>
+    </table>    
+}
+
 @section scripts
 {
+    
+    @Scripts.Render("~/bundles/lib")
     <script>
+        $('#scrumBoard').dataTable();
+        
+
         $('#sprintsList').on('change',
             function () {
                 location.href = '/board/' + @Model.Team.Id + '/' + $(this).val();
