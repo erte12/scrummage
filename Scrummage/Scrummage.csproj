@@ -237,10 +237,16 @@
     <Compile Include="Migrations\201710240925515_AddSprintTable.Designer.cs">
       <DependentUpon>201710240925515_AddSprintTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710241142471_AddTaskTable.cs" />
+    <Compile Include="Migrations\201710241142471_AddTaskTable.Designer.cs">
+      <DependentUpon>201710241142471_AddTaskTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Configuration\ApplicationUsersConfiguration.cs" />
     <Compile Include="Models\Configuration\SprintConfiguration.cs" />
+    <Compile Include="Models\Configuration\ScrumTaskConfiguration.cs" />
     <Compile Include="Models\Sprint.cs" />
+    <Compile Include="Models\ScrumTask.cs" />
     <Compile Include="ViewModels\BoardViewModel.cs" />
     <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -605,6 +611,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710240925515_AddSprintTable.resx">
       <DependentUpon>201710240925515_AddSprintTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710241142471_AddTaskTable.resx">
+      <DependentUpon>201710241142471_AddTaskTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

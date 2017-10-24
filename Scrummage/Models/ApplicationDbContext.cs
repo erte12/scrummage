@@ -10,6 +10,7 @@ namespace Scrummage.Models
     {
         public DbSet<Team> Teams { get; set; }
         public DbSet<Sprint> Sprints { get; set; }
+        public DbSet<ScrumTask> Tasks { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -22,7 +23,11 @@ namespace Scrummage.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new TeamsConfiguration());
+            modelBuilder.Configurations
+                .Add(new ApplicationUsersConfiguration())
+                .Add(new SprintConfiguration())
+                .Add(new ScrumTaskConfiguration())
+                .Add(new TeamsConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

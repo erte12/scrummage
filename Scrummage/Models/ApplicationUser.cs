@@ -11,6 +11,7 @@ namespace Scrummage.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public List<Team> Teams { get; set; }
+        public ICollection<ScrumTask> ScrumTasks { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

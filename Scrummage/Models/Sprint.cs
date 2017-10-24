@@ -17,6 +17,13 @@ namespace Scrummage.Models
 
         public int TeamId { get; set; }
 
+        public List<ScrumTask> Tasks { get; set; }
+
         public DateTime CreatedAt { get; set; }
+
+        public Sprint()
+        {
+            Tasks = new List<ScrumTask>();
+        }
     }
 }
