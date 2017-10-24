@@ -6,5 +6,29 @@
 
 <h2>Scrum board - @Model.Name</h2>
 <hr/>
-@Html.ActionLink("New sprint", "New", "Sprint", new {teamId = @Model.Id}, new {@class="btn btn-primary"})
+<div class="row">
+    <div class="col-md-4">
+        <select id="sprintsList" class="form-control">
+            @foreach (var sprint in @Model.Sprints)
+            {
+                <option value="@sprint.Id">@sprint.Name</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-2">
+        @Html.ActionLink("New sprint", "New", "Sprint",
+            new {teamId = @Model.Id},
+            new {@class = "btn btn-primary btn-block"})
+    </div>
+</div>
 <hr/>
+
+@section scripts
+{
+    <script>
+        $('#sprintsList').on('change',
+            function () {
+                location.href = '/board/' + @Model.Id + '/' + $(this).val();
+            });
+    </script>
+}
