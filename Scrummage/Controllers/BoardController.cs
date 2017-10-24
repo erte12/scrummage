@@ -19,18 +19,31 @@ namespace Scrummage.Controllers
         [Route("board/{teamId?}/{sprintId?}")]
         public ActionResult Index(int teamId = 24, int sprintId = 0)
         {
-            var team = _context.Teams
-                .Include(t => t.Sprints)
-                .SingleOrDefault(t => t.Id == teamId);
+            Sprint sprint;
+
+            if (sprintId == 0)
+                sprint = _context.Sprints
+                    .OrderByDescending(s => s.CreatedAt)
+                    .FirstOrDefault(s => s.TeamId == teamId);
+            else
+            {
+                sprint = _context.Sprints.SingleOrDefault(s => s.Id == sprintId);
+                if (sprint == null)
+                    return HttpNotFound();
+            }
+
+            var teamQuery = _context.Teams
+                .Include(t => t.Sprints);
+
+            if (sprint != null)
+                teamQuery = teamQuery
+                    .Include(t => t.Users
+                        .Select(u => u.ScrumTasks));
+
+            var team = teamQuery.SingleOrDefault(t => t.Id == teamId);
 
             if (team == null)
                 return HttpNotFound();
-
-            var sprint = new Sprint();
-
-            sprint = sprintId == 0 
-                ? team.Sprints.OrderByDescending(s => s.CreatedAt).FirstOrDefault() 
-                : team.Sprints.SingleOrDefault(s => s.Id == sprintId);
 
             var viewModel = new BoardViewModel
             {

@@ -23,5 +23,7 @@ namespace Scrummage.Models
             Users = new List<ApplicationUser>();
             Sprints = new List<Sprint>();
         }
+
+        public bool HasAnySprint => Sprints.Count > 0;
     }
 }

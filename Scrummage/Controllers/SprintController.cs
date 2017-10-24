@@ -17,6 +17,12 @@ namespace Scrummage.Controllers
             _context = new ApplicationDbContext();
         }
 
+        [Route("sprint/{sprintId}")]
+        public ActionResult Index(int sprintId)
+        {
+            return View();
+        }
+
         [Route("sprint/new/{teamId}")]
         public ActionResult New(int teamId)
         {
