@@ -45,7 +45,7 @@
         
         @foreach (var user in Model.Team.Users)
         {
-            <tr>
+            <tr class="js-user-row">
                 <td class="scrum-who-col">
                     @user.Name @user.Surname
                 </td>
@@ -154,21 +154,21 @@
                     case '@((byte)TaskType.Awaiting)':
                         taskBox.fadeOut(400, function() {
                             $(this)
-                                .appendTo('.js-@TaskType.Awaiting')
+                                .appendTo($(this).parents('tr.js-user-row').find('.js-@TaskType.Awaiting'))
                                 .fadeIn(400);
                         });
                         break;
                     case '@((byte)TaskType.Done)':
                         taskBox.fadeOut(400, function() {
                             $(this)
-                                .appendTo('.js-@TaskType.Done')
+                                .appendTo($(this).parents('tr.js-user-row').find('.js-@TaskType.Done'))
                                 .fadeIn(400);
                         });
                         break;
                     case '@((byte)TaskType.Ongoing)':
                         taskBox.fadeOut(400, function() {
                             $(this)
-                                .appendTo('.js-@TaskType.Ongoing')
+                                .appendTo($(this).parents('tr.js-user-row').find('.js-@TaskType.Ongoing'))
                                 .fadeIn(400);
                         });
                         break;

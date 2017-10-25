@@ -589,6 +589,7 @@
     <Content Include="Views\Board\Index.cshtml" />
     <Content Include="Views\Sprint\New.cshtml" />
     <Content Include="Views\Sprint\Manage.cshtml" />
+    <Content Include="Views\Board\_TaskBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
