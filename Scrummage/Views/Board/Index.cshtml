@@ -1,4 +1,5 @@
-﻿@model Scrummage.ViewModels.BoardViewModel
+﻿@using Scrummage.Models
+@model Scrummage.ViewModels.BoardViewModel
 
 @{
     ViewBag.Title = "title";
@@ -49,22 +50,59 @@
                     @user.Name @user.Surname
                 </td>
                 <td class="scrum-task-col">
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                Task test description
-                            </div>
-                            <div class="panel-footer">
-                                <div><strong>Estimation: </strong>
+                    @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Awaiting))
+                    {
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    Task test description
                                 </div>
-                                <div><strong>Took: </strong>
+                                <div class="panel-footer">
+                                    <div><strong>Estimation: </strong>
+                                    </div>
+                                    <div><strong>Took: </strong>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </div>                      
+                    }
                 </td>
-                <td class="scrum-task-col"></td>
-                <td class="scrum-task-col"></td>
+                <td class="scrum-task-col">
+                    @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Ongoing))
+                    {
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    Task test description
+                                </div>
+                                <div class="panel-footer">
+                                    <div><strong>Estimation: </strong>
+                                    </div>
+                                    <div><strong>Took: </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                      
+                    }
+                </td>
+                <td class="scrum-task-col">
+                    @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Done))
+                    {
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    Task test description
+                                </div>
+                                <div class="panel-footer">
+                                    <div><strong>Estimation: </strong>
+                                    </div>
+                                    <div><strong>Took: </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                      
+                    }
+                </td>
             </tr>
         }
             
