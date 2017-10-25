@@ -9,8 +9,6 @@ namespace Scrummage.Dtos
 {
     public class ScrumTaskDto
     {
-        public int Id { get; set; }
-
         [Required]
         [MaxLength(400)]
         public string Content { get; set; }

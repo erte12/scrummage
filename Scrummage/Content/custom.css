@@ -22,3 +22,7 @@ td.task-content-col {
 td.selectbox-col {
     width: 25%
 }
+
+.task-buttons-board {
+    margin-top: 8px;
+}

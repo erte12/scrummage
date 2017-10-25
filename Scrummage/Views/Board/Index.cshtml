@@ -49,13 +49,18 @@
                 <td class="scrum-who-col">
                     @user.Name @user.Surname
                 </td>
-                <td class="scrum-task-col">
+                <td class="scrum-task-col js-@TaskType.Awaiting">
                     @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Awaiting))
                     {
-                        <div class="col-md-6">
+                        <div data-task-id="@task.Id" class="col-md-6 js-taskbox">
                             <div class="panel panel-default">
-                                <div class="panel-body">
+                                <div class="panel-body text-justify">
                                     Task test description
+                                    <div class="task-buttons-board">
+                                        <button data-type-id="@((byte)TaskType.Ongoing)" class="btn btn-sm btn-primary">Ongoing</button>
+                                        <button data-type-id="@((byte)TaskType.Done)" class="btn btn-sm btn-success">Done</button>
+                                        <button data-type-id="@((byte)TaskType.Awaiting)" class="btn btn-sm btn-warning">Await</button>
+                                    </div>
                                 </div>
                                 <div class="panel-footer">
                                     <div><strong>Estimation: </strong>
@@ -67,13 +72,18 @@
                         </div>                      
                     }
                 </td>
-                <td class="scrum-task-col">
+                <td class="scrum-task-col js-@TaskType.Ongoing">
                     @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Ongoing))
                     {
-                        <div class="col-md-6">
+                        <div data-task-id="@task.Id" class="col-md-6 js-taskbox">
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     Task test description
+                                    <div class="task-buttons-board">
+                                        <button data-type-id="@((byte)TaskType.Ongoing)" class="btn btn-sm btn-primary">Ongoing</button>
+                                        <button data-type-id="@((byte)TaskType.Done)" class="btn btn-sm btn-success">Done</button>
+                                        <button data-type-id="@((byte)TaskType.Awaiting)" class="btn btn-sm btn-warning">Await</button>
+                                    </div>
                                 </div>
                                 <div class="panel-footer">
                                     <div><strong>Estimation: </strong>
@@ -85,13 +95,18 @@
                         </div>                      
                     }
                 </td>
-                <td class="scrum-task-col">
+                <td class="scrum-task-col js-@TaskType.Done">
                     @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Done))
                     {
-                        <div class="col-md-6">
+                        <div data-task-id="@task.Id" class="col-md-6 js-taskbox">
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     Task test description
+                                    <div class="task-buttons-board">
+                                        <button data-type-id="@((byte)TaskType.Ongoing)" class="btn btn-sm btn-primary">Ongoing</button>
+                                        <button data-type-id="@((byte)TaskType.Done)" class="btn btn-sm btn-success">Done</button>
+                                        <button data-type-id="@((byte)TaskType.Awaiting)" class="btn btn-sm btn-warning">Await</button>
+                                    </div>
                                 </div>
                                 <div class="panel-footer">
                                     <div><strong>Estimation: </strong>
@@ -117,11 +132,51 @@
     
     @Scripts.Render("~/bundles/lib")
     <script>
-        $('#scrumBoard').dataTable();     
+        $('#scrumBoard').dataTable();
 
         $('#sprintsList').on('change',
             function () {
                 location.href = '/board?teamId=' + @Model.Team.Id + '&sprintId=' + $(this).val();
             });
+
+        $('.task-buttons-board').on('click', 'button', function() {
+            var taskType = $(this).attr('data-type-id');
+            var taskBox = $(this).parents('.js-taskbox');
+            var scrumTaskId = taskBox.attr('data-task-id');
+
+            $.ajax({
+                url: '/api/scrumtasks/' + scrumTaskId,
+                method: 'put',
+                data: { taskType: taskType }
+            })
+            .done(function() {
+                switch(taskType) {
+                    case '@((byte)TaskType.Awaiting)':
+                        taskBox.fadeOut(400, function() {
+                            $(this)
+                                .appendTo('.js-@TaskType.Awaiting')
+                                .fadeIn(400);
+                        });
+                        break;
+                    case '@((byte)TaskType.Done)':
+                        taskBox.fadeOut(400, function() {
+                            $(this)
+                                .appendTo('.js-@TaskType.Done')
+                                .fadeIn(400);
+                        });
+                        break;
+                    case '@((byte)TaskType.Ongoing)':
+                        taskBox.fadeOut(400, function() {
+                            $(this)
+                                .appendTo('.js-@TaskType.Ongoing')
+                                .fadeIn(400);
+                        });
+                        break;
+                }
+            })
+            .fail(function() {
+                toastr.error('Something went wrong!');
+            });
+        });
     </script>
 }

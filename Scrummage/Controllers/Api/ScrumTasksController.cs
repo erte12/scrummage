@@ -41,11 +41,24 @@ namespace Scrummage.Controllers.Api
             if (!string.IsNullOrWhiteSpace(scrumTaskDto.UserId))
             {
                 var user = _context.Users.SingleOrDefault(u => u.Id.Equals(scrumTaskDto.UserId));
-
-                //TODO: doesnt work properly!
-                scrumTaskFromDb.User = user;
+                scrumTaskFromDb.UserId = user?.Id;
             }
             
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public IHttpActionResult ChangeScrumTaskType(int id, ScrumTaskDto scrumTaskDto)
+        {
+            var scrumTaskFromDb = _context.ScrumTasks
+                .SingleOrDefault(s => s.Id == id);
+
+            if (scrumTaskFromDb == null)
+                return NotFound();
+
+            scrumTaskFromDb.TaskType = scrumTaskDto.TaskType;
             _context.SaveChanges();
 
             return Ok();
