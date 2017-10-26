@@ -35,6 +35,7 @@ namespace Scrummage.Controllers
                 .Include(s => s.Team)
                 .Include(s => s.Team.Sprints)
                 .Include(s => s.Tasks.Select(t => t.User))
+                .Include(s => s.Tasks.Select(t => t.Estimation))
                 .SingleOrDefault(s => s.Id == sprintId);
 
             if (sprint == null)
