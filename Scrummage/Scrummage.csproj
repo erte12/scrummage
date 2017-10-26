@@ -255,7 +255,6 @@
     <Compile Include="Models\Configuration\ScrumTaskConfiguration.cs" />
     <Compile Include="Models\Sprint.cs" />
     <Compile Include="Models\ScrumTask.cs" />
-    <Compile Include="ViewModels\BoardViewModel.cs" />
     <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Configuration\TeamsConfiguration.cs" />
@@ -589,7 +588,6 @@
     <Content Include="Views\Board\Index.cshtml" />
     <Content Include="Views\Sprint\New.cshtml" />
     <Content Include="Views\Sprint\Manage.cshtml" />
-    <Content Include="Views\Board\_TaskBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

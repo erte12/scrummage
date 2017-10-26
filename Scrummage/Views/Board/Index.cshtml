@@ -1,5 +1,5 @@
 ﻿@using Scrummage.Models
-@model Scrummage.ViewModels.BoardViewModel
+@model Sprint
 
 @{
     ViewBag.Title = "title";
@@ -14,18 +14,15 @@
             <option value="0">-</option>
             @foreach (var sprint in @Model.Team.Sprints)
             {
-                <option @((@Model.Sprint != null && sprint.Id == @Model.Sprint.Id) ? "selected" : null) value="@sprint.Id">@sprint.Name</option>
+                <option value="@sprint.Id">@sprint.Name</option>
             }
         </select>
     </div>
-    @if (@Model.Sprint != null)
-    {
-        <div class="col-md-2">
-            @Html.ActionLink("Backlog", "Manage", "Sprint",
-                new {id = @Model.Sprint.Id},
-                new {@class = "btn btn-primary btn-block"})
-        </div>
-    }
+    <div class="col-md-2">
+        @Html.ActionLink("Backlog", "Manage", "Sprint",
+            new {id = @Model.Id},
+            new {@class = "btn btn-primary btn-block"})
+    </div>
     <div class="col-md-2">
         @Html.ActionLink("New sprint", "New", "Sprint",
             new {teamId = @Model.Team.Id},
@@ -33,97 +30,95 @@
     </div>
 </div>
 <hr/> 
-@if(@Model.Sprint != null) {
-    <table id="scrumBoard" class="table table-bordered table-hover">
-        <thead>
-        <th>Who</th>
-        <th>Tasks</th>
-        <th>Ongoing</th>
-        <th>Done</th>
-        </thead>
-        <tbody>
-        
-        @foreach (var user in Model.Team.Users)
-        {
-            <tr class="js-user-row">
-                <td class="scrum-who-col">
-                    @user.Name @user.Surname
-                </td>
-                <td class="scrum-task-col js-@TaskType.Awaiting">
-                    @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Awaiting))
-                    {
-                        <div data-task-id="@task.Id" class="col-md-6 js-taskbox">
-                            <div class="panel panel-default">
-                                <div class="panel-body text-justify">
-                                    Task test description
-                                    <div class="task-buttons-board">
-                                        <button data-type-id="@((byte)TaskType.Ongoing)" class="btn btn-sm btn-primary">Ongoing</button>
-                                        <button data-type-id="@((byte)TaskType.Done)" class="btn btn-sm btn-success">Done</button>
-                                        <button data-type-id="@((byte)TaskType.Awaiting)" class="btn btn-sm btn-warning">Await</button>
-                                    </div>
-                                </div>
-                                <div class="panel-footer">
-                                    <div><strong>Estimation: </strong>
-                                    </div>
-                                    <div><strong>Took: </strong>
-                                    </div>
+<table id="scrumBoard" class="table table-bordered table-hover">
+    <thead>
+    <th>Who</th>
+    <th>Tasks</th>
+    <th>Ongoing</th>
+    <th>Done</th>
+    </thead>
+    <tbody>
+    @foreach (var user in Model.Team.Users)
+    {
+        <tr class="js-user-row">
+            <td class="scrum-who-col">
+                @user.Name @user.Surname
+            </td>
+            <td class="scrum-task-col js-@TaskType.Awaiting">
+                @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Awaiting))
+                {
+                    <div data-task-id="@task.Id" class="col-md-6 js-taskbox">
+                        <div class="panel panel-default">
+                            <div class="panel-body text-justify">
+                                Task test description
+                                <div class="task-buttons-board">
+                                    <button data-type-id="@((byte)TaskType.Ongoing)" class="btn btn-sm btn-primary">Ongoing</button>
+                                    <button data-type-id="@((byte)TaskType.Done)" class="btn btn-sm btn-success">Done</button>
+                                    <button data-type-id="@((byte)TaskType.Awaiting)" class="btn btn-sm btn-warning">Await</button>
                                 </div>
                             </div>
-                        </div>                      
-                    }
-                </td>
-                <td class="scrum-task-col js-@TaskType.Ongoing">
-                    @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Ongoing))
-                    {
-                        <div data-task-id="@task.Id" class="col-md-6 js-taskbox">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    Task test description
-                                    <div class="task-buttons-board">
-                                        <button data-type-id="@((byte)TaskType.Ongoing)" class="btn btn-sm btn-primary">Ongoing</button>
-                                        <button data-type-id="@((byte)TaskType.Done)" class="btn btn-sm btn-success">Done</button>
-                                        <button data-type-id="@((byte)TaskType.Awaiting)" class="btn btn-sm btn-warning">Await</button>
-                                    </div>
+                            <div class="panel-footer">
+                                <div><strong>Estimation: </strong>
                                 </div>
-                                <div class="panel-footer">
-                                    <div><strong>Estimation: </strong>
-                                    </div>
-                                    <div><strong>Took: </strong>
-                                    </div>
+                                <div><strong>Took: </strong>
                                 </div>
                             </div>
-                        </div>                      
-                    }
-                </td>
-                <td class="scrum-task-col js-@TaskType.Done">
-                    @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Done))
-                    {
-                        <div data-task-id="@task.Id" class="col-md-6 js-taskbox">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    Task test description
-                                    <div class="task-buttons-board">
-                                        <button data-type-id="@((byte)TaskType.Ongoing)" class="btn btn-sm btn-primary">Ongoing</button>
-                                        <button data-type-id="@((byte)TaskType.Done)" class="btn btn-sm btn-success">Done</button>
-                                        <button data-type-id="@((byte)TaskType.Awaiting)" class="btn btn-sm btn-warning">Await</button>
-                                    </div>
-                                </div>
-                                <div class="panel-footer">
-                                    <div><strong>Estimation: </strong>
-                                    </div>
-                                    <div><strong>Took: </strong>
-                                    </div>
+                        </div>
+                    </div>                      
+                }
+            </td>
+            <td class="scrum-task-col js-@TaskType.Ongoing">
+                @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Ongoing))
+                {
+                    <div data-task-id="@task.Id" class="col-md-6 js-taskbox">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                Task test description
+                                <div class="task-buttons-board">
+                                    <button data-type-id="@((byte)TaskType.Ongoing)" class="btn btn-sm btn-primary">Ongoing</button>
+                                    <button data-type-id="@((byte)TaskType.Done)" class="btn btn-sm btn-success">Done</button>
+                                    <button data-type-id="@((byte)TaskType.Awaiting)" class="btn btn-sm btn-warning">Await</button>
                                 </div>
                             </div>
-                        </div>                      
-                    }
-                </td>
-            </tr>
-        }
+                            <div class="panel-footer">
+                                <div><strong>Estimation: </strong>
+                                </div>
+                                <div><strong>Took: </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                      
+                }
+            </td>
+            <td class="scrum-task-col js-@TaskType.Done">
+                @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Done))
+                {
+                    <div data-task-id="@task.Id" class="col-md-6 js-taskbox">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                Task test description
+                                <div class="task-buttons-board">
+                                    <button data-type-id="@((byte)TaskType.Ongoing)" class="btn btn-sm btn-primary">Ongoing</button>
+                                    <button data-type-id="@((byte)TaskType.Done)" class="btn btn-sm btn-success">Done</button>
+                                    <button data-type-id="@((byte)TaskType.Awaiting)" class="btn btn-sm btn-warning">Await</button>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div><strong>Estimation: </strong>
+                                </div>
+                                <div><strong>Took: </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                      
+                }
+            </td>
+        </tr>
+    }
             
-        </tbody>
-    </table>
-}
+    </tbody>
+</table>
+
     
 }
 

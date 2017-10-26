@@ -25,5 +25,10 @@ namespace Scrummage.Models
         {
             Tasks = new List<ScrumTask>();
         }
+
+        public void Dupa()
+        {
+            
+        }
     }
 }

@@ -21,36 +21,20 @@ namespace Scrummage.Controllers
             Sprint sprint;
 
             if (sprintId == 0)
+            {
                 sprint = _context.Sprints
                     .OrderByDescending(s => s.CreatedAt)
                     .FirstOrDefault(s => s.TeamId == teamId);
-            else
-            {
-                sprint = _context.Sprints.SingleOrDefault(s => s.Id == sprintId);
-                if (sprint == null)
-                    return HttpNotFound();
             }
+            else
+                sprint = _context.Sprints
+                    .Include(s => s.Team)
+                    .Include(s => s.Team.Sprints)
+                    .Include(s => s.Team.Users)
+                        .Include(s => s.Team.Users.Select(u => u.ScrumTasks))
+                    .SingleOrDefault(s => s.Id == sprintId);
 
-            var teamQuery = _context.Teams
-                .Include(t => t.Sprints);
-
-            if (sprint != null)
-                teamQuery = teamQuery
-                    .Include(t => t.Users
-                        .Select(u => u.ScrumTasks));
-
-            var team = teamQuery.SingleOrDefault(t => t.Id == teamId);
-
-            if (team == null)
-                return HttpNotFound();
-
-            var viewModel = new BoardViewModel
-            {
-                Sprint = sprint,
-                Team = team
-            };
-
-            return View(viewModel);
+            return View(sprint);
         }
     }
 }
