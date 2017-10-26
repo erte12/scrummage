@@ -25,14 +25,16 @@ namespace Scrummage.Controllers
                 sprint = _context.Sprints
                     .OrderByDescending(s => s.CreatedAt)
                     .FirstOrDefault(s => s.TeamId == teamId);
+
+                return RedirectToAction("Index", new { sprintId = sprint?.Id});
             }
-            else
-                sprint = _context.Sprints
-                    .Include(s => s.Team)
-                    .Include(s => s.Team.Sprints)
-                    .Include(s => s.Team.Users)
-                        .Include(s => s.Team.Users.Select(u => u.ScrumTasks))
-                    .SingleOrDefault(s => s.Id == sprintId);
+
+            sprint = _context.Sprints
+                .Include(s => s.Team)
+                .Include(s => s.Team.Sprints)
+                .Include(s => s.Team.Users)
+                .Include(s => s.Team.Users.Select(u => u.ScrumTasks))
+                .SingleOrDefault(s => s.Id == sprintId);
 
             return View(sprint);
         }

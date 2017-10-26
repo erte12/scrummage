@@ -14,7 +14,9 @@
             <option value="0">-</option>
             @foreach (var sprint in @Model.Team.Sprints)
             {
-                <option value="@sprint.Id">@sprint.Name</option>
+                <option @((sprint.Id == Model.Id)
+                              ? "selected"
+                              : null) value="@sprint.Id">@sprint.Name</option>
             }
         </select>
     </div>
@@ -47,91 +49,37 @@
             <td class="scrum-task-col js-@TaskType.Awaiting">
                 @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Awaiting))
                 {
-                    <div data-task-id="@task.Id" class="col-md-6 js-taskbox">
-                        <div class="panel panel-default">
-                            <div class="panel-body text-justify">
-                                Task test description
-                                <div class="task-buttons-board">
-                                    <button data-type-id="@((byte)TaskType.Ongoing)" class="btn btn-sm btn-primary">Ongoing</button>
-                                    <button data-type-id="@((byte)TaskType.Done)" class="btn btn-sm btn-success">Done</button>
-                                    <button data-type-id="@((byte)TaskType.Awaiting)" class="btn btn-sm btn-warning">Await</button>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <div><strong>Estimation: </strong>
-                                </div>
-                                <div><strong>Took: </strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                      
+                    @Html.Partial("_TaskBox", task);
                 }
             </td>
             <td class="scrum-task-col js-@TaskType.Ongoing">
                 @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Ongoing))
                 {
-                    <div data-task-id="@task.Id" class="col-md-6 js-taskbox">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                Task test description
-                                <div class="task-buttons-board">
-                                    <button data-type-id="@((byte)TaskType.Ongoing)" class="btn btn-sm btn-primary">Ongoing</button>
-                                    <button data-type-id="@((byte)TaskType.Done)" class="btn btn-sm btn-success">Done</button>
-                                    <button data-type-id="@((byte)TaskType.Awaiting)" class="btn btn-sm btn-warning">Await</button>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <div><strong>Estimation: </strong>
-                                </div>
-                                <div><strong>Took: </strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                      
+                    @Html.Partial("_TaskBox", task);                      
                 }
             </td>
             <td class="scrum-task-col js-@TaskType.Done">
                 @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Done))
                 {
-                    <div data-task-id="@task.Id" class="col-md-6 js-taskbox">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                Task test description
-                                <div class="task-buttons-board">
-                                    <button data-type-id="@((byte)TaskType.Ongoing)" class="btn btn-sm btn-primary">Ongoing</button>
-                                    <button data-type-id="@((byte)TaskType.Done)" class="btn btn-sm btn-success">Done</button>
-                                    <button data-type-id="@((byte)TaskType.Awaiting)" class="btn btn-sm btn-warning">Await</button>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <div><strong>Estimation: </strong>
-                                </div>
-                                <div><strong>Took: </strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                      
+                    @Html.Partial("_TaskBox", task);                      
                 }
             </td>
         </tr>
     }
             
     </tbody>
-</table>
-
-    
+</table> 
 }
 
 @section scripts
 {
-    
     @Scripts.Render("~/bundles/lib")
     <script>
         $('#scrumBoard').dataTable();
 
         $('#sprintsList').on('change',
             function () {
-                location.href = '/board?teamId=' + @Model.Team.Id + '&sprintId=' + $(this).val();
+                location.href = '/board?sprintId=' + $(this).val();
             });
 
         $('.task-buttons-board').on('click', 'button', function() {
@@ -147,25 +95,13 @@
             .done(function() {
                 switch(taskType) {
                     case '@((byte)TaskType.Awaiting)':
-                        taskBox.fadeOut(400, function() {
-                            $(this)
-                                .appendTo($(this).parents('tr.js-user-row').find('.js-@TaskType.Awaiting'))
-                                .fadeIn(400);
-                        });
+                        moveTaskBox(taskBox, '.js-@TaskType.Awaiting');
                         break;
                     case '@((byte)TaskType.Done)':
-                        taskBox.fadeOut(400, function() {
-                            $(this)
-                                .appendTo($(this).parents('tr.js-user-row').find('.js-@TaskType.Done'))
-                                .fadeIn(400);
-                        });
+                        moveTaskBox(taskBox, '.js-@TaskType.Done');
                         break;
                     case '@((byte)TaskType.Ongoing)':
-                        taskBox.fadeOut(400, function() {
-                            $(this)
-                                .appendTo($(this).parents('tr.js-user-row').find('.js-@TaskType.Ongoing'))
-                                .fadeIn(400);
-                        });
+                        moveTaskBox(taskBox, '.js-@TaskType.Ongoing');
                         break;
                 }
             })
@@ -173,5 +109,13 @@
                 toastr.error('Something went wrong!');
             });
         });
+
+        function moveTaskBox(taskBox, destination) {
+            taskBox.fadeOut(400, function() {
+                $(this)
+                    .appendTo($(this).parents('tr.js-user-row').find(destination))
+                    .fadeIn(400);
+            });
+        }
     </script>
 }
