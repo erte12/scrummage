@@ -10,5 +10,7 @@ namespace Scrummage.Models
         public int Id { get; set; }
 
         public byte Value { get; set; }
+
+        public ICollection<ScrumTask> ScrumTasks { get; set; }
     }
 }

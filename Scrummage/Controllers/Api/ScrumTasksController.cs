@@ -40,8 +40,18 @@ namespace Scrummage.Controllers.Api
 
             if (!string.IsNullOrWhiteSpace(scrumTaskDto.UserId))
             {
-                var user = _context.Users.SingleOrDefault(u => u.Id.Equals(scrumTaskDto.UserId));
+                var user = _context.Users
+                    .SingleOrDefault(u => u.Id.Equals(scrumTaskDto.UserId));
+
                 scrumTaskFromDb.UserId = user?.Id;
+            }
+
+            if (scrumTaskDto.EstimationId != null)
+            {
+                var estimation = _context.Estimations
+                    .SingleOrDefault(u => u.Id == scrumTaskDto.EstimationId.Value);
+
+                scrumTaskFromDb.EstimationId = estimation?.Id;
             }
             
             _context.SaveChanges();

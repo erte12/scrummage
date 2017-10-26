@@ -18,6 +18,10 @@ namespace Scrummage.Models.Configuration
                 .WithMany(m => m.ScrumTasks)
                 .HasForeignKey(s => s.UserId);
 
+            HasOptional(s => s.Estimation)
+                .WithMany(e => e.ScrumTasks)
+                .HasForeignKey(s => s.EstimationId);
+
         }
     }
 }

@@ -63,13 +63,16 @@ namespace Scrummage.Controllers
             if (sprint == null)
                 return HttpNotFound();
 
+            var estimations = _context.Estimations.ToList();
+
             var viewModel = new ManageSprintViewModel
             {
                 Id = sprint.Id,
                 Name = sprint.Name,
                 Description = sprint.Description,
                 Users = sprint.Team.Users,
-                Tasks = sprint.Tasks
+                Tasks = sprint.Tasks,
+                Estimations = estimations
             };
 
             return View(viewModel);

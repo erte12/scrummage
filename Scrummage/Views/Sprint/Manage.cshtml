@@ -1,4 +1,6 @@
-﻿@model Scrummage.ViewModels.ManageSprintViewModel
+﻿@using Scrummage.Models
+@using Scrummage.ViewModels
+@model Scrummage.ViewModels.ManageSprintViewModel
 
 @{
     ViewBag.Title = "title";
@@ -47,53 +49,25 @@
     
     @if (Model.Tasks.Any())
     {
+        //TODO: API Implementation
         foreach (var task in Model.Tasks)
         {
-            <tr data-task-id="@task.Id" class="js-task-row">
-                <td class="task-content-col js-task-content">
-                    @task.Content
-                </td>
-                <td class="selectbox-col">
-                    <select class="form-control js-members">
-                        <option value="0">-</option>
-                        @foreach (var user in Model.Users)
-                        {
-                            <option @((task.UserId != null
-                                       && user.Id == task.UserId)
-                                          ? "selected"
-                                          : null) value="@user.Id">
-                                @user.Name @user.Surname
-                            </option>
-                        }
-                    </select>
-                </td>
-                <td class="selectbox-col">
-                    <select id="estimation" class="form-control">
-                        <option>test</option>
-                    </select>
-                </td>
-            </tr>
+            @Html.Partial("_TaskRow", new ManageSprintTaskRowViewModel
+            {
+                Task = task,
+                Users = Model.Users,
+                Estimations = Model.Estimations
+            })
         }
     }
     else
     {
-        <tr class="js-task-row" style="display: none;">
-            <td class="task-content-col js-task-content"></td>
-            <td class="selectbox-col">
-                <select class="form-control js-members">
-                    <option value="0">-</option>
-                    @foreach (var user in Model.Users)
-                    {
-                        <option value="@user.Id">@user.Name</option>
-                    }
-                </select>
-            </td>
-            <td class="selectbox-col">
-                <select id="estimation" class="form-control">
-                    <option>test</option>
-                </select>
-            </td>
-        </tr>
+        @Html.Partial("_TaskRow", new ManageSprintTaskRowViewModel
+        {
+            Task = new ScrumTask{Id = 0, Content = null, UserId = null},
+            Users = Model.Users,
+            Estimations = Model.Estimations
+        })
     }
     </tbody>
 </table>
@@ -166,6 +140,25 @@
             .fail(function() {
                 toastr.error('Something went wrong!');
             });
+        });
+
+    $('.js-estimations').on('change',
+        function() {
+            var estimationId = $(this).val();
+            console.log(estimationId);
+            var scrumTaskId = $(this).parents('tr').attr('data-task-id');
+
+            $.ajax({
+                    url: '/api/scrumtasks/' + scrumTaskId,
+                    method: 'patch',
+                    data: { estimationId: estimationId }
+                })
+                .done(function() {
+                    toastr.success('User set successfully!');
+                })
+                .fail(function() {
+                    toastr.error('Something went wrong!');
+                });
         });
     </script>
 }

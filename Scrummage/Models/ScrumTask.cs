@@ -11,7 +11,9 @@ namespace Scrummage.Models
 
         public string Content { get; set; }
 
-        public byte? Estimation { get; set; }
+        public Estimation Estimation { get; set; }
+
+        public int? EstimationId { get; set; }
 
         public byte? Took { get; set; }
 
@@ -24,6 +26,8 @@ namespace Scrummage.Models
         public ApplicationUser User { get; set; }
 
         public string UserId { get; set; }
+
+        public bool IsActive => EstimationId != null && UserId != null;
     }
 
     public enum TaskType : byte

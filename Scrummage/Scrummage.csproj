@@ -257,6 +257,10 @@
     <Compile Include="Migrations\201710261857589_SeedEstimationsTableWithData.Designer.cs">
       <DependentUpon>201710261857589_SeedEstimationsTableWithData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710261904056_AddEstimationPropertyToScrumTasks.cs" />
+    <Compile Include="Migrations\201710261904056_AddEstimationPropertyToScrumTasks.Designer.cs">
+      <DependentUpon>201710261904056_AddEstimationPropertyToScrumTasks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Configuration\ApplicationUsersConfiguration.cs" />
     <Compile Include="Models\Configuration\SprintConfiguration.cs" />
@@ -273,6 +277,7 @@
     <Compile Include="ViewModels\ExternalLoginListViewModel.cs" />
     <Compile Include="ViewModels\ForgotViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ManageSprintTaskRowViewModel.cs" />
     <Compile Include="ViewModels\ManageSprintViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
@@ -599,6 +604,7 @@
     <Content Include="Views\Sprint\New.cshtml" />
     <Content Include="Views\Sprint\Manage.cshtml" />
     <Content Include="Views\Board\_TaskBox.cshtml" />
+    <Content Include="Views\Sprint\_TaskRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -643,6 +649,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710261857589_SeedEstimationsTableWithData.resx">
       <DependentUpon>201710261857589_SeedEstimationsTableWithData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710261904056_AddEstimationPropertyToScrumTasks.resx">
+      <DependentUpon>201710261904056_AddEstimationPropertyToScrumTasks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

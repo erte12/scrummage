@@ -13,7 +13,7 @@ namespace Scrummage.Dtos
         [MaxLength(400)]
         public string Content { get; set; }
 
-        public byte? Estimation { get; set; }
+        public int? EstimationId { get; set; }
 
         public byte? Took { get; set; }
 

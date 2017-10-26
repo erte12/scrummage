@@ -1,0 +1,26 @@
+﻿@model Scrummage.ViewModels.ManageSprintTaskRowViewModel
+<tr data-task-id="@Model.Task.Id" class="js-task-row" @(Model.Task.Id == 0 ? "hidden" : null)>
+    <td class="task-content-col js-task-content">
+        @Model.Task.Content
+    </td>
+    <td class="selectbox-col">
+        <select class="form-control js-members">
+            <option value="0">-</option>
+            @foreach (var user in Model.Users)
+            {
+                <option @((Model.Task.UserId != null && user.Id == Model.Task.UserId) ? "selected" : null) value="@user.Id">
+                    @user.Name @user.Surname
+                </option>
+            }
+        </select>
+    </td>
+    <td class="selectbox-col">
+        <select class="form-control js-estimations">
+            <option value="0">-</option>
+            @foreach (var estimaion in Model.Estimations)
+            {
+                <option @((Model.Task.Estimation != null && estimaion.Id == Model.Task.EstimationId) ? "selected" : null) value="@estimaion.Id">@estimaion.Value</option>
+            }
+        </select>
+    </td>
+</tr>
