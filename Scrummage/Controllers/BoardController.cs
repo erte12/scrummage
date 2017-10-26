@@ -45,9 +45,10 @@ namespace Scrummage.Controllers
                 Sprint = sprint,
                 Team = sprint.Team,
                 TeamSprints = sprint.Team.Sprints.OrderByDescending(s => s.CreatedAt),
-                UserWithTasks = sprint.Tasks
+                UsersWithTasks = sprint.Tasks
                     .Where(t => t.User != null)
                     .GroupBy(t => t.User)
+                    .ToDictionary(g => g.Key, g => g.ToList())
             };
 
             return View(viewModel);

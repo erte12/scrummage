@@ -40,26 +40,26 @@
     <th>Done</th>
     </thead>
     <tbody>
-    @foreach (var userWithTasks in Model.UserWithTasks)
+    @foreach (var userWithTasks in Model.UsersWithTasks)
     {
         <tr class="js-user-row">
             <td class="scrum-who-col">
                 @userWithTasks.Key.Name @userWithTasks.Key.Surname
             </td>
             <td class="scrum-task-col js-@TaskType.Awaiting">
-                @foreach (var task in userWithTasks.ToList().Where(s => s.TaskType == TaskType.Awaiting))
+                @foreach (var task in userWithTasks.Value.Where(s => s.TaskType == TaskType.Awaiting))
                 {
                     @Html.Partial("_TaskBox", task);
                 }
             </td>
             <td class="scrum-task-col js-@TaskType.Ongoing">
-                @foreach (var task in userWithTasks.ToList().Where(s => s.TaskType == TaskType.Ongoing))
+                @foreach (var task in userWithTasks.Value.Where(s => s.TaskType == TaskType.Ongoing))
                 {
                     @Html.Partial("_TaskBox", task);                      
                 }
             </td>
             <td class="scrum-task-col js-@TaskType.Done">
-                @foreach (var task in userWithTasks.ToList().Where(s => s.TaskType == TaskType.Done))
+                @foreach (var task in userWithTasks.Value.Where(s => s.TaskType == TaskType.Done))
                 {
                     @Html.Partial("_TaskBox", task);                      
                 }
