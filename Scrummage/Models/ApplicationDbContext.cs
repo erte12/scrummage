@@ -11,6 +11,7 @@ namespace Scrummage.Models
         public DbSet<Team> Teams { get; set; }
         public DbSet<Sprint> Sprints { get; set; }
         public DbSet<ScrumTask> ScrumTasks { get; set; }
+        public DbSet<Estimation> Estimations { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

@@ -249,10 +249,19 @@
     <Compile Include="Migrations\201710241806292_ScrumTasksTableProperitesChange.Designer.cs">
       <DependentUpon>201710241806292_ScrumTasksTableProperitesChange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710261854486_AddEstimationTable.cs" />
+    <Compile Include="Migrations\201710261854486_AddEstimationTable.Designer.cs">
+      <DependentUpon>201710261854486_AddEstimationTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710261857589_SeedEstimationsTableWithData.cs" />
+    <Compile Include="Migrations\201710261857589_SeedEstimationsTableWithData.Designer.cs">
+      <DependentUpon>201710261857589_SeedEstimationsTableWithData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Configuration\ApplicationUsersConfiguration.cs" />
     <Compile Include="Models\Configuration\SprintConfiguration.cs" />
     <Compile Include="Models\Configuration\ScrumTaskConfiguration.cs" />
+    <Compile Include="Models\Estimation.cs" />
     <Compile Include="Models\Sprint.cs" />
     <Compile Include="Models\ScrumTask.cs" />
     <Compile Include="ViewModels\BoardViewModel.cs" />
@@ -628,6 +637,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710241806292_ScrumTasksTableProperitesChange.resx">
       <DependentUpon>201710241806292_ScrumTasksTableProperitesChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710261854486_AddEstimationTable.resx">
+      <DependentUpon>201710261854486_AddEstimationTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710261857589_SeedEstimationsTableWithData.resx">
+      <DependentUpon>201710261857589_SeedEstimationsTableWithData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

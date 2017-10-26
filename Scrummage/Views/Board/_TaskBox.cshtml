@@ -4,7 +4,7 @@
 <div data-task-id="@Model.Id" class="col-md-6 js-taskbox">
     <div class="panel panel-default">
         <div class="panel-body text-justify">
-            Task test description
+            @Model.Content
             <div class="task-buttons-board">
                 <button data-type-id="@((byte)TaskType.Ongoing)" class="btn btn-sm btn-primary">Ongoing</button>
                 <button data-type-id="@((byte)TaskType.Done)" class="btn btn-sm btn-success">Done</button>
