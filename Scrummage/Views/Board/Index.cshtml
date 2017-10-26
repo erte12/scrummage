@@ -1,8 +1,8 @@
 ﻿@using Scrummage.Models
-@model Sprint
+@model Scrummage.ViewModels.BoardViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Scrum Board";
 }
 @section fullWidth
 {
@@ -12,9 +12,9 @@
     <div class="col-md-2">
         <select id="sprintsList" class="form-control">
             <option value="0">-</option>
-            @foreach (var sprint in @Model.Team.Sprints)
+            @foreach (var sprint in @Model.TeamSprints)
             {
-                <option @((sprint.Id == Model.Id)
+                <option @((sprint.Id == Model.Sprint.Id)
                               ? "selected"
                               : null) value="@sprint.Id">@sprint.Name</option>
             }
@@ -22,7 +22,7 @@
     </div>
     <div class="col-md-2">
         @Html.ActionLink("Backlog", "Manage", "Sprint",
-            new {id = @Model.Id},
+            new {id = @Model.Sprint.Id},
             new {@class = "btn btn-primary btn-block"})
     </div>
     <div class="col-md-2">
@@ -40,26 +40,26 @@
     <th>Done</th>
     </thead>
     <tbody>
-    @foreach (var user in Model.Team.Users)
+    @foreach (var userWithTasks in Model.UserWithTasks)
     {
         <tr class="js-user-row">
             <td class="scrum-who-col">
-                @user.Name @user.Surname
+                @userWithTasks.Key.Name @userWithTasks.Key.Surname
             </td>
             <td class="scrum-task-col js-@TaskType.Awaiting">
-                @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Awaiting))
+                @foreach (var task in userWithTasks.ToList().Where(s => s.TaskType == TaskType.Awaiting))
                 {
                     @Html.Partial("_TaskBox", task);
                 }
             </td>
             <td class="scrum-task-col js-@TaskType.Ongoing">
-                @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Ongoing))
+                @foreach (var task in userWithTasks.ToList().Where(s => s.TaskType == TaskType.Ongoing))
                 {
                     @Html.Partial("_TaskBox", task);                      
                 }
             </td>
             <td class="scrum-task-col js-@TaskType.Done">
-                @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Done))
+                @foreach (var task in userWithTasks.ToList().Where(s => s.TaskType == TaskType.Done))
                 {
                     @Html.Partial("_TaskBox", task);                      
                 }

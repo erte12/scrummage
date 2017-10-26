@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Mvc;
 using Scrummage.Models;
 using System.Data.Entity;
+using Newtonsoft.Json;
 using Scrummage.ViewModels;
 
 namespace Scrummage.Controllers
@@ -32,11 +34,23 @@ namespace Scrummage.Controllers
             sprint = _context.Sprints
                 .Include(s => s.Team)
                 .Include(s => s.Team.Sprints)
-                .Include(s => s.Team.Users)
-                .Include(s => s.Team.Users.Select(u => u.ScrumTasks))
+                .Include(s => s.Tasks.Select(t => t.User))
                 .SingleOrDefault(s => s.Id == sprintId);
 
-            return View(sprint);
+            if (sprint == null)
+                return HttpNotFound();
+
+            var viewModel = new BoardViewModel
+            {
+                Sprint = sprint,
+                Team = sprint.Team,
+                TeamSprints = sprint.Team.Sprints.OrderByDescending(s => s.CreatedAt),
+                UserWithTasks = sprint.Tasks
+                    .Where(t => t.User != null)
+                    .GroupBy(t => t.User)
+            };
+
+            return View(viewModel);
         }
     }
 }
