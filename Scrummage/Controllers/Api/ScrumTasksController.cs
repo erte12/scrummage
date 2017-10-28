@@ -53,10 +53,13 @@ namespace Scrummage.Controllers.Api
 
                 scrumTaskFromDb.EstimationId = estimation?.Id;
             }
-
-            //TODO: Implement validation
+            
             if (scrumTaskDto.Priority != null)
             {
+                //TODO: Validation
+                if (!Enumerable.Range(1, 5).Contains(scrumTaskDto.Priority.Value))
+                    scrumTaskDto.Priority = null;
+
                 scrumTaskFromDb.Priority = scrumTaskDto.Priority;
             }
             
