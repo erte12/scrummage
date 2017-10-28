@@ -15,6 +15,8 @@ namespace Scrummage.Models
 
         public int? EstimationId { get; set; }
 
+        public byte? Priority { get; set; }
+
         public byte? Took { get; set; }
 
         public TaskType TaskType { get; set; }
@@ -27,7 +29,10 @@ namespace Scrummage.Models
 
         public string UserId { get; set; }
 
-        public bool IsActive => EstimationId != null && UserId != null;
+        public bool IsActive => 
+            EstimationId != null && 
+            UserId != null && 
+            Priority != null;
     }
 
     public enum TaskType : byte

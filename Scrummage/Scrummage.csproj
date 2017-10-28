@@ -261,6 +261,10 @@
     <Compile Include="Migrations\201710261904056_AddEstimationPropertyToScrumTasks.Designer.cs">
       <DependentUpon>201710261904056_AddEstimationPropertyToScrumTasks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710281027418_AddPriorityColumnToScrumTasksTable.cs" />
+    <Compile Include="Migrations\201710281027418_AddPriorityColumnToScrumTasksTable.Designer.cs">
+      <DependentUpon>201710281027418_AddPriorityColumnToScrumTasksTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Configuration\ApplicationUsersConfiguration.cs" />
     <Compile Include="Models\Configuration\SprintConfiguration.cs" />
@@ -652,6 +656,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710261904056_AddEstimationPropertyToScrumTasks.resx">
       <DependentUpon>201710261904056_AddEstimationPropertyToScrumTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710281027418_AddPriorityColumnToScrumTasksTable.resx">
+      <DependentUpon>201710281027418_AddPriorityColumnToScrumTasksTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

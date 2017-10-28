@@ -44,6 +44,7 @@
         <th>Task content</th>
         <th>Who</th>
         <th>Estimation</th>
+        <th>Priority</th>
     </thead>
     <tbody>
     
@@ -145,7 +146,6 @@
     $('.js-estimations').on('change',
         function() {
             var estimationId = $(this).val();
-            console.log(estimationId);
             var scrumTaskId = $(this).parents('tr').attr('data-task-id');
 
             $.ajax({
@@ -160,5 +160,23 @@
                     toastr.error('Something went wrong!');
                 });
         });
+
+    $('.js-priority').on('change', function() {
+        var priority = $(this).val();
+        var scrumTaskId = $(this).parents('tr').attr('data-task-id');
+
+        $.ajax({
+            url: '/api/scrumtasks/' + scrumTaskId,
+            method: 'patch',
+            data: { priority: priority }
+        })
+        .done(function() {
+            toastr.success('Priority changed successfully');
+        })
+        .fail(function() {
+            toastr.error('Something went wrong!');
+        });
+    });
+        
     </script>
 }

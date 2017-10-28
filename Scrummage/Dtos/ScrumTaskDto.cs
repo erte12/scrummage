@@ -15,6 +15,9 @@ namespace Scrummage.Dtos
 
         public int? EstimationId { get; set; }
 
+        [Range(1,5)]
+        public byte? Priority { get; set; }
+
         public byte? Took { get; set; }
 
         public TaskType TaskType { get; set; }

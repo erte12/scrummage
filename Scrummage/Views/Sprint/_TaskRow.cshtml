@@ -3,7 +3,7 @@
     <td class="task-content-col js-task-content">
         @Model.Task.Content
     </td>
-    <td class="selectbox-col">
+    <td class="selectbox-user-col">
         <select class="form-control js-members">
             <option value="0">-</option>
             @foreach (var user in Model.Users)
@@ -14,12 +14,21 @@
             }
         </select>
     </td>
-    <td class="selectbox-col">
+    <td class="selectbox-params-col">
         <select class="form-control js-estimations">
             <option value="0">-</option>
             @foreach (var estimaion in Model.Estimations)
             {
                 <option @((Model.Task.Estimation != null && estimaion.Id == Model.Task.EstimationId) ? "selected" : null) value="@estimaion.Id">@estimaion.Value</option>
+            }
+        </select>
+    </td>
+    <td class="selectbox-params-col">
+        <select class="form-control js-priority">
+            <option value="0">-</option>
+            @for (var i = 1; i <= 5; i++)
+            {
+                <option @((Model.Task.Priority != null && Model.Task.Priority == i) ? "selected" : null) value="@i">@i</option>
             }
         </select>
     </td>
