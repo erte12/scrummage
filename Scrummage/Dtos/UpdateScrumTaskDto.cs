@@ -7,24 +7,15 @@ using Scrummage.Models;
 
 namespace Scrummage.Dtos
 {
-    public class ScrumTaskDto
+    public class UpdateScrumTaskDto
     {
-        [Required]
-        [MaxLength(400)]
-        public string Content { get; set; }
-
         public int? EstimationId { get; set; }
 
-        [Range(1,5)]
+        [Range(0, 5)]
         public byte? Priority { get; set; }
 
-        public byte? Took { get; set; }
-
-        public TaskType TaskType { get; set; }
-
-        public Sprint Sprint { get; set; }
-
-        public int SprintId { get; set; }
+        [Range(0, 2)]
+        public TaskType? TaskType { get; set; }
 
         public string UserId { get; set; }
     }

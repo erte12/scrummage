@@ -18,8 +18,8 @@
             <div>
                 <strong>Estimation: @Model.Estimation.Value</strong>
             </div>
-            <div>
-                <strong>Took: </strong>
+            <div class="js-done" @(Model.TaskType != TaskType.Done ? "hidden" : null)>
+                <strong>Took: @Model.Took</strong>
             </div>
         </div>
     </div>

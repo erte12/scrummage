@@ -13,7 +13,7 @@ namespace Scrummage.App_Start
 
             CreateMap<ApplicationUser, UserDto>();
 
-            CreateMap<ScrumTaskDto, ScrumTask>();
+            CreateMap<NewScrumTaskDto, ScrumTask>();
 
             CreateMap<SprintDto, Sprint>();
         }

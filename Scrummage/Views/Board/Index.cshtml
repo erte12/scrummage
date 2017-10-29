@@ -89,19 +89,19 @@
 
             $.ajax({
                 url: '/api/scrumtasks/' + scrumTaskId,
-                method: 'put',
+                method: 'patch',
                 data: { taskType: taskType }
             })
-            .done(function() {
+            .done(function(data) {
                 switch(taskType) {
                     case '@((byte)TaskType.Awaiting)':
-                        moveTaskBox(taskBox, '.js-@TaskType.Awaiting');
+                        moveTaskBox(taskBox, '@TaskType.Awaiting');
                         break;
                     case '@((byte)TaskType.Done)':
-                        moveTaskBox(taskBox, '.js-@TaskType.Done');
+                        moveTaskBox(taskBox, '@TaskType.Done');
                         break;
                     case '@((byte)TaskType.Ongoing)':
-                        moveTaskBox(taskBox, '.js-@TaskType.Ongoing');
+                        moveTaskBox(taskBox, '@TaskType.Ongoing');
                         break;
                 }
             })
@@ -111,9 +111,14 @@
         });
 
         function moveTaskBox(taskBox, destination) {
-            taskBox.fadeOut(400, function() {
+            taskBox.fadeOut(400, function () {
+
+                (destination == '@TaskType.Done')
+                    ? $(this).find('.js-done').show()
+                    : $(this).find('.js-done').hide();
+
                 $(this)
-                    .appendTo($(this).parents('tr.js-user-row').find(destination))
+                    .appendTo($(this).parents('tr.js-user-row').find('.js-' + destination))
                     .fadeIn(400);
             });
         }

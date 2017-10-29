@@ -214,7 +214,9 @@
     <Compile Include="Controllers\SprintController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Dtos\MemberTeamDto.cs" />
-    <Compile Include="Dtos\ScrumTaskDto.cs" />
+    <Compile Include="Dtos\NewScrumTaskDto.cs" />
+    <Compile Include="Dtos\UpdateScrumTaskDto.cs" />
+    <Compile Include="Dtos\ScrumTaskTypeDto.cs" />
     <Compile Include="Dtos\SprintDto.cs" />
     <Compile Include="Dtos\TeamDto.cs" />
     <Compile Include="Dtos\UserDto.cs" />

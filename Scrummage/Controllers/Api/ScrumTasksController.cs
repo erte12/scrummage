@@ -16,12 +16,12 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpPost]
-        public IHttpActionResult CreateScrumTask(ScrumTaskDto scrumTaskDto)
+        public IHttpActionResult CreateScrumTask(NewScrumTaskDto newScrumTaskDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var newScrumTask = Mapper.Map<ScrumTask>(scrumTaskDto);
+            var newScrumTask = Mapper.Map<ScrumTask>(newScrumTaskDto);
 
             _context.ScrumTasks.Add(newScrumTask);
             _context.SaveChanges();
@@ -30,7 +30,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpPatch]
-        public IHttpActionResult UpdateScrumTask(int id, ScrumTaskDto scrumTaskDto)
+        public IHttpActionResult UpdateScrumTask(int id, UpdateScrumTaskDto updateScrumTaskDto)
         {
             var scrumTaskFromDb = _context.ScrumTasks
                 .SingleOrDefault(s => s.Id == id);
@@ -38,46 +38,35 @@ namespace Scrummage.Controllers.Api
             if (scrumTaskFromDb == null)
                 return NotFound();
 
-            if (!string.IsNullOrWhiteSpace(scrumTaskDto.UserId))
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            if (!string.IsNullOrWhiteSpace(updateScrumTaskDto.UserId))
             {
                 var user = _context.Users
-                    .SingleOrDefault(u => u.Id.Equals(scrumTaskDto.UserId));
+                    .SingleOrDefault(u => u.Id.Equals(updateScrumTaskDto.UserId));
 
                 scrumTaskFromDb.UserId = user?.Id;
             }
-
-            if (scrumTaskDto.EstimationId != null)
+            else if (updateScrumTaskDto.EstimationId != null)
             {
                 var estimation = _context.Estimations
-                    .SingleOrDefault(u => u.Id == scrumTaskDto.EstimationId.Value);
+                    .SingleOrDefault(u => u.Id == updateScrumTaskDto.EstimationId.Value);
 
                 scrumTaskFromDb.EstimationId = estimation?.Id;
             }
-            
-            if (scrumTaskDto.Priority != null)
+            else if (updateScrumTaskDto.Priority != null)
             {
-                //TODO: Validation
-                if (!Enumerable.Range(1, 5).Contains(scrumTaskDto.Priority.Value))
-                    scrumTaskDto.Priority = null;
+                if (updateScrumTaskDto.Priority.Value == 0)
+                    updateScrumTaskDto.Priority = null;
 
-                scrumTaskFromDb.Priority = scrumTaskDto.Priority;
+                scrumTaskFromDb.Priority = updateScrumTaskDto.Priority;
+            }
+            else if (updateScrumTaskDto.TaskType != null)
+            {
+                scrumTaskFromDb.TaskType = updateScrumTaskDto.TaskType.Value;
             }
             
-            _context.SaveChanges();
-
-            return Ok();
-        }
-
-        [HttpPut]
-        public IHttpActionResult ChangeScrumTaskType(int id, ScrumTaskDto scrumTaskDto)
-        {
-            var scrumTaskFromDb = _context.ScrumTasks
-                .SingleOrDefault(s => s.Id == id);
-
-            if (scrumTaskFromDb == null)
-                return NotFound();
-
-            scrumTaskFromDb.TaskType = scrumTaskDto.TaskType;
             _context.SaveChanges();
 
             return Ok();
