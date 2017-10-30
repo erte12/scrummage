@@ -215,10 +215,9 @@
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Dtos\MemberTeamDto.cs" />
     <Compile Include="Dtos\NewScrumTaskDto.cs" />
-    <Compile Include="Dtos\UpdateScrumTaskDto.cs" />
-    <Compile Include="Dtos\ScrumTaskTypeDto.cs" />
     <Compile Include="Dtos\SprintDto.cs" />
     <Compile Include="Dtos\TeamDto.cs" />
+    <Compile Include="Dtos\UpdateScrumTaskDto.cs" />
     <Compile Include="Dtos\UserDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
