@@ -14,11 +14,19 @@ namespace Scrummage.Persistance
         private readonly ApplicationDbContext _context;
 
         public ITeamRepository Teams { get; }
+        public IApplicationUserRepository Users { get; set; }
+        public ISprintRepository Sprints { get; set; }
+        public IEstimationRepository Estimations { get; set; }
+        public IScrumTaskRepository ScrumTasks { get; set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             Teams = new TeamRepository(context);
+            Users = new ApplicationUserRepository(context);
+            Sprints = new SprintRepository(context);
+            Estimations = new EstimationRepository(context);
+            ScrumTasks = new ScrumTaskRepository(context);
         }
 
         public int Complate()

@@ -1,27 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Data.Entity;
+using System.Linq;
 using System.Web;
 using Scrummage.Core.Repositories;
 using Scrummage.Models;
 
 namespace Scrummage.Persistance.Repositories
 {
-    public class TeamRepository : Repository<Team>, ITeamRepository
+    public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
-        public TeamRepository(ApplicationDbContext context)
-            : base(context)
+        public ApplicationUserRepository(DbContext context) : base(context)
         {
         }
 
-        public Team GetTeamWithMembers(int id)
+        public ApplicationUser Get(string id)
         {
-            return ApplicationDbContext.Teams
-                .Include(t => t.Users)
-                .SingleOrDefault(t => t.Id == id);
+            return ApplicationDbContext.Users
+                .SingleOrDefault(a => a.Id.Equals(id));
         }
-
+       
         public ApplicationDbContext ApplicationDbContext
         {
             get { return Context as ApplicationDbContext; }

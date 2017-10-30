@@ -214,7 +214,11 @@
     <Compile Include="Controllers\SprintController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Repositories\IApplicationUserRepository.cs" />
+    <Compile Include="Core\Repositories\IEstimationRepository.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
+    <Compile Include="Core\Repositories\IScrumTaskRepository.cs" />
+    <Compile Include="Core\Repositories\ISprintRepository.cs" />
     <Compile Include="Core\Repositories\ITeamRepository.cs" />
     <Compile Include="Dtos\MemberTeamDto.cs" />
     <Compile Include="Dtos\NewScrumTaskDto.cs" />
@@ -276,7 +280,11 @@
     <Compile Include="Core\Domain\Estimation.cs" />
     <Compile Include="Core\Domain\Sprint.cs" />
     <Compile Include="Core\Domain\ScrumTask.cs" />
+    <Compile Include="Persistance\Repositories\ApplicationUserRepository.cs" />
+    <Compile Include="Persistance\Repositories\EstimationRepository.cs" />
     <Compile Include="Persistance\Repositories\Repository.cs" />
+    <Compile Include="Persistance\Repositories\ScrumTaskRepository.cs" />
+    <Compile Include="Persistance\Repositories\SprintRepository.cs" />
     <Compile Include="Persistance\Repositories\TeamRepository.cs" />
     <Compile Include="Persistance\UnitOfWork.cs" />
     <Compile Include="ViewModels\AddPhoneNumberViewModel.cs" />
