@@ -14,6 +14,6 @@ namespace Scrummage.ViewModels
 
         public IEnumerable<Sprint> TeamSprints { get; set; }
 
-        public Dictionary<ApplicationUser, List<ScrumTask>> UsersWithTasks { get; set; }
+        public IEnumerable<ApplicationUser> Users { get; set; }
     }
 }

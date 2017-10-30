@@ -9,5 +9,7 @@ namespace Scrummage.Core.Repositories
 {
     public interface ISprintRepository : IRepository<Sprint>
     {
+        Sprint GetNewestForTeam(int teamId);
+        Sprint GetWithTeamAndTasks(int sprintId);
     }
 }

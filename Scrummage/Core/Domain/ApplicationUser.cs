@@ -10,8 +10,14 @@ namespace Scrummage.Models
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public List<Team> Teams { get; set; }
+        public ICollection<Team> Teams { get; set; }
         public ICollection<ScrumTask> ScrumTasks { get; set; }
+
+        public ApplicationUser()
+        {
+            Teams = new List<Team>();
+            ScrumTasks = new List<ScrumTask>();
+        }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

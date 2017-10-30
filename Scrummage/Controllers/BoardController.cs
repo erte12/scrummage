@@ -1,20 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using Scrummage.Models;
 using System.Data.Entity;
 using Newtonsoft.Json;
+using Scrummage.Persistance;
 using Scrummage.ViewModels;
 
 namespace Scrummage.Controllers
 {
     public class BoardController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UnitOfWork _unitOfWork;
 
         public BoardController()
-        {
-            _context = new ApplicationDbContext();
+        {;
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
         //teamId temporarly hardcoded
@@ -24,19 +26,11 @@ namespace Scrummage.Controllers
 
             if (sprintId == 0)
             {
-                sprint = _context.Sprints
-                    .OrderByDescending(s => s.CreatedAt)
-                    .FirstOrDefault(s => s.TeamId == teamId);
-
+                sprint = _unitOfWork.Sprints.GetNewestForTeam(teamId);
                 return RedirectToAction("Index", new { sprintId = sprint?.Id});
             }
 
-            sprint = _context.Sprints
-                .Include(s => s.Team)
-                .Include(s => s.Team.Sprints)
-                .Include(s => s.Tasks.Select(t => t.User))
-                .Include(s => s.Tasks.Select(t => t.Estimation))
-                .SingleOrDefault(s => s.Id == sprintId);
+            sprint = _unitOfWork.Sprints.GetWithTeamAndTasks(sprintId);
 
             if (sprint == null)
                 return HttpNotFound();
@@ -45,12 +39,7 @@ namespace Scrummage.Controllers
             {
                 Sprint = sprint,
                 Team = sprint.Team,
-                TeamSprints = sprint.Team.Sprints.OrderByDescending(s => s.CreatedAt),
-                UsersWithTasks = sprint.Tasks
-                    .Where(t => t.User != null)
-                    .Where(t => t.IsActive)
-                    .GroupBy(t => t.User)
-                    .ToDictionary(g => g.Key, g => g.ToList())
+                Users = sprint.Team.Users
             };
 
             return View(viewModel);

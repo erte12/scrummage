@@ -6,13 +6,14 @@
 }
 @section fullWidth
 {
-<h2>Scrum board - @Model.Team.Name</h2>
+
+    <h2>Scrum board - @Model.Team.Name</h2>
 <hr/>
 <div class="row">
     <div class="col-md-2">
         <select id="sprintsList" class="form-control">
             <option value="0">-</option>
-            @foreach (var sprint in @Model.TeamSprints)
+            @foreach (var sprint in @Model.Team.Sprints)
             {
                 <option @((sprint.Id == Model.Sprint.Id)
                               ? "selected"
@@ -40,26 +41,26 @@
     <th>Done</th>
     </thead>
     <tbody>
-    @foreach (var userWithTasks in Model.UsersWithTasks)
+    @foreach (var user in Model.Users)
     {
         <tr class="js-user-row">
             <td class="scrum-who-col">
-                @userWithTasks.Key.Name @userWithTasks.Key.Surname
+                @user.Name @user.Surname
             </td>
             <td class="scrum-task-col js-@TaskType.Awaiting">
-                @foreach (var task in userWithTasks.Value.Where(s => s.TaskType == TaskType.Awaiting))
+                @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Awaiting))
                 {
                     @Html.Partial("_TaskBox", task);
                 }
             </td>
             <td class="scrum-task-col js-@TaskType.Ongoing">
-                @foreach (var task in userWithTasks.Value.Where(s => s.TaskType == TaskType.Ongoing))
+                @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Ongoing))
                 {
                     @Html.Partial("_TaskBox", task);                      
                 }
             </td>
             <td class="scrum-task-col js-@TaskType.Done">
-                @foreach (var task in userWithTasks.Value.Where(s => s.TaskType == TaskType.Done))
+                @foreach (var task in user.ScrumTasks.Where(s => s.TaskType == TaskType.Done))
                 {
                     @Html.Partial("_TaskBox", task);                      
                 }
