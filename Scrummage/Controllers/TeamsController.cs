@@ -2,16 +2,17 @@
 using System.Data.Entity;
 using System.Web.Mvc;
 using Scrummage.Models;
+using Scrummage.Persistance;
 
 namespace Scrummage.Controllers
 {
     public class TeamsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UnitOfWork _unitOfWork;
 
         public TeamsController()
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
         public ActionResult Index()
@@ -22,9 +23,7 @@ namespace Scrummage.Controllers
         [Route("teams/{id:regex(\\d)}")]
         public ActionResult Details(int id)
         {
-            var team = _context.Teams
-                .Include(t => t.Users)
-                .SingleOrDefault(t => t.Id == id);
+            var team = _unitOfWork.Teams.GetTeamWithMembers(id);
 
             if (team == null)
                 return HttpNotFound();

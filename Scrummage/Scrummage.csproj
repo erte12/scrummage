@@ -213,6 +213,9 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SprintController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
+    <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Repositories\IRepository.cs" />
+    <Compile Include="Core\Repositories\ITeamRepository.cs" />
     <Compile Include="Dtos\MemberTeamDto.cs" />
     <Compile Include="Dtos\NewScrumTaskDto.cs" />
     <Compile Include="Dtos\SprintDto.cs" />
@@ -267,32 +270,42 @@
       <DependentUpon>201710281027418_AddPriorityColumnToScrumTasksTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Configuration\ApplicationUsersConfiguration.cs" />
-    <Compile Include="Models\Configuration\SprintConfiguration.cs" />
-    <Compile Include="Models\Configuration\ScrumTaskConfiguration.cs" />
-    <Compile Include="Models\Estimation.cs" />
-    <Compile Include="Models\Sprint.cs" />
-    <Compile Include="Models\ScrumTask.cs" />
+    <Compile Include="Persistance\EntityConfiguration\ApplicationUsersConfiguration.cs" />
+    <Compile Include="Persistance\EntityConfiguration\SprintConfiguration.cs" />
+    <Compile Include="Persistance\EntityConfiguration\ScrumTaskConfiguration.cs" />
+    <Compile Include="Core\Domain\Estimation.cs" />
+    <Compile Include="Core\Domain\Sprint.cs" />
+    <Compile Include="Core\Domain\ScrumTask.cs" />
+    <Compile Include="Persistance\Repositories\Repository.cs" />
+    <Compile Include="Persistance\Repositories\TeamRepository.cs" />
+    <Compile Include="Persistance\UnitOfWork.cs" />
+    <Compile Include="ViewModels\AddPhoneNumberViewModel.cs" />
     <Compile Include="ViewModels\BoardViewModel.cs" />
+    <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\FactorViewModel.cs" />
     <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
-    <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Models\Configuration\TeamsConfiguration.cs" />
-    <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Core\Domain\ApplicationUser.cs" />
+    <Compile Include="Persistance\EntityConfiguration\TeamsConfiguration.cs" />
+    <Compile Include="Persistance\ApplicationDbContext.cs" />
     <Compile Include="ViewModels\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="ViewModels\ExternalLoginListViewModel.cs" />
     <Compile Include="ViewModels\ForgotViewModel.cs" />
+    <Compile Include="ViewModels\IndexViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ManageLoginsViewModel.cs" />
     <Compile Include="ViewModels\ManageSprintTaskRowViewModel.cs" />
     <Compile Include="ViewModels\ManageSprintViewModel.cs" />
-    <Compile Include="ViewModels\ManageViewModels.cs" />
+    <Compile Include="ViewModels\ConfigureTwoFactorViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\SendCodeViewModel.cs" />
-    <Compile Include="Models\Team.cs" />
-    <Compile Include="Models\VerifyCodeViewModel.cs" />
+    <Compile Include="Core\Domain\Team.cs" />
+    <Compile Include="ViewModels\SetPasswordViewModel.cs" />
+    <Compile Include="ViewModels\VerifyCodeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\NewSprintViewModel.cs" />
+    <Compile Include="ViewModels\VerifyPhoneNumberViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-united.css" />
