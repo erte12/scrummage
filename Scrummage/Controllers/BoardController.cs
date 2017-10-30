@@ -30,7 +30,7 @@ namespace Scrummage.Controllers
                 return RedirectToAction("Index", new { sprintId = sprint?.Id});
             }
 
-            sprint = _unitOfWork.Sprints.GetWithTeamAndTasks(sprintId);
+            sprint = _unitOfWork.Sprints.GetWithTeamAndActiveTasks(sprintId);
 
             if (sprint == null)
                 return HttpNotFound();

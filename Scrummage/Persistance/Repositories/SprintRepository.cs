@@ -21,7 +21,7 @@ namespace Scrummage.Persistance.Repositories
                 .FirstOrDefault(s => s.TeamId == teamId);
         }
 
-        public Sprint GetWithTeamAndTasks(int sprintId)
+        public Sprint GetWithTeamAndActiveTasks(int sprintId)
         {
             var sprint = ApplicationDbContext.Sprints
                 .Include(s => s.Team)
@@ -32,6 +32,21 @@ namespace Scrummage.Persistance.Repositories
                 .OrderByDescending(s => s.CreatedAt)
                 .Where(s => s.TeamId == sprint.TeamId)
                 .Load();
+
+            ApplicationDbContext.ScrumTasks
+                .Where(s => s.SprintId == sprintId)
+                .Where(s => s.Estimation != null && s.UserId != null && s.Priority != null)
+                .Include(s => s.Estimation)
+                .Load();
+
+            return sprint;
+        }
+
+        public Sprint GetWithTeamAndTasks(int sprintId)
+        {
+            var sprint = ApplicationDbContext.Sprints
+                .Include(s => s.Team.Users)
+                .SingleOrDefault(s => s.Id == sprintId);
 
             ApplicationDbContext.ScrumTasks
                 .Where(s => s.SprintId == sprintId)
