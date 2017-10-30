@@ -22,6 +22,6 @@ namespace Scrummage.ViewModels
 
         public List<ScrumTask> Tasks { get; set; }
 
-        public ICollection<Estimation> Estimations { get; set; }
+        public IEnumerable<Estimation> Estimations { get; set; }
     }
 }

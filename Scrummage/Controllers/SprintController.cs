@@ -5,21 +5,21 @@ using System.Data.Entity;
 using System.Web;
 using System.Web.Mvc;
 using Scrummage.Models;
+using Scrummage.Persistance;
 using Scrummage.ViewModels;
 
 namespace Scrummage.Controllers
 {
     public class SprintController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UnitOfWork _unitOfWork;
 
         public SprintController()
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
         [HttpPost]
-
         public ActionResult Save(NewSprintViewModel sprint)
         {
             if (!ModelState.IsValid)
@@ -34,16 +34,15 @@ namespace Scrummage.Controllers
                 CreatedAt = DateTime.Now
             };
 
-            _context.Sprints.Add(newSprint);
-            _context.SaveChanges();
+            _unitOfWork.Sprints.Add(newSprint);
+            _unitOfWork.Complate();
 
             return RedirectToAction("Manage", new {id = newSprint.Id});
         }
 
         public ActionResult New(int teamId)
         {
-            var team = _context.Teams
-                .SingleOrDefault(t => t.Id == teamId);
+            var team = _unitOfWork.Teams.Get(teamId);
 
             if (team == null)
                 return HttpNotFound();
@@ -55,15 +54,12 @@ namespace Scrummage.Controllers
 
         public ActionResult Manage(int id)
         {
-            var sprint = _context.Sprints
-                .Include(s => s.Team.Users)
-                .Include(s => s.Tasks)
-                .SingleOrDefault(s => s.Id == id);
+            var sprint = _unitOfWork.Sprints.GetWithTeamAndTasks(id);
 
             if (sprint == null)
                 return HttpNotFound();
 
-            var estimations = _context.Estimations.ToList();
+            var estimations = _unitOfWork.Estimations.GetAll();
 
             var viewModel = new ManageSprintViewModel
             {
