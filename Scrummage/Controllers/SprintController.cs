@@ -19,6 +19,35 @@ namespace Scrummage.Controllers
             _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
+        //teamId temporarly hardcoded
+        public ActionResult Index(int id = 0, int teamId = 24)
+        {
+            Sprint sprint;
+
+            if (id == 0)
+            {
+                sprint = _unitOfWork.Sprints.GetNewestForTeam(teamId);
+
+                return sprint == null 
+                    ? RedirectToAction("New", new { teamId }) 
+                    : RedirectToAction("Index", new { sprint.Id });
+            }
+
+            sprint = _unitOfWork.Sprints.GetWithTeamAndActiveTasks(id);
+
+            if (sprint == null)
+                return HttpNotFound();
+
+            var viewModel = new BoardViewModel
+            {
+                Sprint = sprint,
+                Team = sprint.Team,
+                Users = sprint.Team.Users
+            };
+
+            return View(viewModel);
+        }
+
         [HttpPost]
         public ActionResult Save(NewSprintViewModel sprint)
         {
