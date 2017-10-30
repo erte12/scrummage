@@ -23,26 +23,15 @@ namespace Scrummage.Persistance.Repositories
                 .SingleOrDefault(a => a.Id.Equals(id));
         }
 
-//        public IEnumerable<ApplicationUser> GetUsersWithActiveTasksBySprintId(int sprintId)
-//        {
-//            var users = ApplicationDbContext
-//                .ScrumTasks
-//                .Include(s => s.Estimation)
-//                .Include(s => s.User)
-//                .Where(s => s.SprintId == sprintId)
-//                .Where(s => s.User != null && s.Estimation != null && s.Priority != null)
-//                .GroupBy(s => s.User)
-//                .AsEnumerable()
-//                .Select(g => new ApplicationUser
-//                {
-//                    Id = g.Key.Id,
-//                    Name = g.Key.Name,
-//                    Surname = g.Key.Surname,
-//                    ScrumTasks = g.ToList()
-//                });
-//
-//            return users;
-//        }
+        public IEnumerable<ApplicationUser> GetAllByQuery(string query)
+        {
+            var users = ApplicationDbContext.Users.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query))
+                users = users.Where(u => u.Name.Contains(query) || u.Surname.Contains(query));
+
+            return users.ToList();
+        }
 
         public ApplicationDbContext ApplicationDbContext
         {

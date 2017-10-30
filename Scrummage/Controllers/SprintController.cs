@@ -56,7 +56,6 @@ namespace Scrummage.Controllers
 
             var newSprint = new Sprint
             {
-                Id = sprint.Id,
                 Name = sprint.Name,
                 Description = sprint.Description,
                 TeamId = sprint.TeamId,

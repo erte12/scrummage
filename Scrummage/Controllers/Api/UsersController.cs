@@ -7,26 +7,22 @@ using System.Web.Http;
 using AutoMapper;
 using Scrummage.Dtos;
 using Scrummage.Models;
+using Scrummage.Persistance;
 
 namespace Scrummage.Controllers.Api
 {
     public class UsersController : ApiController
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UnitOfWork _unitOfWork;
 
         public UsersController()
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
         public IHttpActionResult GetUsers(string query = null)
         {
-            var users = _context.Users.AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(query))
-            {
-                users = users.Where(u => u.Name.Contains(query) || u.Surname.Contains(query));
-            }
+            var users = _unitOfWork.Users.GetAllByQuery(query);
          
             return Ok(users
                 .ToList()
