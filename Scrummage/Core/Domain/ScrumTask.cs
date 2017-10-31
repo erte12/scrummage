@@ -17,9 +17,11 @@ namespace Scrummage.Models
 
         public byte? Priority { get; set; }
 
-        public byte? Took { get; set; }
-
         public TaskType TaskType { get; set; }
+
+        public Estimation Took { get; set; }
+
+        public int? TookId { get; set; }
 
         public Sprint Sprint { get; set; }
 

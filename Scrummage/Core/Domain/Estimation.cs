@@ -11,6 +11,8 @@ namespace Scrummage.Models
 
         public byte Value { get; set; }
 
-        public ICollection<ScrumTask> ScrumTasks { get; set; }
+        public ICollection<ScrumTask> ScrumTasksEstimated { get; set; }
+
+        public ICollection<ScrumTask> ScrumTasksTaken { get; set; }
     }
 }

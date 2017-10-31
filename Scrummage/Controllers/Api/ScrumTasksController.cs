@@ -46,6 +46,8 @@ namespace Scrummage.Controllers.Api
             if (taskFromDb == null)
                 return NotFound();
 
+            var took = new Estimation();
+
             if (!string.IsNullOrWhiteSpace(taskDto.UserId))
             {
                 var user = _unitOfWork.Users.Get(taskDto.UserId);
@@ -70,13 +72,14 @@ namespace Scrummage.Controllers.Api
                 taskFromDb.TaskType = taskDto.TaskType.Value;
                 if (taskDto.TookId != null)
                 {
-
+                    took = _unitOfWork.Estimations.Get(taskDto.TookId.Value);
+                    taskFromDb.TookId = took?.Id;
                 }
             }
 
             _unitOfWork.Complate();
 
-            return Ok();
+            return Ok(new {took = took?.Value});
         }
     }
 }

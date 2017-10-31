@@ -128,7 +128,7 @@
                     moveTaskBox(taskBox, '@TaskType.Awaiting');
                     break;
                 case '@((byte)TaskType.Done)':
-                    moveTaskBox(taskBox, '@TaskType.Done');
+                    moveTaskBox(taskBox, '@TaskType.Done', data);
                     break;
                 case '@((byte)TaskType.Ongoing)':
                     moveTaskBox(taskBox, '@TaskType.Ongoing');
@@ -140,8 +140,10 @@
             });
         }
 
-        function moveTaskBox(taskBox, destination) {
+        function moveTaskBox(taskBox, destination, data) {
             taskBox.fadeOut(400, function () {
+
+                taskBox.find('js-took').text(data.took);
 
                 (destination == '@TaskType.Done')
                     ? $(this).find('.js-done').show()

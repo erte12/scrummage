@@ -237,6 +237,10 @@
     <Compile Include="Core\Repositories\IScrumTaskRepository.cs" />
     <Compile Include="Core\Repositories\ISprintRepository.cs" />
     <Compile Include="Core\Repositories\ITeamRepository.cs" />
+    <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs" />
+    <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.Designer.cs">
+      <DependentUpon>201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\Dtos\MemberTeamDto.cs" />
     <Compile Include="Presentation\Dtos\NewScrumTaskDto.cs" />
     <Compile Include="Presentation\Dtos\SprintDto.cs" />
@@ -698,6 +702,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710281027418_AddPriorityColumnToScrumTasksTable.resx">
       <DependentUpon>201710281027418_AddPriorityColumnToScrumTasksTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.resx">
+      <DependentUpon>201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
