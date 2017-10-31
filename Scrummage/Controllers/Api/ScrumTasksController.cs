@@ -3,16 +3,17 @@ using System.Web.Http;
 using Scrummage.Models;
 using AutoMapper;
 using Scrummage.Dtos;
+using Scrummage.Persistance;
 
 namespace Scrummage.Controllers.Api
 {
     public class ScrumTasksController : ApiController
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UnitOfWork _unitOfWork;
 
         public ScrumTasksController()
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
         [HttpPost]
@@ -23,35 +24,36 @@ namespace Scrummage.Controllers.Api
 
             var newScrumTask = Mapper.Map<ScrumTask>(newScrumTaskDto);
 
-            _context.ScrumTasks.Add(newScrumTask);
-            _context.SaveChanges();
+            _unitOfWork.ScrumTasks.Add(newScrumTask);
+            _unitOfWork.Complate();
 
-            return Ok(new {id = newScrumTask.Id, content = newScrumTask.Content});
+            return Ok(new
+            {
+                id = newScrumTask.Id,
+                content = newScrumTask.Content
+            });
         }
 
         [HttpPatch]
         public IHttpActionResult UpdateScrumTask(int id, UpdateScrumTaskDto updateScrumTaskDto)
         {
-            var scrumTaskFromDb = _context.ScrumTasks
-                .SingleOrDefault(s => s.Id == id);
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var scrumTaskFromDb = _unitOfWork.ScrumTasks.Get(id);
 
             if (scrumTaskFromDb == null)
                 return NotFound();
 
-            if (!ModelState.IsValid)
-                return BadRequest();
-
             if (!string.IsNullOrWhiteSpace(updateScrumTaskDto.UserId))
             {
-                var user = _context.Users
-                    .SingleOrDefault(u => u.Id.Equals(updateScrumTaskDto.UserId));
+                var user = _unitOfWork.Users.Get(updateScrumTaskDto.UserId);
 
                 scrumTaskFromDb.UserId = user?.Id;
             }
             else if (updateScrumTaskDto.EstimationId != null)
             {
-                var estimation = _context.Estimations
-                    .SingleOrDefault(u => u.Id == updateScrumTaskDto.EstimationId.Value);
+                var estimation = _unitOfWork.Estimations.Get(updateScrumTaskDto.EstimationId.Value);
 
                 scrumTaskFromDb.EstimationId = estimation?.Id;
             }
@@ -63,11 +65,9 @@ namespace Scrummage.Controllers.Api
                 scrumTaskFromDb.Priority = updateScrumTaskDto.Priority;
             }
             else if (updateScrumTaskDto.TaskType != null)
-            {
                 scrumTaskFromDb.TaskType = updateScrumTaskDto.TaskType.Value;
-            }
-            
-            _context.SaveChanges();
+
+            _unitOfWork.Complate();
 
             return Ok();
         }
