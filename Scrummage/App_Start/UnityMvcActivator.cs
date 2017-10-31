@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Web.Mvc;
-
+using Microsoft.ApplicationInsights.Web;
 using Unity.AspNet.Mvc;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Scrummage.UnityMvcActivator), nameof(Scrummage.UnityMvcActivator.Start))]

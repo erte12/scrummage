@@ -112,8 +112,6 @@
                 });
             } else
                 updateScrumTask(taskBox, scrumTaskId, taskType);
-
-
         });
 
         function updateScrumTask(taskBox, scrumTaskId, taskType, took) {
@@ -128,7 +126,7 @@
                     moveTaskBox(taskBox, '@TaskType.Awaiting');
                     break;
                 case '@((byte)TaskType.Done)':
-                    moveTaskBox(taskBox, '@TaskType.Done', data);
+                    moveTaskBox(taskBox, '@TaskType.Done', data.took);
                     break;
                 case '@((byte)TaskType.Ongoing)':
                     moveTaskBox(taskBox, '@TaskType.Ongoing');
@@ -140,10 +138,10 @@
             });
         }
 
-        function moveTaskBox(taskBox, destination, data) {
+        function moveTaskBox(taskBox, destination, took) {
             taskBox.fadeOut(400, function () {
 
-                taskBox.find('js-took').text(data.took);
+                taskBox.find('js-took').text(took);
 
                 (destination == '@TaskType.Done')
                     ? $(this).find('.js-done').show()
