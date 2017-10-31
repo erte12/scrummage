@@ -7,16 +7,17 @@ using System.Web.Http;
 using AutoMapper;
 using Scrummage.Dtos;
 using Scrummage.Models;
+using Scrummage.Persistance;
 
 namespace Scrummage.Controllers.Api
 {
     public class SprintController : ApiController
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UnitOfWork _unitOfWork;
 
         public SprintController()
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
         [HttpPatch]
@@ -25,14 +26,13 @@ namespace Scrummage.Controllers.Api
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var sprintFromDb = _context.Sprints
-                .SingleOrDefault(s => s.Id == id);
+            var sprintFromDb = _unitOfWork.Sprints.Get(id);
 
             if (sprintFromDb == null)
                 return NotFound();
 
             Mapper.Map(sprintDto, sprintFromDb);
-            _context.SaveChanges();
+            _unitOfWork.Complate();
 
             return Ok();
         }
