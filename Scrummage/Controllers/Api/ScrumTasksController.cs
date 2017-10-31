@@ -2,6 +2,7 @@
 using System.Web.Http;
 using Scrummage.Models;
 using AutoMapper;
+using Scrummage.Core;
 using Scrummage.Dtos;
 using Scrummage.Persistance;
 
@@ -9,7 +10,7 @@ namespace Scrummage.Controllers.Api
 {
     public class ScrumTasksController : ApiController
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public ScrumTasksController()
         {

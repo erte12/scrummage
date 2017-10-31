@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Data.Entity;
 using System.Web.Mvc;
+using Scrummage.Core;
 using Scrummage.Models;
 using Scrummage.Persistance;
 
@@ -8,7 +9,7 @@ namespace Scrummage.Controllers
 {
     public class TeamsController : Controller
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public TeamsController()
         {

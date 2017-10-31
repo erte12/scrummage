@@ -10,6 +10,11 @@ namespace Scrummage.Core
     interface IUnitOfWork : IDisposable
     {
         ITeamRepository Teams { get; }
+        IApplicationUserRepository Users { get; }
+        IScrumTaskRepository ScrumTasks { get; }
+        IEstimationRepository Estimations { get; }
+        ISprintRepository Sprints { get; }
+
         int Complate();
     }
 }

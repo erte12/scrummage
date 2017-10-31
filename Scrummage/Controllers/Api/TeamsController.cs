@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using Scrummage.Core;
 using Scrummage.Dtos;
 using Scrummage.Models;
 using Scrummage.Persistance;
@@ -14,7 +15,7 @@ namespace Scrummage.Controllers.Api
 {
     public class TeamsController : ApiController
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public TeamsController()
         {
