@@ -36,37 +36,43 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpPatch]
-        public IHttpActionResult UpdateScrumTask(int id, UpdateScrumTaskDto updateScrumTaskDto)
+        public IHttpActionResult UpdateScrumTask(int id, UpdateScrumTaskDto taskDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var scrumTaskFromDb = _unitOfWork.ScrumTasks.Get(id);
+            var taskFromDb = _unitOfWork.ScrumTasks.Get(id);
 
-            if (scrumTaskFromDb == null)
+            if (taskFromDb == null)
                 return NotFound();
 
-            if (!string.IsNullOrWhiteSpace(updateScrumTaskDto.UserId))
+            if (!string.IsNullOrWhiteSpace(taskDto.UserId))
             {
-                var user = _unitOfWork.Users.Get(updateScrumTaskDto.UserId);
+                var user = _unitOfWork.Users.Get(taskDto.UserId);
 
-                scrumTaskFromDb.UserId = user?.Id;
+                taskFromDb.UserId = user?.Id;
             }
-            else if (updateScrumTaskDto.EstimationId != null)
+            else if (taskDto.EstimationId != null)
             {
-                var estimation = _unitOfWork.Estimations.Get(updateScrumTaskDto.EstimationId.Value);
+                var estimation = _unitOfWork.Estimations.Get(taskDto.EstimationId.Value);
 
-                scrumTaskFromDb.EstimationId = estimation?.Id;
+                taskFromDb.EstimationId = estimation?.Id;
             }
-            else if (updateScrumTaskDto.Priority != null)
+            else if (taskDto.Priority != null)
             {
-                if (updateScrumTaskDto.Priority.Value == 0)
-                    updateScrumTaskDto.Priority = null;
+                if (taskDto.Priority.Value == 0)
+                    taskDto.Priority = null;
 
-                scrumTaskFromDb.Priority = updateScrumTaskDto.Priority;
+                taskFromDb.Priority = taskDto.Priority;
             }
-            else if (updateScrumTaskDto.TaskType != null)
-                scrumTaskFromDb.TaskType = updateScrumTaskDto.TaskType.Value;
+            else if (taskDto.TaskType != null)
+            {
+                taskFromDb.TaskType = taskDto.TaskType.Value;
+                if (taskDto.TookId != null)
+                {
+
+                }
+            }
 
             _unitOfWork.Complate();
 

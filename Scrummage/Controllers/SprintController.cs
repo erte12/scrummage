@@ -39,11 +39,14 @@ namespace Scrummage.Controllers
             if (sprint == null)
                 return HttpNotFound();
 
-            var viewModel = new BoardViewModel
+            var estimations = _unitOfWork.Estimations.GetAll();
+
+            var viewModel = new SprintBoardViewModel
             {
-                Sprint = sprint,
+                SprintId = sprint.Id,
                 Team = sprint.Team,
-                Users = sprint.Team.Users
+                Users = sprint.Team.Users,
+                Estimations = estimations
             };
 
             return View(viewModel);

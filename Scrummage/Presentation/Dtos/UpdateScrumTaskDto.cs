@@ -17,6 +17,8 @@ namespace Scrummage.Dtos
         [Range(0, 2)]
         public TaskType? TaskType { get; set; }
 
+        public int? TookId { get; set; }
+
         public string UserId { get; set; }
     }
 }

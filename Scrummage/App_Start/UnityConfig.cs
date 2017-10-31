@@ -1,7 +1,11 @@
 using System;
 using Scrummage.Core;
+using Scrummage.Core.Repositories;
+using Scrummage.Models;
 using Scrummage.Persistance;
+using Scrummage.Persistance.Repositories;
 using Unity;
+using Unity.AspNet.Mvc;
 using Unity.Lifetime;
 
 namespace Scrummage
@@ -45,7 +49,7 @@ namespace Scrummage
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
 
-            container.RegisterType<IUnitOfWork, UnitOfWork>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
         }
     }
 }

@@ -305,7 +305,7 @@
     <Compile Include="Persistance\Repositories\TeamRepository.cs" />
     <Compile Include="Persistance\UnitOfWork.cs" />
     <Compile Include="Presentation\ViewModels\AddPhoneNumberViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\BoardViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\SprintBoardViewModel.cs" />
     <Compile Include="Presentation\ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="Presentation\ViewModels\FactorViewModel.cs" />
     <Compile Include="Presentation\ViewModels\ForgotPasswordViewModel.cs" />

@@ -1,13 +1,13 @@
 ﻿@using Scrummage.Models
-@model Scrummage.ViewModels.BoardViewModel
+@model Scrummage.ViewModels.SprintBoardViewModel
 
 @{
     ViewBag.Title = "Scrum Board";
 }
 @section fullWidth
 {
-
-    <h2>Scrum board - @Model.Team.Name</h2>
+    
+<h2>Scrum board - @Model.Team.Name</h2>
 <hr/>
 <div class="row">
     <div class="col-md-2">
@@ -15,7 +15,7 @@
             <option value="0">-</option>
             @foreach (var sprint in @Model.Team.Sprints)
             {
-                <option @((sprint.Id == Model.Sprint.Id)
+                <option @((sprint.Id == Model.SprintId)
                               ? "selected"
                               : null) value="@sprint.Id">@sprint.Name</option>
             }
@@ -23,7 +23,7 @@
     </div>
     <div class="col-md-2">
         @Html.ActionLink("Backlog", "Manage", "Sprint",
-            new {id = @Model.Sprint.Id},
+            new {id = @Model.SprintId},
             new {@class = "btn btn-primary btn-block"})
     </div>
     <div class="col-md-2">
@@ -88,28 +88,57 @@
             var taskBox = $(this).parents('.js-taskbox');
             var scrumTaskId = taskBox.attr('data-task-id');
 
+            if (taskType === '@((byte)@TaskType.Done)') {
+                bootbox.prompt({
+                    title: "How much took this task?",
+                    inputType: 'select',
+                    inputOptions: [
+
+                    @foreach (var estimation in Model.Estimations)
+                    {
+                        @:{
+                        @:    text: @estimation.Value,
+                        @:    value: @estimation.Id
+                        @:},
+                    }
+                    ],
+
+                    callback: function(took) {
+                        if (took == null)
+                            return;
+                        else
+                            updateScrumTask(taskBox, scrumTaskId, taskType, took);
+                    }
+                });
+            } else
+                updateScrumTask(taskBox, scrumTaskId, taskType);
+
+
+        });
+
+        function updateScrumTask(taskBox, scrumTaskId, taskType, took) {
             $.ajax({
                 url: '/api/scrumtasks/' + scrumTaskId,
                 method: 'patch',
-                data: { taskType: taskType }
+                data: { taskType: taskType, tookId: took }
             })
             .done(function(data) {
                 switch(taskType) {
-                    case '@((byte)TaskType.Awaiting)':
-                        moveTaskBox(taskBox, '@TaskType.Awaiting');
-                        break;
-                    case '@((byte)TaskType.Done)':
-                        moveTaskBox(taskBox, '@TaskType.Done');
-                        break;
-                    case '@((byte)TaskType.Ongoing)':
-                        moveTaskBox(taskBox, '@TaskType.Ongoing');
-                        break;
+                case '@((byte)TaskType.Awaiting)':
+                    moveTaskBox(taskBox, '@TaskType.Awaiting');
+                    break;
+                case '@((byte)TaskType.Done)':
+                    moveTaskBox(taskBox, '@TaskType.Done');
+                    break;
+                case '@((byte)TaskType.Ongoing)':
+                    moveTaskBox(taskBox, '@TaskType.Ongoing');
+                    break;
                 }
             })
             .fail(function() {
                 toastr.error('Something went wrong!');
             });
-        });
+        }
 
         function moveTaskBox(taskBox, destination) {
             taskBox.fadeOut(400, function () {

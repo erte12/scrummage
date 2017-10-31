@@ -6,14 +6,16 @@ using Scrummage.Models;
 
 namespace Scrummage.ViewModels
 {
-    public class BoardViewModel
+    public class SprintBoardViewModel
     {
-        public Sprint Sprint { get; set; }
+        public int SprintId { get; set; }
 
         public Team Team { get; set; }
 
         public IEnumerable<Sprint> TeamSprints { get; set; }
 
         public IEnumerable<ApplicationUser> Users { get; set; }
+
+        public IEnumerable<Estimation> Estimations { get; set; }
     }
 }
