@@ -11,9 +11,9 @@ namespace Scrummage.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public TeamsController()
+        public TeamsController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            _unitOfWork = unitOfWork;
         }
 
         public ActionResult Index()

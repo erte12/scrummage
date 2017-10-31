@@ -12,9 +12,9 @@ namespace Scrummage.Controllers.Api
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public ScrumTasksController()
+        public ScrumTasksController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]

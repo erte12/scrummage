@@ -16,9 +16,9 @@ namespace Scrummage.Controllers.Api
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UsersController()
+        public UsersController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            _unitOfWork = unitOfWork;
         }
 
         public IHttpActionResult GetUsers(string query = null)

@@ -16,9 +16,9 @@ namespace Scrummage.Controllers.Api
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public SprintController()
+        public SprintController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPatch]

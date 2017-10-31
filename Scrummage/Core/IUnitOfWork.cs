@@ -7,7 +7,7 @@ using Scrummage.Core.Repositories;
 
 namespace Scrummage.Core
 {
-    interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         ITeamRepository Teams { get; }
         IApplicationUserRepository Users { get; }
