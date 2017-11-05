@@ -81,5 +81,13 @@ namespace Scrummage.Controllers.Api
 
             return Ok(new {took = took?.Value});
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+                _unitOfWork.Dispose();
+
+            base.Dispose(disposing);
+        }
     }
 }

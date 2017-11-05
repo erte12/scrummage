@@ -31,5 +31,13 @@ namespace Scrummage.Controllers
 
             return View(team);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+                _unitOfWork.Dispose();
+
+            base.Dispose(disposing);
+        }
     }
 }

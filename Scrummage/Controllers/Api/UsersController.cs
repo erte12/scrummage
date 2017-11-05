@@ -29,5 +29,13 @@ namespace Scrummage.Controllers.Api
                 .ToList()
                 .Select(Mapper.Map<ApplicationUser, UserDto>));
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+                _unitOfWork.Dispose();
+
+            base.Dispose(disposing);
+        }
     }
 }
