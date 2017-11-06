@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Http;
 using Scrummage.Models;
 using AutoMapper;
@@ -18,12 +19,12 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpPost]
-        public IHttpActionResult CreateScrumTask(NewScrumTaskDto newScrumTaskDto)
+        public IHttpActionResult CreateScrumTask(NewScrumTaskDto taskDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var newScrumTask = Mapper.Map<ScrumTask>(newScrumTaskDto);
+            var newScrumTask = Mapper.Map<ScrumTask>(taskDto);
 
             _unitOfWork.ScrumTasks.Add(newScrumTask);
             _unitOfWork.Complate();
@@ -73,8 +74,14 @@ namespace Scrummage.Controllers.Api
                 if (taskDto.TookId != null)
                 {
                     took = _unitOfWork.Estimations.Get(taskDto.TookId.Value);
-                    taskFromDb.TookId = took?.Id;
-                }
+
+                    if (took != null)
+                    {
+                        taskFromDb.TookId = took.Id;
+                        taskFromDb.DoneAt = DateTime.Now;
+                    }
+                } else
+                    taskFromDb.DoneAt = null;
             }
 
             _unitOfWork.Complate();

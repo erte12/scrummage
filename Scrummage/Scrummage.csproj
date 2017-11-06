@@ -241,6 +241,10 @@
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.Designer.cs">
       <DependentUpon>201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711062046326_DoneAtPropertyAddedToScrumTasksTable.cs" />
+    <Compile Include="Migrations\201711062046326_DoneAtPropertyAddedToScrumTasksTable.Designer.cs">
+      <DependentUpon>201711062046326_DoneAtPropertyAddedToScrumTasksTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\Dtos\MemberTeamDto.cs" />
     <Compile Include="Presentation\Dtos\NewScrumTaskDto.cs" />
     <Compile Include="Presentation\Dtos\SprintDto.cs" />
@@ -706,6 +710,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.resx">
       <DependentUpon>201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711062046326_DoneAtPropertyAddedToScrumTasksTable.resx">
+      <DependentUpon>201711062046326_DoneAtPropertyAddedToScrumTasksTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
