@@ -40,12 +40,14 @@ namespace Scrummage.Controllers
                 return HttpNotFound();
 
             var estimations = _unitOfWork.Estimations.GetAll();
+            var teamSprints = _unitOfWork.Sprints.GetByTeamId(sprint.TeamId);
 
             var viewModel = new SprintBoardViewModel
             {
                 SprintId = sprint.Id,
                 Team = sprint.Team,
                 Users = sprint.Team.Users,
+                TeamSprints = teamSprints,
                 Estimations = estimations
             };
 

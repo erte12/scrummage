@@ -3,10 +3,11 @@
 @model Scrummage.ViewModels.ManageSprintViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Manage Sprint";
 }
 
 <h2>Manage Sprint</h2>
+@Html.ActionLink("Go to Scrum Board", "Index", new {Model.Id}, new {@class="btn btn-primary"})
 
 <div class="row">
     <div class="col-md-6">

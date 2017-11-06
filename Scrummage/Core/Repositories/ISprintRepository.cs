@@ -12,5 +12,6 @@ namespace Scrummage.Core.Repositories
         Sprint GetNewestForTeam(int teamId);
         Sprint GetWithTeamAndActiveTasks(int sprintId);
         Sprint GetWithTeamAndTasks(int sprintId);
+        IEnumerable<Sprint> GetByTeamId(int teamId);
     }
 }
