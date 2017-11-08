@@ -25,44 +25,53 @@ namespace Scrummage.Services
                 return null;
 
             if (!string.IsNullOrWhiteSpace(taskDto.UserId))
-            {
-                var user = _unitOfWork.Users.Get(taskDto.UserId);
-
-                taskFromDb.UserId = user?.Id;
-            }
-            else if (taskDto.EstimationId != null)
-            {
-                var estimation = _unitOfWork.Estimations.Get(taskDto.EstimationId.Value);
-
-                taskFromDb.EstimationId = estimation?.Id;
-            }
-            else if (taskDto.Priority != null)
-            {
-                if (taskDto.Priority.Value == 0)
-                    taskDto.Priority = null;
-
-                taskFromDb.Priority = taskDto.Priority;
-            }
-            else if (taskDto.TaskType != null)
-            {
-                taskFromDb.TaskType = taskDto.TaskType.Value;
-                if (taskDto.TookId != null)
-                {
-                    var took = _unitOfWork.Estimations.Get(taskDto.TookId.Value);
-
-                    if (took != null)
-                    {
-                        taskFromDb.Took = took;
-                        taskFromDb.DoneAt = DateTime.Now;
-                    }
-                }
-                else
-                    taskFromDb.DoneAt = null;
-            }
+                UpdateUser(taskFromDb, taskDto.UserId);
+            if (taskDto.EstimationId != null)
+                UpdateEstimation(taskFromDb, taskDto.EstimationId.Value);
+            if (taskDto.Priority != null)
+                UpdatePriority(taskFromDb, taskDto.Priority.Value);
+            if (taskDto.TaskType != null)
+                UpdateTaskType(taskFromDb, taskDto.TaskType.Value, taskDto.TookId);
 
             _unitOfWork.Complate();
 
             return taskFromDb;
+        }
+
+        private void UpdateUser(ScrumTask task, string userId)
+        {
+            var user = _unitOfWork.Users.Get(userId);
+            task.UserId = user?.Id;
+        }
+
+        private void UpdateEstimation(ScrumTask task, int estimationId)
+        {
+            var estimation = _unitOfWork.Estimations.Get(estimationId);
+            task.EstimationId = estimation?.Id;
+        }
+
+        private void UpdatePriority(ScrumTask task, byte priority)
+        {
+            if (!Enumerable.Range(1, 5).Contains(priority))
+                task.Priority = null;
+
+            task.Priority = priority;
+        }
+
+        private void UpdateTaskType(ScrumTask task, TaskType taskType, int? tookId = null)
+        {
+            task.TaskType = taskType;
+            if (tookId != null)
+            {
+                var took = _unitOfWork.Estimations.Get(tookId.Value);
+
+                if (took == null) return;
+
+                task.Took = took;
+                task.DoneAt = DateTime.Now;
+            }
+            else
+                task.DoneAt = null;
         }
     }
 }
