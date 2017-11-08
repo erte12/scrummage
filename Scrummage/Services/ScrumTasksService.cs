@@ -17,8 +17,13 @@ namespace Scrummage.Services
             _unitOfWork = unitOfWork;
         }
 
-        public ScrumTask Update(ScrumTask taskFromDb, UpdateScrumTaskDto taskDto)
+        public ScrumTask Update(int taskId, UpdateScrumTaskDto taskDto)
         {
+            var taskFromDb = _unitOfWork.ScrumTasks.Get(taskId);
+
+            if (taskFromDb == null)
+                return null;
+
             if (!string.IsNullOrWhiteSpace(taskDto.UserId))
             {
                 var user = _unitOfWork.Users.Get(taskDto.UserId);
@@ -47,7 +52,7 @@ namespace Scrummage.Services
 
                     if (took != null)
                     {
-                        taskFromDb.TookId = took.Id;
+                        taskFromDb.Took = took;
                         taskFromDb.DoneAt = DateTime.Now;
                     }
                 }

@@ -6,16 +6,19 @@ using AutoMapper;
 using Scrummage.Core;
 using Scrummage.Dtos;
 using Scrummage.Persistance;
+using Scrummage.Services;
 
 namespace Scrummage.Controllers.Api
 {
     public class ScrumTasksController : ApiController
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IScrumTasksService _scrumTasksService;
 
-        public ScrumTasksController(IUnitOfWork unitOfWork)
+        public ScrumTasksController(IUnitOfWork unitOfWork, IScrumTasksService scrumTasksService)
         {
             _unitOfWork = unitOfWork;
+            _scrumTasksService = scrumTasksService;
         }
 
         [HttpPost]
@@ -42,51 +45,12 @@ namespace Scrummage.Controllers.Api
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var taskFromDb = _unitOfWork.ScrumTasks.Get(id);
+            var task = _scrumTasksService.Update(id, taskDto);
 
-            if (taskFromDb == null)
+            if (task == null)
                 return NotFound();
 
-            var took = new Estimation();
-
-            if (!string.IsNullOrWhiteSpace(taskDto.UserId))
-            {
-                var user = _unitOfWork.Users.Get(taskDto.UserId);
-
-                taskFromDb.UserId = user?.Id;
-            }
-            else if (taskDto.EstimationId != null)
-            {
-                var estimation = _unitOfWork.Estimations.Get(taskDto.EstimationId.Value);
-
-                taskFromDb.EstimationId = estimation?.Id;
-            }
-            else if (taskDto.Priority != null)
-            {
-                if (taskDto.Priority.Value == 0)
-                    taskDto.Priority = null;
-
-                taskFromDb.Priority = taskDto.Priority;
-            }
-            else if (taskDto.TaskType != null)
-            {
-                taskFromDb.TaskType = taskDto.TaskType.Value;
-                if (taskDto.TookId != null)
-                {
-                    took = _unitOfWork.Estimations.Get(taskDto.TookId.Value);
-
-                    if (took != null)
-                    {
-                        taskFromDb.TookId = took.Id;
-                        taskFromDb.DoneAt = DateTime.Now;
-                    }
-                } else
-                    taskFromDb.DoneAt = null;
-            }
-
-            _unitOfWork.Complate();
-
-            return Ok(new {took = took?.Value});
+            return Ok(new { took = task.Took?.Value });
         }
 
         protected override void Dispose(bool disposing)

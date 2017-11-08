@@ -10,6 +10,6 @@ namespace Scrummage.Services
 {
     public interface IScrumTasksService
     {
-        ScrumTask Update(ScrumTask taskFromDb, UpdateScrumTaskDto taskDto);
+        ScrumTask Update(int taskId, UpdateScrumTaskDto taskDto);
     }
 }

@@ -4,6 +4,7 @@ using Scrummage.Core.Repositories;
 using Scrummage.Models;
 using Scrummage.Persistance;
 using Scrummage.Persistance.Repositories;
+using Scrummage.Services;
 using Unity;
 using Unity.AspNet.Mvc;
 using Unity.Lifetime;
@@ -50,6 +51,7 @@ namespace Scrummage
             // container.RegisterType<IProductRepository, ProductRepository>();
 
             container.RegisterType<IUnitOfWork, UnitOfWork>();
+            container.RegisterType<IScrumTasksService, ScrumTasksService>();
         }
     }
 }
