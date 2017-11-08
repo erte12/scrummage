@@ -16,6 +16,8 @@ namespace Scrummage
                         "~/Scripts/datatables/datatables.bootstrap.js",
                         "~/Scripts/respond.js",
                         "~/Scripts/toastr.js",
+                        "~/Scripts/moment.js",
+                        "~/Scripts/bootstrap-datetimepicker.js",
                         "~/Scripts/typeahead.bundle.js"
                         ));
 
@@ -33,6 +35,7 @@ namespace Scrummage
                       "~/Content/datatables/css/datatables.bootstrap.css",
                       "~/Content/typeahead.css",
                       "~/Content/custom.css",
+                      "~/Content/bootstrap-datetimepicker.css",
                       "~/Content/site.css"));
         }
     }

@@ -1,4 +1,5 @@
-﻿@model Scrummage.ViewModels.NewSprintViewModel
+﻿@using System.Collections
+@model Scrummage.ViewModels.NewSprintViewModel
 
 @{
     ViewBag.Title = "title";
@@ -19,6 +20,32 @@
         @Html.TextAreaFor(m => m.Description, new {@class="form-control"})
         @Html.ValidationMessageFor(m => m.Description)
     </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="startsAt" class="control-label">Starts at:</label>
+                <div class="input-group" date id="startsAt">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    <input type="text" class="form-control"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="endsAt" class="control-label">Ends at:</label>
+                <div class="input-group" date id="endsAt">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    <input type="text" class="form-control"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @Html.HiddenFor(m => m.TeamId)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-default">Submit</button>
@@ -27,6 +54,26 @@
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/lib")
+
+
+    <script>
+
+        $('#startsAt').datetimepicker();
+        $('#endsAt').datetimepicker();
+
+        $('#startsAt').datetimepicker();
+        $('#endsAt').datetimepicker({
+            useCurrent: false //Important! See issue #1075
+        });
+        $("#startsAt").on("dp.change", function (e) {
+            $('#endsAt').data("DateTimePicker").minDate(e.date);
+        });
+        $("#endsAt").on("dp.change", function (e) {
+            $('#startsAt').data("DateTimePicker").maxDate(e.date);
+        });
+
+    </script>
 }
 
 
