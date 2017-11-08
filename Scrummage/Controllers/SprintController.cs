@@ -4,7 +4,9 @@ using System.Linq;
 using System.Data.Entity;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using Scrummage.Core;
+using Scrummage.Core.Services;
 using Scrummage.Models;
 using Scrummage.Persistance;
 using Scrummage.ViewModels;
@@ -14,10 +16,12 @@ namespace Scrummage.Controllers
     public class SprintController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ISprintService _sprintService;
 
-        public SprintController(IUnitOfWork unitOfWork)
+        public SprintController(IUnitOfWork unitOfWork, ISprintService sprintService)
         {
             _unitOfWork = unitOfWork;
+            _sprintService = sprintService;
         }
 
         //teamId temporarly hardcoded
@@ -55,21 +59,11 @@ namespace Scrummage.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(NewSprintViewModel sprint)
+        public ActionResult Save(NewSprintViewModel newSprintViewModel)
         {
-            if (!ModelState.IsValid)
-                return View("New", sprint);
+            var newSprint = Mapper.Map<Sprint>(newSprintViewModel);
 
-            var newSprint = new Sprint
-            {
-                Name = sprint.Name,
-                Description = sprint.Description,
-                TeamId = sprint.TeamId,
-                CreatedAt = DateTime.Now
-            };
-
-            _unitOfWork.Sprints.Add(newSprint);
-            _unitOfWork.Complate();
+            _sprintService.Create(newSprint);
 
             return RedirectToAction("Manage", new {id = newSprint.Id});
         }

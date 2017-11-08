@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Scrummage.ViewModels
 {
@@ -14,5 +15,9 @@ namespace Scrummage.ViewModels
         public string Description { get; set; }
 
         public int TeamId { get; set; }
+
+        public DateTime StartsAt { get; set; }
+
+        public DateTime EndsAt { get; set; }
     }
 }

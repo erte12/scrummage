@@ -237,6 +237,7 @@
     <Compile Include="Core\Repositories\IScrumTaskRepository.cs" />
     <Compile Include="Core\Repositories\ISprintRepository.cs" />
     <Compile Include="Core\Repositories\ITeamRepository.cs" />
+    <Compile Include="Core\Services\ISprintService.cs" />
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs" />
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.Designer.cs">
       <DependentUpon>201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs</DependentUpon>
@@ -342,6 +343,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Services\IScrumTasksService.cs" />
     <Compile Include="Services\ScrumTasksService.cs" />
+    <Compile Include="Services\SprintService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Presentation\ViewModels\NewSprintViewModel.cs" />
     <Compile Include="Presentation\ViewModels\VerifyPhoneNumberViewModel.cs" />
