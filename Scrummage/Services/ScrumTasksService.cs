@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AutoMapper;
 using Scrummage.Core;
 using Scrummage.Dtos;
 using Scrummage.Models;
@@ -15,6 +16,16 @@ namespace Scrummage.Services
         public ScrumTasksService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        public ScrumTask Create(NewScrumTaskDto taskDto)
+        {
+            var newScrumTask = Mapper.Map<ScrumTask>(taskDto);
+
+            _unitOfWork.ScrumTasks.Add(newScrumTask);
+            _unitOfWork.Complate();
+
+            return newScrumTask;
         }
 
         public ScrumTask Update(int taskId, UpdateScrumTaskDto taskDto)

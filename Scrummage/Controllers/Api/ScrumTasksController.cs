@@ -27,10 +27,7 @@ namespace Scrummage.Controllers.Api
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var newScrumTask = Mapper.Map<ScrumTask>(taskDto);
-
-            _unitOfWork.ScrumTasks.Add(newScrumTask);
-            _unitOfWork.Complate();
+            var newScrumTask = _scrumTasksService.Create(taskDto);
 
             return Ok(new
             {
