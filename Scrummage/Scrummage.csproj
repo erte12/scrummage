@@ -245,6 +245,10 @@
     <Compile Include="Migrations\201711062046326_DoneAtPropertyAddedToScrumTasksTable.Designer.cs">
       <DependentUpon>201711062046326_DoneAtPropertyAddedToScrumTasksTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711082030570_StartAtAndEndsAtColumnsAddedToSprintsTable.cs" />
+    <Compile Include="Migrations\201711082030570_StartAtAndEndsAtColumnsAddedToSprintsTable.Designer.cs">
+      <DependentUpon>201711082030570_StartAtAndEndsAtColumnsAddedToSprintsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\Dtos\MemberTeamDto.cs" />
     <Compile Include="Presentation\Dtos\NewScrumTaskDto.cs" />
     <Compile Include="Presentation\Dtos\SprintDto.cs" />
@@ -801,6 +805,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711062046326_DoneAtPropertyAddedToScrumTasksTable.resx">
       <DependentUpon>201711062046326_DoneAtPropertyAddedToScrumTasksTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711082030570_StartAtAndEndsAtColumnsAddedToSprintsTable.resx">
+      <DependentUpon>201711082030570_StartAtAndEndsAtColumnsAddedToSprintsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

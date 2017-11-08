@@ -21,14 +21,13 @@ namespace Scrummage.Models
 
         public DateTime CreatedAt { get; set; }
 
+        public DateTime StartsAt { get; set; }
+
+        public DateTime EndsAt { get; set; }
+
         public Sprint()
         {
             Tasks = new List<ScrumTask>();
-        }
-
-        public void Dupa()
-        {
-            
         }
     }
 }
