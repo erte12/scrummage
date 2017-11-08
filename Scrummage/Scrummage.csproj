@@ -229,15 +229,18 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SprintController.cs" />
-    <Compile Include="Controllers\TeamsController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Services\Validation\IValidationDictionary.cs" />
     <Compile Include="Core\Repositories\IApplicationUserRepository.cs" />
     <Compile Include="Core\Repositories\IEstimationRepository.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
     <Compile Include="Core\Repositories\IScrumTaskRepository.cs" />
     <Compile Include="Core\Repositories\ISprintRepository.cs" />
     <Compile Include="Core\Repositories\ITeamRepository.cs" />
+    <Compile Include="Core\Services\IService.cs" />
     <Compile Include="Core\Services\ISprintService.cs" />
+    <Compile Include="Services\Validation\ValidationDictionaryMvc.cs" />
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs" />
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.Designer.cs">
       <DependentUpon>201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs</DependentUpon>
@@ -344,6 +347,7 @@
     <Compile Include="Core\Services\IScrumTasksService.cs" />
     <Compile Include="Services\ScrumTasksService.cs" />
     <Compile Include="Services\SprintService.cs" />
+    <Compile Include="Services\Validation\ValidationDictionaryWebApi.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Presentation\ViewModels\NewSprintViewModel.cs" />
     <Compile Include="Presentation\ViewModels\VerifyPhoneNumberViewModel.cs" />
@@ -754,8 +758,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Teams\Index.cshtml" />
-    <Content Include="Views\Teams\Details.cshtml" />
+    <Content Include="Views\Team\Index.cshtml" />
+    <Content Include="Views\Team\Details.cshtml" />
     <Content Include="Views\Sprint\New.cshtml" />
     <Content Include="Views\Sprint\Manage.cshtml" />
     <Content Include="Views\Sprint\_TaskRow.cshtml" />

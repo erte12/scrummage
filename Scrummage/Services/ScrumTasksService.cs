@@ -5,6 +5,7 @@ using System.Web;
 using AutoMapper;
 using Scrummage.Core;
 using Scrummage.Core.Services;
+using Scrummage.Core.Services.Validation;
 using Scrummage.Dtos;
 using Scrummage.Models;
 
@@ -13,10 +14,16 @@ namespace Scrummage.Services
     public class ScrumTasksService : IScrumTasksService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private IValidationDictionary _validationDictionary;
 
         public ScrumTasksService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        public void Initialize(IValidationDictionary validationDictionary)
+        {
+            _validationDictionary = validationDictionary;
         }
 
         public ScrumTask Create(NewScrumTaskDto taskDto)
@@ -78,7 +85,6 @@ namespace Scrummage.Services
                 var took = _unitOfWork.Estimations.Get(tookId.Value);
 
                 if (took == null) return;
-
                 task.Took = took;
                 task.DoneAt = DateTime.Now;
             }

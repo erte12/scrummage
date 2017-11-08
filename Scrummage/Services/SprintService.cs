@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Scrummage.Core;
 using Scrummage.Core.Services;
+using Scrummage.Core.Services.Validation;
 using Scrummage.Models;
 
 namespace Scrummage.Services
@@ -11,10 +9,16 @@ namespace Scrummage.Services
     public class SprintService : ISprintService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private IValidationDictionary _validationDictionary;
 
         public SprintService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        public void Initialize(IValidationDictionary validationDictionary)
+        {
+            _validationDictionary = validationDictionary;
         }
 
         public Sprint Create(Sprint sprintToCreate)

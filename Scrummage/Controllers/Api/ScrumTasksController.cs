@@ -2,6 +2,7 @@
 using Scrummage.Core;
 using Scrummage.Core.Services;
 using Scrummage.Dtos;
+using Scrummage.Services.Validation;
 
 namespace Scrummage.Controllers.Api
 {

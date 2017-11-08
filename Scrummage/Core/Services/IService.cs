@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Scrummage.Models;
+using Scrummage.Core.Services.Validation;
 
 namespace Scrummage.Core.Services
 {
-    public interface ISprintService : IService
+    public interface IService
     {
-        Sprint Create(Sprint sprintToCreate);
+        void Initialize(IValidationDictionary validationDictionary);
     }
 }

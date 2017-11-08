@@ -9,6 +9,7 @@ using Scrummage.Core;
 using Scrummage.Core.Services;
 using Scrummage.Models;
 using Scrummage.Persistance;
+using Scrummage.Services.Validation;
 using Scrummage.ViewModels;
 
 namespace Scrummage.Controllers
@@ -22,6 +23,7 @@ namespace Scrummage.Controllers
         {
             _unitOfWork = unitOfWork;
             _sprintService = sprintService;
+            _sprintService.Initialize(new ValidationDictionaryMvc(ModelState));
         }
 
         //teamId temporarly hardcoded
@@ -64,6 +66,9 @@ namespace Scrummage.Controllers
             var newSprint = Mapper.Map<Sprint>(newSprintViewModel);
 
             _sprintService.Create(newSprint);
+
+            if (!ModelState.IsValid)
+                return HttpNotFound();
 
             return RedirectToAction("Manage", new {id = newSprint.Id});
         }

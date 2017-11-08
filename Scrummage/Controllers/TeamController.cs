@@ -7,11 +7,11 @@ using Scrummage.Persistance;
 
 namespace Scrummage.Controllers
 {
-    public class TeamsController : Controller
+    public class TeamController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public TeamsController(IUnitOfWork unitOfWork)
+        public TeamController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
