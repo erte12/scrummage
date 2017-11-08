@@ -1,6 +1,7 @@
 using System;
 using Scrummage.Core;
 using Scrummage.Core.Repositories;
+using Scrummage.Core.Services;
 using Scrummage.Models;
 using Scrummage.Persistance;
 using Scrummage.Persistance.Repositories;

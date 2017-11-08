@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Scrummage.Dtos;
+﻿using Scrummage.Dtos;
 using Scrummage.Models;
 
-namespace Scrummage.Services
+namespace Scrummage.Core.Services
 {
     public interface IScrumTasksService
     {

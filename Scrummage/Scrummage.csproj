@@ -336,7 +336,7 @@
     <Compile Include="Presentation\ViewModels\SetPasswordViewModel.cs" />
     <Compile Include="Presentation\ViewModels\VerifyCodeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IScrumTasksService.cs" />
+    <Compile Include="Core\Services\IScrumTasksService.cs" />
     <Compile Include="Services\ScrumTasksService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Presentation\ViewModels\NewSprintViewModel.cs" />

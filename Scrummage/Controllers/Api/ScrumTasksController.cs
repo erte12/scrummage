@@ -1,12 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Web.Http;
-using Scrummage.Models;
-using AutoMapper;
+﻿using System.Web.Http;
 using Scrummage.Core;
+using Scrummage.Core.Services;
 using Scrummage.Dtos;
-using Scrummage.Persistance;
-using Scrummage.Services;
 
 namespace Scrummage.Controllers.Api
 {

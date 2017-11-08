@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 using Scrummage.Core;
+using Scrummage.Core.Services;
 using Scrummage.Dtos;
 using Scrummage.Models;
 
