@@ -26,7 +26,6 @@ namespace Scrummage.Controllers
             _sprintService.Initialize(new ValidationDictionaryMvc(ModelState));
         }
 
-        //teamId temporarly hardcoded
         public ActionResult Index(int id = 0, int teamId = 24)
         {
             Sprint sprint;
@@ -105,6 +104,11 @@ namespace Scrummage.Controllers
             };
 
             return View(viewModel);
+        }
+
+        public ActionResult Statistics(int id)
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)
