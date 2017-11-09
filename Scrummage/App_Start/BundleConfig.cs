@@ -21,6 +21,13 @@ namespace Scrummage
                         "~/Scripts/typeahead.bundle.js"
                         ));
 
+            bundles.Add(new ScriptBundle("~/bundles/highcharts").Include(
+                "~/Scripts/highcharts/5.0.14/highcharts.js",
+                "~/Scripts/highcharts/5.0.14/modules/data.js",
+                "~/Scripts/highcharts/5.0.14/modules/series-label.js",
+                "~/Scripts/highcharts/5.0.14/modules/exporting.js"
+            ));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
