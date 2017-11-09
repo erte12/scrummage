@@ -21,17 +21,17 @@
             }
         </select>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-2">
         @Html.ActionLink("Manage Sprint", "Manage", "Sprint",
             new {id = @Model.SprintId},
             new {@class = "btn btn-primary btn-block"})
     </div>
-    <div class="col-md-1">
+    <div class="col-md-2">
         @Html.ActionLink("Statistics", "Statistics", "Sprint",
             new { id = @Model.SprintId },
             new {@class = "btn btn-primary btn-block"})
     </div>
-    <div class="col-md-1">
+    <div class="col-md-2">
         @Html.ActionLink("New sprint", "New", "Sprint",
             new {teamId = @Model.Team.Id},
             new {@class = "btn btn-success btn-block" })

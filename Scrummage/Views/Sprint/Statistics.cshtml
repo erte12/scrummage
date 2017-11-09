@@ -1,11 +1,13 @@
-﻿@model dynamic
+﻿@model int
 
 @{
     ViewBag.Title = "Statistics";
 }
 
 <h2>Statistics</h2>
-<hr/>
+<hr />
+@Html.ActionLink("Go to Scrum Board", "Index", new { Model }, new { @class = "btn btn-primary" })
+<hr />
 
 <div id="burndown" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
@@ -14,7 +16,7 @@
      @Scripts.Render("~/bundles/highcharts")
 
     <script>
-        $.getJSON('http://localhost:59355/api/SprintBurndownCharts', function (csv) {
+        $.getJSON('http://localhost:59355/api/SprintBurndownCharts/' + @Model, function (csv) {
 
             console.log(csv);
 
@@ -110,7 +112,7 @@
 
                 series: [{
                     name: 'All visits',
-                    lineWidth: 4,
+                    lineWidth: 2,
                     marker: {
                         radius: 4
                     }
@@ -130,7 +132,8 @@
                             }
                         }
                     }]
-                }
+                },
+                colors: ['#f45b5b', '#50B432']
             });
         });
     </script>

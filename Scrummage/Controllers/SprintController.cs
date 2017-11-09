@@ -108,7 +108,7 @@ namespace Scrummage.Controllers
 
         public ActionResult Statistics(int id)
         {
-            return View();
+            return View(id);
         }
 
         protected override void Dispose(bool disposing)

@@ -87,7 +87,7 @@ namespace Scrummage.Services
                 if (took == null) return;
 
                 task.Took = took;
-                task.DoneAt = DateTime.Now;
+                task.DoneAt = DateTime.Today;
             }
             else
                 task.DoneAt = null;

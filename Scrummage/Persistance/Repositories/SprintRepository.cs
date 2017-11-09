@@ -37,6 +37,20 @@ namespace Scrummage.Persistance.Repositories
             return sprint;
         }
 
+        public Sprint GetWithActiveTasks(int sprintId)
+        {
+            var sprint = ApplicationDbContext.Sprints
+                .SingleOrDefault(s => s.Id == sprintId);
+
+            ApplicationDbContext.ScrumTasks
+                .Where(s => s.SprintId == sprintId)
+                .Where(s => s.Estimation != null && s.UserId != null && s.Priority != null)
+                .Include(s => s.Estimation)
+                .Load();
+
+            return sprint;
+        }
+
         public Sprint GetWithTeamAndTasks(int sprintId)
         {
             var sprint = ApplicationDbContext.Sprints
