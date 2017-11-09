@@ -222,6 +222,7 @@
     <Compile Include="App_Start\UnityWebApiActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\SprintBurndownChartsController.cs" />
     <Compile Include="Controllers\Api\SprintController.cs" />
     <Compile Include="Controllers\Api\ScrumTasksController.cs" />
     <Compile Include="Controllers\Api\TeamsController.cs" />
