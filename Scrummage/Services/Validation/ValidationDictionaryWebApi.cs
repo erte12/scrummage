@@ -1,5 +1,4 @@
-﻿
-using System.Web.Http.ModelBinding;
+﻿using System.Web.Http.ModelBinding;
 using Scrummage.Core.Services.Validation;
 namespace Scrummage.Services.Validation
 {

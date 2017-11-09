@@ -85,6 +85,7 @@ namespace Scrummage.Services
                 var took = _unitOfWork.Estimations.Get(tookId.Value);
 
                 if (took == null) return;
+
                 task.Took = took;
                 task.DoneAt = DateTime.Now;
             }
