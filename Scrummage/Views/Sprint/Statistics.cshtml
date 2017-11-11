@@ -18,8 +18,6 @@
     <script>
         $.getJSON('http://localhost:59355/api/SprintBurndownCharts/' + @Model, function (csv) {
 
-            console.log(csv);
-
             Highcharts.chart('burndown', {
 
                 data: {
@@ -133,7 +131,7 @@
                         }
                     }]
                 },
-                colors: ['#f45b5b', '#50B432']
+                colors: ['#50B432', '#f45b5b']
             });
         });
     </script>
