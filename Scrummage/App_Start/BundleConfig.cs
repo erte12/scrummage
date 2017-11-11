@@ -29,7 +29,8 @@ namespace Scrummage
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/handlebars").Include(
-                "~/Scripts/handlebars.min.js"
+                "~/Scripts/handlebars.min.js",
+                "~/Scripts/handlebars-selecthelper.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

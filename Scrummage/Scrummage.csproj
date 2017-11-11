@@ -624,6 +624,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\handlebars-selecthelper.js" />
     <Content Include="Scripts\handlebars.amd.js" />
     <Content Include="Scripts\handlebars.amd.min.js" />
     <Content Include="Scripts\handlebars.js" />
