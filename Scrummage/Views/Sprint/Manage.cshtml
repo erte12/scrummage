@@ -39,7 +39,6 @@
     </div>
 </div>
 
-
 <hr/>
 <h2>Backlog</h2>
 <table id="tasks" class="table table-bordered table-hover">
@@ -50,104 +49,109 @@
         <th>Priority</th>
     </thead>
     <tbody>
-    
-    @if (Model.Tasks.Any())
-    {
-        //TODO: API Implementation
-        foreach (var task in Model.Tasks)
-        {
-            @Html.Partial("_TaskRow", new ManageSprintTaskRowViewModel
-            {
-                Task = task,
-                Users = Model.Users,
-                Estimations = Model.Estimations
-            })
-        }
-    }
-    else
-    {
-        @Html.Partial("_TaskRow", new ManageSprintTaskRowViewModel
-        {
-            Task = new ScrumTask{Id = 0, Content = null, UserId = null},
-            Users = Model.Users,
-            Estimations = Model.Estimations
-        })
-    }
     </tbody>
 </table>
 
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/handlebars")
+
     <script>
+        window.Handlebars.registerHelper('select', function (value, options) {
+            var $el = $('<select />').html(options.fn(this));
+            $el.find('[value="' + value + '"]').attr({ 'selected': 'selected' });
+            return $el.html();
+        });
+    </script>
 
-    $('#tasks').dataTable();
+    @* Task Row template *@
+    <script id="taskRow" type="text/x-handlebars-template">
+        @Html.Partial("_TaskRowRenderTest", new ManageSprintTaskRowViewModel
+        {
+            Users = Model.Users,
+            Estimations = Model.Estimations
+        })
+    </script>
+    
+    @* Render table content *@
+    <script>
+        var source = $('#taskRow').html();
+        var template = Handlebars.compile(source);
+        var table = $('#tasks');
 
-    //validaiton doesn't work properly'
-    $('#sprintForm').validate({
-        submitHandler: function () {
-
-            $.ajax({
-                url: '/api/sprint/@Model.Id',
-                method: 'patch',
-                data: $('#sprintForm').serialize()
-            })
-            .done(function() {
-                toastr.success('Changes has been saved!');
-
-            })
-            .fail(function() {
-                toastr.error('Something went wrong!');
+        $.get('/api/ScrumTasks?sprintId=' + @Model.Id, function (data) {
+            data.forEach(function(task) {
+                var taskRowHtml = template(task);
+                $('#tasks tbody').append(taskRowHtml);
             });
+        }).done(function() {
+            table.dataTable();
+        });
 
-            return false;
-        }
-    });
+        //validaiton doesn't work properly'
+        $('#sprintForm').validate({
+            submitHandler: function () {
 
-    $('#newTask').validate({
-        submitHandler: function () {
+                $.ajax({
+                        url: '/api/sprint/@Model.Id',
+                        method: 'patch',
+                        data: $('#sprintForm').serialize()
+                    })
+                    .done(function() {
+                        toastr.success('Changes has been saved!');
 
-            $.ajax({
-                    url: '/api/scrumtasks/',
-                    method: 'post',
-                    data: $('#newTask').serialize()
-                })
-                .done(function(data) {
-                    toastr.success('New task has been created!');
-                    $('.js-task-row').first().clone().appendTo($('#tasks tbody'));
-                    var newElement = $('.js-task-row').last().show();
+                    })
+                    .fail(function() {
+                        toastr.error('Something went wrong!');
+                    });
 
-                    newElement.attr('data-task-id', data.id);
-                    newElement.find('.js-task-content').last().text(data.content);
-                })
-                .fail(function() {
-                    toastr.error('Something went wrong!');
-                });
+                return false;
+            }
+        });
 
-            return false;
-        }
-    });
+        $('#newTask').validate({
+            submitHandler: function () {
 
-    $('.js-members').on('change',
-        function() {
+                $.ajax({
+                        url: '/api/scrumtasks/',
+                        method: 'post',
+                        data: $('#newTask').serialize()
+                    })
+                    .done(function(data) {
+                        toastr.success('New task has been created!');
+
+                        var taskRowHtml = template(data);
+                        $('#tasks tbody').prepend(taskRowHtml);
+                    })
+                    .fail(function() {
+                        toastr.error('Something went wrong!');
+                    });
+
+                return false;
+            }
+        });
+
+        $('#tasks tbody').on('change', '.js-members', function () {
+
+            console.log('went');
             var userId = $(this).val();
             var scrumTaskId = $(this).parents('tr').attr('data-task-id');
 
             $.ajax({
-                url: '/api/scrumtasks/' + scrumTaskId,
-                method: 'patch',
-                data: { userId: userId }
-            })
-            .done(function() {
-                toastr.success('User set successfully!');
-            })
-            .fail(function() {
-                toastr.error('Something went wrong!');
-            });
+                    url: '/api/scrumtasks/' + scrumTaskId,
+                    method: 'patch',
+                    data: { userId: userId }
+                })
+                .done(function() {
+                    toastr.success('User set successfully!');
+                })
+                .fail(function() {
+                    toastr.error('Something went wrong!');
+                });
         });
 
-    $('.js-estimations').on('change',
-        function() {
+        $('#tasks tbody').on('change', '.js-estimations', function() {
             var estimationId = $(this).val();
             var scrumTaskId = $(this).parents('tr').attr('data-task-id');
 
@@ -162,24 +166,23 @@
                 .fail(function() {
                     toastr.error('Something went wrong!');
                 });
-        });
+            });
 
-    $('.js-priority').on('change', function() {
-        var priority = $(this).val();
-        var scrumTaskId = $(this).parents('tr').attr('data-task-id');
+        $('#tasks tbody').on('change', '.js-priority', function() {
+            var priority = $(this).val();
+            var scrumTaskId = $(this).parents('tr').attr('data-task-id');
 
-        $.ajax({
-            url: '/api/scrumtasks/' + scrumTaskId,
-            method: 'patch',
-            data: { priority: priority }
-        })
-        .done(function() {
-            toastr.success('Priority changed successfully');
-        })
-        .fail(function() {
-            toastr.error('Something went wrong!');
+            $.ajax({
+                    url: '/api/scrumtasks/' + scrumTaskId,
+                    method: 'patch',
+                    data: { priority: priority }
+                })
+                .done(function() {
+                    toastr.success('Priority changed successfully');
+                })
+                .fail(function() {
+                    toastr.error('Something went wrong!');
+                });
         });
-    });
-        
     </script>
 }

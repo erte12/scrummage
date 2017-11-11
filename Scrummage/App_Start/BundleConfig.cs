@@ -28,6 +28,10 @@ namespace Scrummage
                 "~/Scripts/highcharts/5.0.14/modules/exporting.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/handlebars").Include(
+                "~/Scripts/handlebars.min.js"
+            ));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 

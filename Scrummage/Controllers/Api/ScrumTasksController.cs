@@ -1,7 +1,11 @@
-﻿using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using AutoMapper;
 using Scrummage.Core;
 using Scrummage.Core.Services;
 using Scrummage.Dtos;
+using Scrummage.Presentation.Dtos;
 using Scrummage.Services.Validation;
 
 namespace Scrummage.Controllers.Api
@@ -44,6 +48,14 @@ namespace Scrummage.Controllers.Api
                 return NotFound();
 
             return Ok(new { took = task.Took?.Value });
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetScrumTasksForSprint(int sprintId)
+        {
+            var tasks = _unitOfWork.ScrumTasks.GetScrumTasksBySprintId(sprintId);
+            var tasksDto = Mapper.Map<IEnumerable<ManageSprintScrumTaskDto>>(tasks);
+            return Ok(tasksDto);
         }
 
         protected override void Dispose(bool disposing)

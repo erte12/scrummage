@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Scrummage.Dtos;
 using Scrummage.Models;
+using Scrummage.Presentation.Dtos;
 using Scrummage.ViewModels;
 
 namespace Scrummage.App_Start
@@ -18,6 +19,10 @@ namespace Scrummage.App_Start
 
             CreateMap<SprintDto, Sprint>();
             CreateMap<NewSprintViewModel, Sprint>();
+
+            CreateMap<ScrumTask, ManageSprintScrumTaskDto>();
+
+            CreateMap<ApplicationUser, ApplicationUserDto>();
         }
     }
 }

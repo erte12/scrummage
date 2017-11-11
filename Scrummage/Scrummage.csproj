@@ -241,6 +241,8 @@
     <Compile Include="Core\Repositories\ITeamRepository.cs" />
     <Compile Include="Core\Services\IService.cs" />
     <Compile Include="Core\Services\ISprintService.cs" />
+    <Compile Include="Presentation\Dtos\ApplicationUserDto.cs" />
+    <Compile Include="Presentation\Dtos\ManageSprintScrumTaskDto.cs" />
     <Compile Include="Services\Validation\ValidationDictionaryMvc.cs" />
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs" />
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.Designer.cs">
@@ -622,6 +624,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\handlebars.amd.js" />
+    <Content Include="Scripts\handlebars.amd.min.js" />
+    <Content Include="Scripts\handlebars.js" />
+    <Content Include="Scripts\handlebars.min.js" />
+    <Content Include="Scripts\handlebars.runtime.amd.js" />
+    <Content Include="Scripts\handlebars.runtime.amd.min.js" />
+    <Content Include="Scripts\handlebars.runtime.js" />
+    <Content Include="Scripts\handlebars.runtime.min.js" />
     <Content Include="Scripts\highcharts\5.0.14\css\highcharts.css" />
     <Content Include="Scripts\highcharts\5.0.14\highcharts-3d.js" />
     <Content Include="Scripts\highcharts\5.0.14\highcharts-3d.src.js" />
@@ -851,6 +861,8 @@
     <Content Include="Scripts\highcharts\5.0.14\highcharts.js.map" />
     <Content Include="Scripts\highcharts\5.0.14\highcharts-more.js.map" />
     <Content Include="Scripts\highcharts\5.0.14\highcharts-3d.js.map" />
+    <Content Include="App_Readme\Handlebarsjs_README.md" />
+    <Content Include="App_Readme\Handlebarsjs_LICENSE" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -997,6 +1009,7 @@
     <Content Include="Views\Sprint\Index.cshtml" />
     <Content Include="Views\Sprint\_TaskBox.cshtml" />
     <Content Include="Views\Sprint\Statistics.cshtml" />
+    <Content Include="Views\Sprint\_TaskRowRenderTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

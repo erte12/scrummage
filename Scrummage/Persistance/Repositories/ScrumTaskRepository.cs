@@ -14,6 +14,14 @@ namespace Scrummage.Persistance.Repositories
         {
         }
 
+        public IEnumerable<ScrumTask> GetScrumTasksBySprintId(int sprintId)
+        {
+            return ApplicationDbContext.ScrumTasks
+                .Where(s => s.SprintId == sprintId)
+                .Include(s => s.User)
+                .ToList();
+        }
+
         public ApplicationDbContext ApplicationDbContext
         {
             get
