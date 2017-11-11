@@ -1044,11 +1044,10 @@
     <Content Include="Views\Team\Details.cshtml" />
     <Content Include="Views\Sprint\New.cshtml" />
     <Content Include="Views\Sprint\Manage.cshtml" />
-    <Content Include="Views\Sprint\_TaskRow.cshtml" />
     <Content Include="Views\Sprint\Index.cshtml" />
     <Content Include="Views\Sprint\_TaskBox.cshtml" />
     <Content Include="Views\Sprint\Statistics.cshtml" />
-    <Content Include="Views\Sprint\_TaskRowRenderTest.cshtml" />
+    <Content Include="Views\Sprint\_TaskRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
