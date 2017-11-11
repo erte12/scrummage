@@ -54,6 +54,18 @@ namespace Scrummage.Controllers.Api
             return Ok(tasksDto);
         }
 
+        [HttpDelete]
+        public IHttpActionResult DeleteScrumTask(int id)
+        {
+            var task = _unitOfWork.ScrumTasks.Get(id);
+            if (task == null)
+                return NotFound();
+
+            _unitOfWork.ScrumTasks.Remove(task);
+            _unitOfWork.Complate();
+            return Ok();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

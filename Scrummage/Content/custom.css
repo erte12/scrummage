@@ -30,3 +30,7 @@ td.selectbox-params-col {
 .task-buttons-board {
     margin-top: 8px;
 }
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
