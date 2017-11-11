@@ -43,7 +43,7 @@ namespace Scrummage
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap-united.css",
+                      "~/Content/bootswatch/cosmo/bootstrap.min.css",
                       "~/Content/toastr.css",
                       "~/Content/datatables/css/datatables.bootstrap.css",
                       "~/Content/typeahead.css",
