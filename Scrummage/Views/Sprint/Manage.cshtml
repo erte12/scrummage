@@ -6,9 +6,25 @@
     ViewBag.Title = "Manage Sprint";
 }
 
-<h2>Manage Sprint</h2>
+<h2>Manage Sprint - @Model.Name (@Model.StartsAt.ToString("d") - @Model.EndsAt.ToString("d"))</h2>
 <hr/>
-@Html.ActionLink("Go to Scrum Board", "Index", new {Model.Id}, new {@class="btn btn-primary"})
+<div class="row">
+    <div class="col-md-2">
+        @Html.ActionLink("Go to Scrum Board", "Index", 
+            new { Model.Id }, 
+            new { @class = "btn btn-primary btn-block" })
+    </div>
+    <div class="col-md-2">
+        @Html.ActionLink("Statistics", "Statistics", "Sprint", 
+            new { id = @Model.Id }, 
+            new { @class = "btn btn-primary btn-block" })
+    </div>
+    <div class="col-md-2">
+        @Html.ActionLink("New sprint", "New", "Sprint",
+            new {teamId = @Model.Team.Id},
+            new {@class = "btn btn-success btn-block" })
+    </div>
+</div>
 <hr/>
 
 <div class="row">

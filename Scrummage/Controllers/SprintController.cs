@@ -7,8 +7,10 @@ using System.Web.Mvc;
 using AutoMapper;
 using Scrummage.Core;
 using Scrummage.Core.Services;
+using Scrummage.Dtos;
 using Scrummage.Models;
 using Scrummage.Persistance;
+using Scrummage.Presentation.ViewModels;
 using Scrummage.Services.Validation;
 using Scrummage.ViewModels;
 
@@ -100,7 +102,10 @@ namespace Scrummage.Controllers
                 Description = sprint.Description,
                 Users = sprint.Team.Users,
                 Tasks = sprint.Tasks,
-                Estimations = estimations
+                Estimations = estimations,
+                Team = sprint.Team,
+                StartsAt = sprint.StartsAt.Date,
+                EndsAt = sprint.EndsAt.Date
             };
 
             return View(viewModel);
@@ -108,7 +113,14 @@ namespace Scrummage.Controllers
 
         public ActionResult Statistics(int id)
         {
-            return View(id);
+            var sprint = _unitOfWork.Sprints.GetWithTeam(id);
+
+            if (sprint == null)
+                return null;
+
+            var sprintViewModel = Mapper.Map<StatisticsSprintViewModel>(sprint);
+
+            return View(sprintViewModel);
         }
 
         protected override void Dispose(bool disposing)

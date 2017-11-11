@@ -2,6 +2,7 @@
 using Scrummage.Dtos;
 using Scrummage.Models;
 using Scrummage.Presentation.Dtos;
+using Scrummage.Presentation.ViewModels;
 using Scrummage.ViewModels;
 
 namespace Scrummage.App_Start
@@ -23,6 +24,8 @@ namespace Scrummage.App_Start
             CreateMap<ScrumTask, ManageSprintScrumTaskDto>();
 
             CreateMap<ApplicationUser, ApplicationUserDto>();
+
+            CreateMap<Sprint, StatisticsSprintViewModel>();
         }
     }
 }

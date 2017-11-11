@@ -1,12 +1,31 @@
-﻿@model int
+﻿@model Scrummage.Presentation.ViewModels.StatisticsSprintViewModel
 
 @{
     ViewBag.Title = "Statistics";
 }
 
-<h2>Statistics</h2>
+<h2>Statistics - @Model.Name (@Model.StartsAt.ToString("d") - @Model.EndsAt.ToString("d"))</h2>
 <hr />
-@Html.ActionLink("Go to Scrum Board", "Index", new { Model }, new { @class = "btn btn-primary" })
+
+<div class="row">
+    <div class="col-md-2">
+        @Html.ActionLink("Go to Scrum Board", "Index",
+            new { Model.Id },
+            new { @class = "btn btn-primary btn-block" })
+    </div>
+    <div class="col-md-2">
+        @Html.ActionLink("Manage Sprint", "Manage", "Sprint",
+            new { id = @Model.Id },
+            new { @class = "btn btn-primary btn-block" })
+    </div>
+    <div class="col-md-2">
+        @Html.ActionLink("New Sprint", "New", "Sprint",
+            new { teamId = @Model.Team.Id },
+            new { @class = "btn btn-success btn-block" })
+    </div>
+</div>
+
+
 <hr />
 
 <div id="burndown" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
@@ -16,7 +35,7 @@
      @Scripts.Render("~/bundles/highcharts")
 
     <script>
-        $.getJSON('http://localhost:59355/api/SprintBurndownCharts/' + @Model, function (csv) {
+        $.getJSON('http://localhost:59355/api/SprintBurndownCharts/' + @Model.Id, function (csv) {
 
             Highcharts.chart('burndown', {
 

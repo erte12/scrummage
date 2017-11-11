@@ -23,5 +23,11 @@ namespace Scrummage.ViewModels
         public List<ScrumTask> Tasks { get; set; }
 
         public IEnumerable<Estimation> Estimations { get; set; }
+
+        public Team Team { get; set; }
+
+        public DateTime StartsAt { get; set; }
+
+        public DateTime EndsAt { get; set; }
     }
 }

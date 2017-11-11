@@ -247,6 +247,7 @@
     </Compile>
     <Compile Include="Presentation\Dtos\ApplicationUserDto.cs" />
     <Compile Include="Presentation\Dtos\ManageSprintScrumTaskDto.cs" />
+    <Compile Include="Presentation\ViewModels\StatisticsSprintViewModel.cs" />
     <Compile Include="Services\Validation\ValidationDictionaryMvc.cs" />
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs" />
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.Designer.cs">
