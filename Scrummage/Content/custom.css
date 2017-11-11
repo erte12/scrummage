@@ -34,3 +34,16 @@ td.selectbox-params-col {
 .table > tbody > tr > td {
     vertical-align: middle;
 }
+
+.js-editable {
+    cursor: pointer;
+}
+
+.js-editable:hover {
+    font-weight: bold;
+}
+
+.bootbox-input.bootbox-input-textarea {
+    min-width: 100%;
+    min-height: 180px;
+}

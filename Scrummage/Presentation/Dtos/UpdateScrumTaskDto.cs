@@ -9,6 +9,9 @@ namespace Scrummage.Dtos
 {
     public class UpdateScrumTaskDto
     {
+        [MinLength(1)]
+        public string Content { get; set; }
+
         public int? EstimationId { get; set; }
 
         [Range(0, 5)]

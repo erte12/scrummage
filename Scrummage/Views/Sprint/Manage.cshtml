@@ -95,10 +95,10 @@
                         data: $('#sprintForm').serialize()
                     })
                     .done(function() {
-                        toastr.success('Changes has been saved!');
+                        toastr.success('Changes has been saved');
                     })
                     .fail(function() {
-                        toastr.error('Something went wrong!');
+                        toastr.error('Something went wrong');
                     });
 
                 return false;
@@ -116,13 +116,13 @@
                         data: $('#newTask').serialize()
                     })
                     .done(function(data) {
-                        toastr.success('New task has been created!');
+                        toastr.success('New task has been created');
                         var taskRowHtml = template(data);
                         $('#newTask').find('textarea').val('').focus();
                         table.row.add($(taskRowHtml)).draw();
                     })
                     .fail(function() {
-                        toastr.error('Something went wrong!');
+                        toastr.error('Something went wrong');
                     });
 
                 return false;
@@ -141,10 +141,10 @@
                 data: { userId: userId }
             })
             .done(function() {
-                toastr.success('User set successfully!');
+                toastr.success('User set successfully');
             })
             .fail(function() {
-                toastr.error('Something went wrong!');
+                toastr.error('Something went wrong');
             });
         });
 
@@ -158,10 +158,10 @@
                     data: { estimationId: estimationId }
                 })
                 .done(function() {
-                    toastr.success('Estimation set successfully!');
+                    toastr.success('Estimation set successfully');
                 })
                 .fail(function() {
-                    toastr.error('Something went wrong!');
+                    toastr.error('Something went wrong');
                 });
             });
 
@@ -178,7 +178,7 @@
                 toastr.success('Priority changed successfully');
             })
             .fail(function() {
-                toastr.error('Something went wrong!');
+                toastr.error('Something went wrong');
             });
         });
 
@@ -210,8 +210,37 @@
                             table.rows(taskRow).remove().draw();
                         })
                         .fail(function() {
-                            toastr.error('Something went wrong!');
+                            toastr.error('Something went wrong');
                         });
+                    }
+                }
+            });
+        });
+
+        $('#tasks tbody').on('click', '.js-editable', function () {
+            var contentElement = $(this);
+            var content = contentElement.text();
+            var scrumTaskId = contentElement.parents('tr').attr('data-task-id');
+
+            bootbox.prompt({
+                title: "Edit task's content",
+                inputType: 'textarea',
+                value: content,
+                callback: function (newContent) {
+                    if (newContent != null) {
+                        $.ajax({
+                            url: '/api/scrumtasks/' + scrumTaskId,
+                            method: 'patch',
+                            data: { content: newContent }
+                        })
+                        .done(function() {
+                            toastr.success('Content updated successfully');
+                            contentElement.html(newContent);
+                        })
+                        .fail(function() {
+                            toastr.error('Something went wrong');
+                        });
+
                     }
                 }
             });

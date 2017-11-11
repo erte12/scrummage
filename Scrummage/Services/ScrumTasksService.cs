@@ -45,6 +45,8 @@ namespace Scrummage.Services
             if (taskFromDb == null)
                 return null;
 
+            if (!string.IsNullOrWhiteSpace(taskDto.Content))
+                UpdateContent(taskFromDb, taskDto.Content);
             if (!string.IsNullOrWhiteSpace(taskDto.UserId))
                 UpdateUser(taskFromDb, taskDto.UserId);
             if (taskDto.EstimationId != null)
@@ -57,6 +59,11 @@ namespace Scrummage.Services
             _unitOfWork.Complate();
 
             return taskFromDb;
+        }
+
+        private void UpdateContent(ScrumTask task, string content)
+        {
+            task.Content = content;
         }
 
         private void UpdateUser(ScrumTask task, string userId)

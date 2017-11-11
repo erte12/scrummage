@@ -1,7 +1,7 @@
 ﻿@model Scrummage.ViewModels.ManageSprintTaskRowViewModel
 <tr data-task-id="{{id}}" class="js-task-row">
     <td class="task-content-col js-task-content">
-        {{content}}
+        <div class="js-editable" data-toggle="tooltip" title="Click to edit">{{content}}</div>
     </td>
     <td class="selectbox-user-col">
         <select class="form-control js-members">
