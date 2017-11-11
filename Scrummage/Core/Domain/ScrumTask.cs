@@ -32,6 +32,8 @@ namespace Scrummage.Models
         public string UserId { get; set; }
 
         public DateTime? DoneAt { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 
     public enum TaskType : byte

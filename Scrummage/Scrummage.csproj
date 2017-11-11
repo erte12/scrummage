@@ -241,6 +241,10 @@
     <Compile Include="Core\Repositories\ITeamRepository.cs" />
     <Compile Include="Core\Services\IService.cs" />
     <Compile Include="Core\Services\ISprintService.cs" />
+    <Compile Include="Migrations\201711111217357_AddCreatedAtColumnToScrumTasksTable.cs" />
+    <Compile Include="Migrations\201711111217357_AddCreatedAtColumnToScrumTasksTable.Designer.cs">
+      <DependentUpon>201711111217357_AddCreatedAtColumnToScrumTasksTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\Dtos\ApplicationUserDto.cs" />
     <Compile Include="Presentation\Dtos\ManageSprintScrumTaskDto.cs" />
     <Compile Include="Services\Validation\ValidationDictionaryMvc.cs" />
@@ -950,6 +954,7 @@
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.enter-submit.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1060,6 +1065,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711082030570_StartAtAndEndsAtColumnsAddedToSprintsTable.resx">
       <DependentUpon>201711082030570_StartAtAndEndsAtColumnsAddedToSprintsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711111217357_AddCreatedAtColumnToScrumTasksTable.resx">
+      <DependentUpon>201711111217357_AddCreatedAtColumnToScrumTasksTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

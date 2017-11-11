@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using AutoMapper;
@@ -29,6 +30,7 @@ namespace Scrummage.Services
         public ScrumTask Create(NewScrumTaskDto taskDto)
         {
             var newScrumTask = Mapper.Map<ScrumTask>(taskDto);
+            newScrumTask.CreatedAt = DateTime.Now;
 
             _unitOfWork.ScrumTasks.Add(newScrumTask);
             _unitOfWork.Complate();

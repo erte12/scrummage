@@ -28,12 +28,8 @@ namespace Scrummage.Controllers.Api
                 return BadRequest();
 
             var newScrumTask = _scrumTasksService.Create(taskDto);
-
-            return Ok(new
-            {
-                id = newScrumTask.Id,
-                content = newScrumTask.Content
-            });
+            var newScrumTaskDto = Mapper.Map<ManageSprintScrumTaskDto>(newScrumTask);
+            return Ok(newScrumTaskDto);
         }
 
         [HttpPatch]

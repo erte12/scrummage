@@ -17,5 +17,7 @@ namespace Scrummage.Presentation.Dtos
         public int? EstimationId { get; set; }
 
         public byte? Priority { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 }

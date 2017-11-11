@@ -47,6 +47,7 @@
         <th>Who</th>
         <th>Estimation</th>
         <th>Priority</th>
+        <th hidden>Created at</th>
     </thead>
     <tbody>
     </tbody>
@@ -73,12 +74,14 @@
         var table = $('#tasks');
 
         $.get('/api/ScrumTasks?sprintId=' + @Model.Id, function (data) {
-            data.forEach(function(task) {
+            data.forEach(function (task) {
                 var taskRowHtml = template(task);
                 $('#tasks tbody').append(taskRowHtml);
             });
         }).done(function() {
-            table.dataTable();
+            table = table.DataTable({
+                "order": [4, 'desc']
+            });
         });
 
         //validaiton doesn't work properly'
@@ -92,7 +95,6 @@
                     })
                     .done(function() {
                         toastr.success('Changes has been saved!');
-
                     })
                     .fail(function() {
                         toastr.error('Something went wrong!');
@@ -101,6 +103,8 @@
                 return false;
             }
         });
+
+        $("#sprintForm").enter();
 
         $('#newTask').validate({
             submitHandler: function () {
@@ -112,9 +116,9 @@
                     })
                     .done(function(data) {
                         toastr.success('New task has been created!');
-
                         var taskRowHtml = template(data);
-                        $('#tasks tbody').prepend(taskRowHtml);
+                        $('#newTask').find('textarea').val('').focus();
+                        table.row.add($(taskRowHtml)).draw();
                     })
                     .fail(function() {
                         toastr.error('Something went wrong!');
@@ -124,23 +128,23 @@
             }
         });
 
-        $('#tasks tbody').on('change', '.js-members', function () {
+        $("#newTask").enter();
 
-            console.log('went');
+        $('#tasks tbody').on('change', '.js-members', function () {
             var userId = $(this).val();
             var scrumTaskId = $(this).parents('tr').attr('data-task-id');
 
             $.ajax({
-                    url: '/api/scrumtasks/' + scrumTaskId,
-                    method: 'patch',
-                    data: { userId: userId }
-                })
-                .done(function() {
-                    toastr.success('User set successfully!');
-                })
-                .fail(function() {
-                    toastr.error('Something went wrong!');
-                });
+                url: '/api/scrumtasks/' + scrumTaskId,
+                method: 'patch',
+                data: { userId: userId }
+            })
+            .done(function() {
+                toastr.success('User set successfully!');
+            })
+            .fail(function() {
+                toastr.error('Something went wrong!');
+            });
         });
 
         $('#tasks tbody').on('change', '.js-estimations', function() {
