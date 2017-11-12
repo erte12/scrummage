@@ -41,7 +41,7 @@ namespace Scrummage.Controllers
                     : RedirectToAction("Index", new { sprint.Id });
             }
 
-            sprint = _unitOfWork.Sprints.GetWithTeamAndActiveTasks(id);
+            sprint = _unitOfWork.Sprints.GetWithTeamAndUsers(id);
 
             if (sprint == null)
                 return HttpNotFound();
@@ -51,7 +51,7 @@ namespace Scrummage.Controllers
 
             var viewModel = new SprintBoardViewModel
             {
-                SprintId = sprint.Id,
+                Id = sprint.Id,
                 Team = sprint.Team,
                 Users = sprint.Team.Users,
                 TeamSprints = teamSprints,

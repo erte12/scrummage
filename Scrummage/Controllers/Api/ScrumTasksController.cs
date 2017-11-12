@@ -28,7 +28,7 @@ namespace Scrummage.Controllers.Api
                 return BadRequest();
 
             var newScrumTask = _scrumTasksService.Create(taskDto);
-            var newScrumTaskDto = Mapper.Map<ManageSprintScrumTaskDto>(newScrumTask);
+            var newScrumTaskDto = Mapper.Map<ScrumTaskDto>(newScrumTask);
             return Ok(newScrumTaskDto);
         }
 
@@ -47,10 +47,13 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpGet]
-        public IHttpActionResult GetScrumTasksForSprint(int sprintId)
+        public IHttpActionResult GetScrumTasksForSprint(int sprintId, bool onlyActive = false)
         {
-            var tasks = _unitOfWork.ScrumTasks.GetScrumTasksBySprintId(sprintId);
-            var tasksDto = Mapper.Map<IEnumerable<ManageSprintScrumTaskDto>>(tasks);
+            var tasks = onlyActive
+                ? _unitOfWork.ScrumTasks.GetActiveScrumTasksBySprintId(sprintId)
+                : _unitOfWork.ScrumTasks.GetScrumTasksBySprintId(sprintId);
+
+            var tasksDto = Mapper.Map<IEnumerable<ScrumTaskDto>>(tasks);
             return Ok(tasksDto);
         }
 

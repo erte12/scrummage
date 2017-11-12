@@ -1,4 +1,7 @@
 using System;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Scrummage.Controllers;
 using Scrummage.Core;
 using Scrummage.Core.Repositories;
 using Scrummage.Core.Services;
@@ -8,6 +11,7 @@ using Scrummage.Persistance.Repositories;
 using Scrummage.Services;
 using Unity;
 using Unity.AspNet.Mvc;
+using Unity.Injection;
 using Unity.Lifetime;
 
 namespace Scrummage
@@ -54,6 +58,10 @@ namespace Scrummage
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType<IScrumTasksService, ScrumTasksService>();
             container.RegisterType<ISprintService, SprintService>();
+
+            //TODO: Change
+            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
         }
     }
 }

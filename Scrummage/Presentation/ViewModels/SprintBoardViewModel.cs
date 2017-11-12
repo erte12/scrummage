@@ -8,7 +8,7 @@ namespace Scrummage.ViewModels
 {
     public class SprintBoardViewModel
     {
-        public int SprintId { get; set; }
+        public int Id { get; set; }
 
         public Team Team { get; set; }
 

@@ -21,11 +21,14 @@ namespace Scrummage.App_Start
             CreateMap<SprintDto, Sprint>();
             CreateMap<NewSprintViewModel, Sprint>();
 
-            CreateMap<ScrumTask, ManageSprintScrumTaskDto>();
+            CreateMap<ScrumTask, ScrumTaskDto>();
 
             CreateMap<ApplicationUser, ApplicationUserDto>();
 
             CreateMap<Sprint, StatisticsSprintViewModel>();
+
+            CreateMap<Estimation, EstimationDto>();
+
         }
     }
 }

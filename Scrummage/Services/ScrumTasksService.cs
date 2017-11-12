@@ -61,7 +61,7 @@ namespace Scrummage.Services
             return taskFromDb;
         }
 
-        private void UpdateContent(ScrumTask task, string content)
+        private static void UpdateContent(ScrumTask task, string content)
         {
             task.Content = content;
         }
@@ -78,7 +78,7 @@ namespace Scrummage.Services
             task.EstimationId = estimation?.Id;
         }
 
-        private void UpdatePriority(ScrumTask task, byte priority)
+        private static void UpdatePriority(ScrumTask task, byte priority)
         {
             if (!Enumerable.Range(1, 5).Contains(priority))
                 task.Priority = null;
@@ -88,18 +88,20 @@ namespace Scrummage.Services
 
         private void UpdateTaskType(ScrumTask task, TaskType taskType, int? tookId = null)
         {
-            task.TaskType = taskType;
             if (tookId != null)
             {
                 var took = _unitOfWork.Estimations.Get(tookId.Value);
-
                 if (took == null) return;
-
                 task.Took = took;
                 task.DoneAt = DateTime.Today;
             }
             else
+            {
+                task.TookId = null;
                 task.DoneAt = null;
+            }
+
+            task.TaskType = taskType;
         }
     }
 }

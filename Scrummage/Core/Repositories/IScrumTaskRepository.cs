@@ -10,5 +10,6 @@ namespace Scrummage.Core.Repositories
     public interface IScrumTaskRepository : IRepository<ScrumTask>
     {
         IEnumerable<ScrumTask> GetScrumTasksBySprintId(int sprintId);
+        IEnumerable<ScrumTask> GetActiveScrumTasksBySprintId(int sprintId);
     }
 }

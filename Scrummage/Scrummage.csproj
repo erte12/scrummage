@@ -246,7 +246,8 @@
       <DependentUpon>201711111217357_AddCreatedAtColumnToScrumTasksTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Dtos\ApplicationUserDto.cs" />
-    <Compile Include="Presentation\Dtos\ManageSprintScrumTaskDto.cs" />
+    <Compile Include="Presentation\Dtos\EstimationDto.cs" />
+    <Compile Include="Presentation\Dtos\ScrumTaskDto.cs" />
     <Compile Include="Presentation\ViewModels\StatisticsSprintViewModel.cs" />
     <Compile Include="Services\Validation\ValidationDictionaryMvc.cs" />
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs" />
@@ -1092,6 +1093,7 @@
     <Content Include="Views\Sprint\_TaskBox.cshtml" />
     <Content Include="Views\Sprint\Statistics.cshtml" />
     <Content Include="Views\Sprint\_TaskRow.cshtml" />
+    <Content Include="Views\Sprint\_TaskBoxRenderTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -16,10 +16,23 @@ namespace Scrummage.Persistance.Repositories
 
         public IEnumerable<ScrumTask> GetScrumTasksBySprintId(int sprintId)
         {
+            return GetTasksBySprintIdQuery(sprintId).ToList();
+        }
+
+        public IEnumerable<ScrumTask> GetActiveScrumTasksBySprintId(int sprintId)
+        {
+            return GetTasksBySprintIdQuery(sprintId)
+                .Where(s => s.Estimation != null && s.UserId != null && s.Priority != null)
+                .ToList();
+        }
+
+        private IQueryable<ScrumTask> GetTasksBySprintIdQuery(int sprintId)
+        {
             return ApplicationDbContext.ScrumTasks
                 .Where(s => s.SprintId == sprintId)
                 .Include(s => s.User)
-                .ToList();
+                .Include(s => s.Estimation)
+                .Include(s => s.Took);
         }
 
         public ApplicationDbContext ApplicationDbContext
