@@ -43,7 +43,15 @@ td.selectbox-params-col {
     font-weight: bold;
 }
 
+.js-taskbox {
+    cursor: move;
+}
+
 .bootbox-input.bootbox-input-textarea {
     min-width: 100%;
     min-height: 180px;
+}
+
+.ui-state-hover {
+    background-color: beige;
 }

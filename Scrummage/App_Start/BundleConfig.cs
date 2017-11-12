@@ -33,6 +33,10 @@ namespace Scrummage
                 "~/Scripts/handlebars-selecthelper.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquery-ui").Include(
+                "~/Scripts/jquery-ui-1.12.1.js"
+            ));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.enter-submit.js",
                         "~/Scripts/jquery.validate*"));

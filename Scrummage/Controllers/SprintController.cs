@@ -27,7 +27,7 @@ namespace Scrummage.Controllers
             _sprintService = sprintService;
             _sprintService.Initialize(new ValidationDictionaryMvc(ModelState));
         }
-
+        
         public ActionResult Index(int id = 0, int teamId = 24)
         {
             Sprint sprint;
