@@ -1,7 +1,7 @@
 ﻿@using Scrummage.Models
 @model ScrumTask
 
-<div data-task-id="@Model.Id" class="col-md-6 js-taskbox">
+<div data-task-id="@Model.Id" class="col-lg-6 js-taskbox">
     <div class="panel panel-default">
         <div class="panel-body text-justify">
             @Model.Content
@@ -19,13 +19,15 @@
                 <strong>Estimation: @Model.Estimation.Value</strong>
             </div>
             <div class="js-done" @(Model.TaskType != TaskType.Done ? "hidden" : null)>
-                <strong>Took: <js-took>
-                    @if (@Model.Took != null)
-                    {
-                        @Model.Took.Value
-                    }
-                </js-took></strong>
-            </div>
+                <strong>Took: 
+                    <js-took>
+                        @if (@Model.Took != null)
+                        {
+                            @Model.Took.Value
+                        }
+                    </js-took>
+                </strong>
+            </div>  
         </div>
     </div>
 </div> 

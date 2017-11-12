@@ -4,8 +4,6 @@
 @{
     ViewBag.Title = "Scrum Board";
 }
-@section fullWidth
-{
     
 <h2>Scrum board - @Model.Team.Name</h2>
 <hr/>
@@ -38,6 +36,10 @@
     </div>
 </div>
 <hr/> 
+
+@section fullWidth
+{
+
 <table id="scrumBoard" class="table table-bordered table-hover">
     <thead>
     <th>Who</th>
