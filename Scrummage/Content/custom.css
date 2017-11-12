@@ -31,7 +31,7 @@ td.selectbox-params-col {
     margin-top: 8px;
 }
 
-.table > tbody > tr > td {
+.table > tbody > tr.js-task-row > td {
     vertical-align: middle;
 }
 

@@ -1,25 +1,22 @@
-﻿@using Scrummage.Models
-@model ScrumTask
-
-<div data-task-id="@Model.Id" class="col-lg-6 js-taskbox" data-toggle="tooltip" title="Drag me!">
+﻿<div data-task-id="{{id}}" class="col-lg-6 js-taskbox" data-toggle="tooltip" title="Drag me!">
     <div class="panel panel-primary">
         <div class="panel-body text-justify">
-            @Model.Content
+            {{content}}
         </div>
         <div class="panel-footer">
             <div>
-                <strong>Priority: @Model.Priority</strong>
+                <strong>Priority: {{priority}}</strong>
             </div>
             <div>
-                <strong>Estimation: @Model.Estimation.Value</strong>
+                <strong>Estimation: {{estimation.value}}</strong>
             </div>
-            <div class="js-done" @(Model.TaskType != TaskType.Done ? "hidden" : null)>
-                <strong>Took:
+            <div class="js-done">
+                <strong>
+                    Took:
                     <js-took>
-                        @if (@Model.Took != null)
-                        {
-                            @Model.Took.Value
-                        }
+                        {{#if took}}
+                            {{took.value}}
+                        {{/if}}
                     </js-took>
                 </strong>
             </div>

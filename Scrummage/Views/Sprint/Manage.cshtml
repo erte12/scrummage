@@ -9,17 +9,17 @@
 <h2>Manage Sprint - @Model.Name (@Model.StartsAt.ToString("d") - @Model.EndsAt.ToString("d"))</h2>
 <hr/>
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-lg-2">
         @Html.ActionLink("Go to Scrum Board", "Index", 
             new { Model.Id }, 
             new { @class = "btn btn-primary btn-block" })
     </div>
-    <div class="col-md-2">
+    <div class="col-lg-2">
         @Html.ActionLink("Statistics", "Statistics", "Sprint", 
             new { id = @Model.Id }, 
             new { @class = "btn btn-primary btn-block" })
     </div>
-    <div class="col-md-2">
+    <div class="col-lg-2">
         @Html.ActionLink("New sprint", "New", "Sprint",
             new {teamId = @Model.Team.Id},
             new {@class = "btn btn-success btn-block" })

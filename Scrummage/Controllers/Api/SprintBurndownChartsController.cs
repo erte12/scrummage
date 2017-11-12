@@ -22,7 +22,7 @@ namespace Scrummage.Controllers.Api
         [HttpGet]
         public IHttpActionResult Index(int id)
         {
-            var sprint = _unitOfWork.Sprints.GetWithTeamAndUsers(id);
+            var sprint = _unitOfWork.Sprints.GetWithActiveTasks(id);
 
             if (sprint == null)
                 return NotFound();

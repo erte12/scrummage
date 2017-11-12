@@ -9,36 +9,36 @@
 <h2>Scrum board - @Model.Team.Name</h2>
 <hr/>
 <div class="row">
-    <div class="col-md-2">
-        <select id="sprintsList" class="form-control">
-            <option value="0">-</option>
-            @foreach (var sprint in @Model.TeamSprints)
-            {
-                <option @((sprint.Id == Model.Id)
-                              ? "selected"
-                              : null) value="@sprint.Id">@sprint.Name</option>
-            }
-        </select>
-    </div>
-    <div class="col-sm-2">
-        @Html.ActionLink("Manage Sprint", "Manage", "Sprint",
-            new {id = @Model.Id},
-            new {@class = "btn btn-primary btn-block"})
-    </div>
-    <div class="col-md-2">
-        @Html.ActionLink("Statistics", "Statistics", "Sprint",
-            new { id = @Model.Id },
-            new {@class = "btn btn-primary btn-block"})
-    </div>
-    <div class="col-md-2">
-        @Html.ActionLink("New sprint", "New", "Sprint",
-            new {teamId = @Model.Team.Id},
-            new {@class = "btn btn-success btn-block" })
+    <div class="container pull-left">
+        <div class="col-lg-2">
+            <select id="sprintsList" class="form-control">
+                <option value="0">-</option>
+                @foreach (var sprint in @Model.TeamSprints)
+                {
+                    <option @((sprint.Id == Model.Id)
+                                    ? "selected"
+                                    : null) value="@sprint.Id">@sprint.Name</option>
+                }
+            </select>
+        </div>
+        <div class="col-lg-2">
+            @Html.ActionLink("Manage Sprint", "Manage", "Sprint",
+                new {id = @Model.Id},
+                new {@class = "btn btn-primary btn-block"})
+        </div>
+        <div class="col-lg-2">
+            @Html.ActionLink("Statistics", "Statistics", "Sprint",
+                new { id = @Model.Id },
+                new {@class = "btn btn-primary btn-block"})
+        </div>
+        <div class="col-lg-2">
+            @Html.ActionLink("New sprint", "New", "Sprint",
+                new {teamId = @Model.Team.Id},
+                new {@class = "btn btn-success btn-block" })
+        </div>
     </div>
 </div>
-
 <hr/>
- 
 <table id="scrumBoard" class="table table-bordered">
     <thead>
     <tr>
@@ -78,13 +78,13 @@
 
     @* Task Box template *@
     <script id="taskBox" type="text/x-handlebars-template">
-        @Html.Partial("_TaskBoxRenderTest")
+        @Html.Partial("_TaskBox")
     </script>
 
     <script>
         var source = $('#taskBox').html();
         var template = Handlebars.compile(source);
-        var table = $('#tasks');
+        var table = $('#scrumBoard');
 
         $.get('/api/ScrumTasks?sprintId=' + @Model.Id + '&onlyActive=true', function (data) {
             data.forEach(function (task) {
@@ -114,7 +114,7 @@
                 }
             });
 
-            $('#scrumBoard').dataTable();
+            table.dataTable();
         });
 
         $('#sprintsList').on('change', function () {
@@ -181,7 +181,7 @@
                         break;
                     }
 
-                    toastr.success('Task status changed');
+                    toastr.success('Task status changed successfully');
                 })
 
                 .fail(function() {
