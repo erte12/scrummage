@@ -8,6 +8,7 @@ namespace Scrummage.Dtos
     public class MemberTeamDto
     {
         public int TeamId { get; set; }
+
         public string MemberId { get; set; }
     }
 }

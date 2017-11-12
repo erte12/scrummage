@@ -27,7 +27,7 @@ namespace Scrummage.Services
             _validationDictionary = validationDictionary;
         }
 
-        public ScrumTask Create(NewScrumTaskDto taskDto)
+        public ScrumTask Create(ScrumTaskNewDto taskDto)
         {
             var newScrumTask = Mapper.Map<ScrumTask>(taskDto);
             newScrumTask.CreatedAt = DateTime.Now;
@@ -38,7 +38,7 @@ namespace Scrummage.Services
             return newScrumTask;
         }
 
-        public ScrumTask Update(int taskId, UpdateScrumTaskDto taskDto)
+        public ScrumTask Update(int taskId, ScrumTaskUpdateDto taskDto)
         {
             var taskFromDb = _unitOfWork.ScrumTasks.Get(taskId);
 

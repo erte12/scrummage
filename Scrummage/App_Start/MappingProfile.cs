@@ -14,18 +14,16 @@ namespace Scrummage.App_Start
             CreateMap<TeamDto, Team>();
             CreateMap<Team, TeamDto>();
 
-            CreateMap<ApplicationUser, UserDto>();
-
-            CreateMap<NewScrumTaskDto, ScrumTask>();
+            CreateMap<ScrumTaskNewDto, ScrumTask>();
 
             CreateMap<SprintDto, Sprint>();
-            CreateMap<NewSprintViewModel, Sprint>();
+            CreateMap<SprintNewViewModel, Sprint>();
 
             CreateMap<ScrumTask, ScrumTaskDto>();
 
             CreateMap<ApplicationUser, ApplicationUserDto>();
 
-            CreateMap<Sprint, StatisticsSprintViewModel>();
+            CreateMap<Sprint, SprintStatisticsViewModel>();
 
             CreateMap<Estimation, EstimationDto>();
 

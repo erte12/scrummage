@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Scrummage.ViewModels
 {
-    public class NewSprintViewModel
+    public class SprintNewViewModel
     {
         public int Id { get; set; }
 

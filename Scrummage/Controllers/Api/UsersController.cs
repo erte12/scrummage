@@ -9,6 +9,7 @@ using Scrummage.Core;
 using Scrummage.Dtos;
 using Scrummage.Models;
 using Scrummage.Persistance;
+using Scrummage.Presentation.Dtos;
 
 namespace Scrummage.Controllers.Api
 {
@@ -27,7 +28,7 @@ namespace Scrummage.Controllers.Api
          
             return Ok(users
                 .ToList()
-                .Select(Mapper.Map<ApplicationUser, UserDto>));
+                .Select(Mapper.Map<ApplicationUser, ApplicationUserDto>));
         }
 
         protected override void Dispose(bool disposing)

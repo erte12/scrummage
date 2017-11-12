@@ -1,6 +1,6 @@
 ﻿@using Scrummage.Models
 @using Scrummage.ViewModels
-@model ManageSprintViewModel
+@model SprintManageViewModel
 
 @{
     ViewBag.Title = "Manage Sprint";
@@ -79,7 +79,7 @@
 
     @* Task Row template *@
     <script id="taskRow" type="text/x-handlebars-template">
-        @Html.Partial("_TaskRow", new ManageSprintTaskRowViewModel
+        @Html.Partial("_TaskRow", new SprintManageTaskRowViewModel
         {
             Users = Model.Users,
             Estimations = Model.Estimations

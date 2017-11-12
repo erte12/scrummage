@@ -6,7 +6,7 @@ using Scrummage.Models;
 
 namespace Scrummage.ViewModels
 {
-    public class ManageSprintTaskRowViewModel
+    public class SprintManageTaskRowViewModel
     {
         public ScrumTask Task { get; set; }
 

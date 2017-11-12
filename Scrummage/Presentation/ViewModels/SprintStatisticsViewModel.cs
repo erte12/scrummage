@@ -6,7 +6,7 @@ using Scrummage.Models;
 
 namespace Scrummage.Presentation.ViewModels
 {
-    public class StatisticsSprintViewModel
+    public class SprintStatisticsViewModel
     {
         public int Id { get; set; }
 

@@ -5,7 +5,7 @@ namespace Scrummage.Core.Services
 {
     public interface IScrumTasksService : IService
     {
-        ScrumTask Create(NewScrumTaskDto taskDto);
-        ScrumTask Update(int taskId, UpdateScrumTaskDto taskDto);
+        ScrumTask Create(ScrumTaskNewDto taskDto);
+        ScrumTask Update(int taskId, ScrumTaskUpdateDto taskDto);
     }
 }

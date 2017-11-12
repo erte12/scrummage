@@ -7,7 +7,7 @@ using Scrummage.Models;
 
 namespace Scrummage.Dtos
 {
-    public class NewScrumTaskDto
+    public class ScrumTaskNewDto
     {
         [Required]
         public string Content { get; set; }

@@ -22,7 +22,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpPost]
-        public IHttpActionResult CreateScrumTask(NewScrumTaskDto taskDto)
+        public IHttpActionResult CreateScrumTask(ScrumTaskNewDto taskDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -33,7 +33,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpPatch]
-        public IHttpActionResult UpdateScrumTask(int id, UpdateScrumTaskDto taskDto)
+        public IHttpActionResult UpdateScrumTask(int id, ScrumTaskUpdateDto taskDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();

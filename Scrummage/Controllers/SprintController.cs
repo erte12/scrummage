@@ -62,9 +62,9 @@ namespace Scrummage.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(NewSprintViewModel newSprintViewModel)
+        public ActionResult Save(SprintNewViewModel sprintNewViewModel)
         {
-            var newSprint = Mapper.Map<Sprint>(newSprintViewModel);
+            var newSprint = Mapper.Map<Sprint>(sprintNewViewModel);
 
             _sprintService.Create(newSprint);
 
@@ -81,7 +81,7 @@ namespace Scrummage.Controllers
             if (team == null)
                 return HttpNotFound();
 
-            var viewModel = new NewSprintViewModel { TeamId = team.Id };
+            var viewModel = new SprintNewViewModel { TeamId = team.Id };
 
             return View(viewModel);
         }
@@ -95,7 +95,7 @@ namespace Scrummage.Controllers
 
             var estimations = _unitOfWork.Estimations.GetAll();
 
-            var viewModel = new ManageSprintViewModel
+            var viewModel = new SprintManageViewModel
             {
                 Id = sprint.Id,
                 Name = sprint.Name,
@@ -118,7 +118,7 @@ namespace Scrummage.Controllers
             if (sprint == null)
                 return null;
 
-            var sprintViewModel = Mapper.Map<StatisticsSprintViewModel>(sprint);
+            var sprintViewModel = Mapper.Map<SprintStatisticsViewModel>(sprint);
 
             return View(sprintViewModel);
         }

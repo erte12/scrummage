@@ -248,7 +248,7 @@
     <Compile Include="Presentation\Dtos\ApplicationUserDto.cs" />
     <Compile Include="Presentation\Dtos\EstimationDto.cs" />
     <Compile Include="Presentation\Dtos\ScrumTaskDto.cs" />
-    <Compile Include="Presentation\ViewModels\StatisticsSprintViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\SprintStatisticsViewModel.cs" />
     <Compile Include="Services\Validation\ValidationDictionaryMvc.cs" />
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs" />
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.Designer.cs">
@@ -263,11 +263,10 @@
       <DependentUpon>201711082030570_StartAtAndEndsAtColumnsAddedToSprintsTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Dtos\MemberTeamDto.cs" />
-    <Compile Include="Presentation\Dtos\NewScrumTaskDto.cs" />
+    <Compile Include="Presentation\Dtos\ScrumTaskNewDto.cs" />
     <Compile Include="Presentation\Dtos\SprintDto.cs" />
     <Compile Include="Presentation\Dtos\TeamDto.cs" />
-    <Compile Include="Presentation\Dtos\UpdateScrumTaskDto.cs" />
-    <Compile Include="Presentation\Dtos\UserDto.cs" />
+    <Compile Include="Presentation\Dtos\ScrumTaskUpdateDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -329,37 +328,37 @@
     <Compile Include="Persistance\Repositories\SprintRepository.cs" />
     <Compile Include="Persistance\Repositories\TeamRepository.cs" />
     <Compile Include="Persistance\UnitOfWork.cs" />
-    <Compile Include="Presentation\ViewModels\AddPhoneNumberViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\AddPhoneNumberViewModel.cs" />
     <Compile Include="Presentation\ViewModels\SprintBoardViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\ChangePasswordViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\FactorViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\ForgotPasswordViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\ChangePasswordViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\FactorViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\ForgotPasswordViewModel.cs" />
     <Compile Include="Core\Domain\ApplicationUser.cs" />
     <Compile Include="Persistance\EntityConfiguration\TeamsConfiguration.cs" />
     <Compile Include="Persistance\ApplicationDbContext.cs" />
-    <Compile Include="Presentation\ViewModels\ExternalLoginConfirmationViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\ExternalLoginListViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\ForgotViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\ExternalLoginConfirmationViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\ExternalLoginListViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\ForgotViewModel.cs" />
     <Compile Include="Presentation\ViewModels\IndexViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\LoginViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\ManageLoginsViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\ManageSprintTaskRowViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\ManageSprintViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\ConfigureTwoFactorViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\RegisterViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\ResetPasswordViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\SendCodeViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\LoginViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\ManageLoginsViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\SprintManageTaskRowViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\SprintManageViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\ConfigureTwoFactorViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\RegisterViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\ResetPasswordViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\SendCodeViewModel.cs" />
     <Compile Include="Core\Domain\Team.cs" />
-    <Compile Include="Presentation\ViewModels\SetPasswordViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\VerifyCodeViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\SetPasswordViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\VerifyCodeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Services\IScrumTasksService.cs" />
     <Compile Include="Services\ScrumTasksService.cs" />
     <Compile Include="Services\SprintService.cs" />
     <Compile Include="Services\Validation\ValidationDictionaryWebApi.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Presentation\ViewModels\NewSprintViewModel.cs" />
-    <Compile Include="Presentation\ViewModels\VerifyPhoneNumberViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\SprintNewViewModel.cs" />
+    <Compile Include="Presentation\ViewModels\Account\VerifyPhoneNumberViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datetimepicker.css" />
