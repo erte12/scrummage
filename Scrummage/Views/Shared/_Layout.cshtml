@@ -24,7 +24,10 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Manage Teams", "Index", "Team")</li>
-                    <li>@Html.ActionLink("Scrum Board", "Index", "Sprint")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Scrum Boards <span class="caret"></span></a>
+                        <ul class="dropdown-menu" id="scrumBoardNavigation"></ul>
+                    </li>
                     <li>@Html.ActionLink("Events Board", "Index", "Event")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -39,15 +42,34 @@
     @RenderSection("fullWidth", required: false)
 </div>
 
-    <div class="container body-content">
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-    
+<div class="container body-content">
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+</div>
 
 @Scripts.Render("~/bundles/lib")
-    @RenderSection("scripts", required: false)
+    
+<script>
+    $.get('/api/Teams', function (data) {
+        data.forEach(function (team) {
+            var menuElement = createMenuElement('/Sprint/Index?id=0&teamId=' + team.id, team.name);
+            menuElement.appendTo('#scrumBoardNavigation');
+        });
+    }); 
+
+    function createMenuElement(destination, text) {
+        var menuElement = $('<li><a></a></li>');
+        menuElement.find('a')
+            .attr('href', destination)
+            .text(text);
+
+        return menuElement;
+    }
+
+</script>   
+
+@RenderSection("scripts", required: false)
 </body>
 </html>

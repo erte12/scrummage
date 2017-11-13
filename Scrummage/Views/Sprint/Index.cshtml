@@ -10,7 +10,7 @@
 <hr/>
 <div class="row">
     <div class="container pull-left">
-        <div class="col-lg-2">
+        <div class="col-lg-3">
             <select id="sprintsList" class="form-control">
                 <option value="0">-</option>
                 @foreach (var sprint in @Model.TeamSprints)
@@ -32,7 +32,7 @@
                 new {@class = "btn btn-primary btn-block"})
         </div>
         <div class="col-lg-2">
-            @Html.ActionLink("New sprint", "New", "Sprint",
+            @Html.ActionLink("New Sprint", "New", "Sprint",
                 new {teamId = @Model.Team.Id},
                 new {@class = "btn btn-success btn-block" })
         </div>
@@ -72,9 +72,9 @@
 
 @section scripts
 {
-    @Scripts.Render("~/bundles/lib")
-    @Scripts.Render("~/bundles/jquery-ui")
-    @Scripts.Render("~/bundles/handlebars")
+    
+@Scripts.Render("~/bundles/jquery-ui")
+@Scripts.Render("~/bundles/handlebars")
 
     @* Task Box template *@
     <script id="taskBox" type="text/x-handlebars-template">
