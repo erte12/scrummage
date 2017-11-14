@@ -4,9 +4,39 @@
     ViewBag.Title = "Events";
 }
 
+<!-- New event modal -->
+<div class="modal fade" id="newEventModal" tabindex="-1" role="dialog" aria-labelledby="newEventModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Create new event</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="newEventButton" type="button" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <h2>Events</h2>
 <hr />
-    
+
+<div class="row">
+    <div class="col-lg-2">
+        @Html.ActionLink("Scrum Board", "Index", "Sprint", 
+            new { id = 0 }, 
+            new { @class = "btn btn-primary btn-block" })
+    </div>
+    <div class="col-md-2">
+        <button data-toggle="modal" data-target="#newEventModal" type="button" class="btn btn-success btn-block">New event</button>
+    </div>   
+</div>
+<hr />
 <table class="table table-bordered table-hover">
     <thead>
     <tr>
@@ -16,13 +46,12 @@
     </tr>
     </thead>
     <tbody>
-        <tr>
-            <td class="event-content-col"></td>
-            <td class="date-col"></td>
-            <td class="date-col"></td>
-        </tr>
+    <tr>
+        <td class="event-content-col"></td>
+        <td class="date-col"></td>
+        <td class="date-col"></td>
+    </tr>
     </tbody>
 </table>
-
 
 
