@@ -232,6 +232,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SprintController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Core\Domain\Event.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\Services\Validation\IValidationDictionary.cs" />
     <Compile Include="Core\Repositories\IApplicationUserRepository.cs" />
@@ -246,6 +247,11 @@
     <Compile Include="Migrations\201711111217357_AddCreatedAtColumnToScrumTasksTable.Designer.cs">
       <DependentUpon>201711111217357_AddCreatedAtColumnToScrumTasksTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711141439437_AddEventTableToDatabase.cs" />
+    <Compile Include="Migrations\201711141439437_AddEventTableToDatabase.Designer.cs">
+      <DependentUpon>201711141439437_AddEventTableToDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistance\EntityConfiguration\EventConfiguration.cs" />
     <Compile Include="Presentation\Dtos\ApplicationUserDto.cs" />
     <Compile Include="Presentation\Dtos\EstimationDto.cs" />
     <Compile Include="Presentation\Dtos\ScrumTaskDto.cs" />
@@ -1146,6 +1152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711111217357_AddCreatedAtColumnToScrumTasksTable.resx">
       <DependentUpon>201711111217357_AddCreatedAtColumnToScrumTasksTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711141439437_AddEventTableToDatabase.resx">
+      <DependentUpon>201711141439437_AddEventTableToDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

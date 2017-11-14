@@ -1,6 +1,8 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Scrummage.Core.Domain;
 using Scrummage.Models.Configuration;
+using Scrummage.Persistance.EntityConfiguration;
 
 namespace Scrummage.Models
 {
@@ -12,6 +14,7 @@ namespace Scrummage.Models
         public DbSet<Sprint> Sprints { get; set; }
         public DbSet<ScrumTask> ScrumTasks { get; set; }
         public DbSet<Estimation> Estimations { get; set; }
+        public DbSet<Event> Events { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -28,7 +31,8 @@ namespace Scrummage.Models
                 .Add(new ApplicationUsersConfiguration())
                 .Add(new SprintConfiguration())
                 .Add(new ScrumTaskConfiguration())
-                .Add(new TeamsConfiguration());
+                .Add(new TeamsConfiguration())
+                .Add(new EventConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
