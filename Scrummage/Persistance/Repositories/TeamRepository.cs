@@ -15,10 +15,17 @@ namespace Scrummage.Persistance.Repositories
         {
         }
 
-        public Team GetTeamWithMembers(int id)
+        public Team GetWithMembers(int id)
         {
             return ApplicationDbContext.Teams
                 .Include(t => t.Users)
+                .SingleOrDefault(t => t.Id == id);
+        }
+
+        public Team GetWithSprints(int id)
+        {
+            return ApplicationDbContext.Teams
+                .Include(t => t.Sprints)
                 .SingleOrDefault(t => t.Id == id);
         }
 

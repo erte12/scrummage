@@ -24,7 +24,7 @@ namespace Scrummage.Controllers
         [Route("teams/{id:regex(\\d)}")]
         public ActionResult Details(int id)
         {
-            var team = _unitOfWork.Teams.GetTeamWithMembers(id);
+            var team = _unitOfWork.Teams.GetWithMembers(id);
 
             if (team == null)
                 return HttpNotFound();

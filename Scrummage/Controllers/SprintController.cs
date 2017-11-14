@@ -36,6 +36,8 @@ namespace Scrummage.Controllers
             {
                 sprint = _unitOfWork.Sprints.GetNewestForTeam(teamId);
 
+                ViewBag.NoTeam = true;
+
                 return sprint == null 
                     ? RedirectToAction("New", new { teamId }) 
                     : RedirectToAction("Index", new { sprint.Id });
@@ -74,14 +76,31 @@ namespace Scrummage.Controllers
             return RedirectToAction("Manage", new {id = newSprint.Id});
         }
 
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var sprint = _unitOfWork.Sprints.Get(id);
+
+            if (sprint == null)
+                return HttpNotFound();
+
+            _unitOfWork.Sprints.Remove(sprint);
+            _unitOfWork.Complate();
+
+            return RedirectToAction("Index", new {id = 0, teamId = sprint.TeamId});
+        }
+
         public ActionResult New(int teamId)
         {
-            var team = _unitOfWork.Teams.Get(teamId);
+            var team = _unitOfWork.Teams.GetWithSprints(teamId);
 
             if (team == null)
                 return HttpNotFound();
 
-            var viewModel = new SprintNewViewModel { TeamId = team.Id };
+            if (!team.HasAnySprint)
+                ViewBag.TeamHasNoSprints = true;
+
+            var viewModel = new SprintNewViewModel { Team = Mapper.Map<TeamDto>(team) };
 
             return View(viewModel);
         }

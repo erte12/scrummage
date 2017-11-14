@@ -88,7 +88,7 @@ namespace Scrummage.Controllers.Api
                 return BadRequest();
 
             var team = _unitOfWork.Teams
-                .GetTeamWithMembers(memberTeam.TeamId);
+                .GetWithMembers(memberTeam.TeamId);
 
             if (team == null)
                 return BadRequest();

@@ -9,6 +9,7 @@ namespace Scrummage.Core.Repositories
 {
     public interface ITeamRepository : IRepository<Team>
     {
-        Team GetTeamWithMembers(int id);
+        Team GetWithMembers(int id);
+        Team GetWithSprints(int id);
     }
 }
