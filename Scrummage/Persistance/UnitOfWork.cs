@@ -18,6 +18,7 @@ namespace Scrummage.Persistance
         public ISprintRepository Sprints { get; set; }
         public IEstimationRepository Estimations { get; set; }
         public IScrumTaskRepository ScrumTasks { get; set; }
+        public IEventRepository Events { get; set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {

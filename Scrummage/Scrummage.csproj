@@ -62,6 +62,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Workflow.ComponentModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -234,6 +235,7 @@
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Core\Domain\Event.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Repositories\IEventRepository.cs" />
     <Compile Include="Core\Services\Validation\IValidationDictionary.cs" />
     <Compile Include="Core\Repositories\IApplicationUserRepository.cs" />
     <Compile Include="Core\Repositories\IEstimationRepository.cs" />
@@ -252,9 +254,11 @@
       <DependentUpon>201711141439437_AddEventTableToDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistance\EntityConfiguration\EventConfiguration.cs" />
+    <Compile Include="Persistance\Repositories\EventRepository.cs" />
     <Compile Include="Presentation\Dtos\ApplicationUserDto.cs" />
     <Compile Include="Presentation\Dtos\EstimationDto.cs" />
     <Compile Include="Presentation\Dtos\ScrumTaskDto.cs" />
+    <Compile Include="Presentation\ViewModels\EventViewModel.cs" />
     <Compile Include="Presentation\ViewModels\SprintStatisticsViewModel.cs" />
     <Compile Include="Services\Validation\ValidationDictionaryMvc.cs" />
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs" />

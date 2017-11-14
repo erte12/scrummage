@@ -14,6 +14,7 @@ namespace Scrummage.Core
         IScrumTaskRepository ScrumTasks { get; }
         IEstimationRepository Estimations { get; }
         ISprintRepository Sprints { get; }
+        IEventRepository Events { get; }
 
         int Complate();
     }
