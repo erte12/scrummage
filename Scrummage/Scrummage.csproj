@@ -227,6 +227,7 @@
     <Compile Include="Controllers\Api\ScrumTasksController.cs" />
     <Compile Include="Controllers\Api\TeamsController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SprintController.cs" />
@@ -1092,6 +1093,7 @@
     <Content Include="Views\Sprint\Statistics.cshtml" />
     <Content Include="Views\Sprint\_TaskRow.cshtml" />
     <Content Include="Views\Sprint\_TaskBox.cshtml" />
+    <Content Include="Views\Event\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

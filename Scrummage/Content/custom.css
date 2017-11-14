@@ -15,11 +15,11 @@ td.scrum-task-col {
     width: 30%;
 }
 
-td.task-content-col {
+td.task-content-col, td.event-content-col {
     width: 50%
 }
 
-td.selectbox-user-col {
+td.selectbox-user-col, td.date-col {
     width: 25%
 }
 
@@ -55,3 +55,4 @@ td.selectbox-params-col {
 .ui-state-hover {
     background-color: beige;
 }
+
