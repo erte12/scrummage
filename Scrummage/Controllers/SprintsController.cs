@@ -49,6 +49,9 @@ namespace Scrummage.Controllers
             var viewModel = new SprintBoardViewModel
             {
                 Id = sprint.Id,
+                Name = sprint.Name,
+                StartsAt = sprint.StartsAt,
+                EndsAt = sprint.EndsAt,
                 Team = sprint.Team,
                 Users = sprint.Team.Users,
                 TeamSprints = teamSprints,
@@ -61,13 +64,18 @@ namespace Scrummage.Controllers
         [HttpPost]
         public ActionResult Save(SprintNewViewModel sprintNewViewModel)
         {
+            var team = _unitOfWork.Teams.Get(sprintNewViewModel.TeamId);
+            if (team == null)
+                return HttpNotFound();
+
             var newSprint = Mapper.Map<Sprint>(sprintNewViewModel);
             _sprintService.Create(newSprint);
 
-            if (!ModelState.IsValid)
-                return View("New", sprintNewViewModel);
+            if (ModelState.IsValid)
+                return RedirectToAction("Manage", new {id = newSprint.Id});
 
-            return RedirectToAction("Manage", new {id = newSprint.Id});
+            sprintNewViewModel.Team = Mapper.Map<TeamDto>(team);
+            return View("New", sprintNewViewModel);
         }
 
         public ActionResult New(int teamId)

@@ -6,16 +6,7 @@
     ViewBag.Title = "Create new sprint";
 }
 
-<h2>New sprint</h2>
-<hr/>
-@if (Request.UrlReferrer != null)
-{
-<div class="row">
-    <div class="col-lg-2">
-        <a href="@Request.UrlReferrer" class="btn btn-primary">Back</a>
-    </div>
-</div>
-}
+<h2>New sprint - Team: @Model.Team.Name</h2>
 <hr/>
 
 @using (@Html.BeginForm("Save", "Sprints", "POST"))
@@ -65,8 +56,6 @@
 
 @section scripts
 {
-    @Scripts.Render("~/bundles/jqueryval")
-
     <script>
 
         $('#start').datetimepicker();

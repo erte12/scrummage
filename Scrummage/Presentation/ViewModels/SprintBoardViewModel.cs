@@ -10,6 +10,12 @@ namespace Scrummage.ViewModels
     {
         public int Id { get; set; }
 
+        public string Name { get; set; }
+        
+        public DateTime StartsAt { get; set; }
+
+        public DateTime EndsAt { get; set; }
+
         public Team Team { get; set; }
 
         public IEnumerable<Sprint> TeamSprints { get; set; }

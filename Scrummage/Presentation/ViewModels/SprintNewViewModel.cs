@@ -9,12 +9,8 @@ namespace Scrummage.ViewModels
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Name is required.")]
-        [MinLength(3, ErrorMessage = "Name must contain at least 3 characters.")]
-        [MaxLength(60, ErrorMessage = "Name must contain less than 60 characters.")]
         public string Name { get; set; }
 
-        [MaxLength(1000, ErrorMessage = "Description must contain less than 1000 characters.")]
         public string Description { get; set; }
 
         public int TeamId { get; set; }

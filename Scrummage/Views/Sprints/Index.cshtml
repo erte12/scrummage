@@ -6,7 +6,7 @@
 }
 @section fullWidth
 {
-<h2>Scrum board - Team: @Model.Team.Name</h2>
+<h2>Scrum board - @Model.Name (@Model.StartsAt.ToString("d") - @Model.EndsAt.ToString("d")) - Team: @Model.Team.Name</h2>
 <hr/>
 <div class="row">
     <div class="container pull-left">
