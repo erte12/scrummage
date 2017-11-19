@@ -16,9 +16,12 @@ namespace Scrummage.App_Start
             CreateMap<Team, TeamDto>();
 
             CreateMap<ScrumTaskNewDto, ScrumTask>();
+            CreateMap<ScrumTask, ScrumTaskNewDto>();
 
             CreateMap<SprintDto, Sprint>();
             CreateMap<SprintNewViewModel, Sprint>();
+            CreateMap<Sprint, SprintNewViewModel>();
+
 
             CreateMap<ScrumTask, ScrumTaskDto>();
 

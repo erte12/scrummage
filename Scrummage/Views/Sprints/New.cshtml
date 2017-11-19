@@ -6,7 +6,7 @@
     ViewBag.Title = "Create new sprint";
 }
 
-<h2>New sprint - Team: @Model.Team.Name</h2>
+<h2>New sprint</h2>
 <hr/>
 @if (Request.UrlReferrer != null)
 {
@@ -34,24 +34,26 @@
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
-                <label for="startsAt" class="control-label">Starts at:</label>
-                <div class="input-group" date id="startsAt">
+                @Html.LabelFor(m => m.StartsAt)
+                <div class="input-group" date id="start">
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
-                    <input name="startsAt" type="text" class="form-control"/>
+                    @Html.TextBoxFor(m => m.StartsAt, new {@class="form-control"})
                 </div>
+                @Html.ValidationMessageFor(m => m.StartsAt)
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label for="endsAt" class="control-label">Ends at:</label>
-                <div class="input-group" date id="endsAt">
+                @Html.LabelFor(m => m.EndsAt)
+                <div class="input-group" date id="end">
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
-                    <input name="endsAt" type="text" class="form-control"/>
+                    @Html.TextBoxFor(m => m.EndsAt, new { @class = "form-control" })
                 </div>
+                @Html.ValidationMessageFor(m => m.EndsAt)
             </div>
         </div>
     </div>
@@ -67,18 +69,18 @@
 
     <script>
 
-        $('#startsAt').datetimepicker();
-        $('#endsAt').datetimepicker();
+        $('#start').datetimepicker();
+        $('#end').datetimepicker();
 
-        $('#startsAt').datetimepicker();
-        $('#endsAt').datetimepicker({
+        $('#start').datetimepicker();
+        $('#end').datetimepicker({
             useCurrent: false //Important! See issue #1075
         });
-        $("#startsAt").on("dp.change", function (e) {
-            $('#endsAt').data("DateTimePicker").minDate(e.date);
+        $("#start").on("dp.change", function (e) {
+            $('#end').data("DateTimePicker").minDate(e.date);
         });
-        $("#endsAt").on("dp.change", function (e) {
-            $('#startsAt').data("DateTimePicker").maxDate(e.date);
+        $("#end").on("dp.change", function (e) {
+            $('#start').data("DateTimePicker").maxDate(e.date);
         });
 
         @if (ViewBag.TeamHasNoSprints == true)

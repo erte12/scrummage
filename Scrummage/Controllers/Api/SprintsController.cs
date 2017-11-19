@@ -6,34 +6,35 @@ using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using Scrummage.Core;
+using Scrummage.Core.Services;
 using Scrummage.Dtos;
 using Scrummage.Models;
 using Scrummage.Persistance;
+using Scrummage.Services.Validation;
 
 namespace Scrummage.Controllers.Api
 {
     public class SprintsController : ApiController
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ISprintService _sprintService;
 
-        public SprintsController(IUnitOfWork unitOfWork)
+        public SprintsController(IUnitOfWork unitOfWork, ISprintService sprintService)
         {
             _unitOfWork = unitOfWork;
+            _sprintService = sprintService;
+            _sprintService.Initialize(new ValidationDictionaryWebApi(ModelState));
         }
 
         [HttpPatch]
         public IHttpActionResult UpdateSprint(int id, SprintDto sprintDto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
+            var sprint = _sprintService.Update(id, sprintDto);
 
-            var sprintFromDb = _unitOfWork.Sprints.Get(id);
-
-            if (sprintFromDb == null)
+            if (sprint == null)
                 return NotFound();
-
-            Mapper.Map(sprintDto, sprintFromDb);
-            _unitOfWork.Complate();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             return Ok();
         }

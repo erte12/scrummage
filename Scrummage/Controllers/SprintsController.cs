@@ -24,15 +24,14 @@ namespace Scrummage.Controllers
             _sprintService.Initialize(new ValidationDictionaryMvc(ModelState));
         }
 
-        public ActionResult Index(int id = 0, int teamId = 24)
+        [Route("Sprints/{id:regex(\\d)}")]
+        public ActionResult Index(int id = 0, int teamId = 0)
         {
             Sprint sprint;
 
             if (id == 0)
             {
                 sprint = _unitOfWork.Sprints.GetNewestForTeam(teamId);
-
-                ViewBag.NoTeam = true;
 
                 return sprint == null 
                     ? RedirectToAction("New", new { teamId }) 
@@ -63,13 +62,26 @@ namespace Scrummage.Controllers
         public ActionResult Save(SprintNewViewModel sprintNewViewModel)
         {
             var newSprint = Mapper.Map<Sprint>(sprintNewViewModel);
-            
             _sprintService.Create(newSprint);
-            
+
             if (!ModelState.IsValid)
-                return HttpNotFound();
+                return View("New", sprintNewViewModel);
 
             return RedirectToAction("Manage", new {id = newSprint.Id});
+        }
+
+        public ActionResult New(int teamId)
+        {
+            var team = _unitOfWork.Teams.GetWithSprints(teamId);
+
+            if (team == null)
+                return HttpNotFound();
+            if (!team.HasAnySprint)
+                ViewBag.TeamHasNoSprints = true;
+
+            var viewModel = new SprintNewViewModel { Team = Mapper.Map<TeamDto>(team) };
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -84,21 +96,6 @@ namespace Scrummage.Controllers
             _unitOfWork.Complate();
 
             return RedirectToAction("Index", new {id = 0, teamId = sprint.TeamId});
-        }
-
-        public ActionResult New(int teamId)
-        {
-            var team = _unitOfWork.Teams.GetWithSprints(teamId);
-
-            if (team == null)
-                return HttpNotFound();
-
-            if (!team.HasAnySprint)
-                ViewBag.TeamHasNoSprints = true;
-
-            var viewModel = new SprintNewViewModel { Team = Mapper.Map<TeamDto>(team) };
-
-            return View(viewModel);
         }
 
         public ActionResult Manage(int id)

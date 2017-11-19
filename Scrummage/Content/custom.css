@@ -1,9 +1,9 @@
-﻿label.error {
-    color: red;
+﻿label.error, .field-validation-error {
+    color: #a94442;
 }
 
-input.error {
-    border: 2px red solid;
+input.error, .input-validation-error {
+    border: 2px #a94442 solid;
 }
 
 td.scrum-who-col {
