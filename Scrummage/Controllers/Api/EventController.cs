@@ -34,5 +34,14 @@ namespace Scrummage.Controllers.Api
 
             return Ok(eventDto);
         }
+
+        [HttpGet]
+        public IHttpActionResult GetEventsForTeam(int teamId)
+        {
+            var events = _unitOfWork.Events.GetByTeamId(teamId);
+
+            var eventDto = Mapper.Map<IEnumerable<EventDto>>(events);
+            return Ok(eventDto);
+        }
     }
 }

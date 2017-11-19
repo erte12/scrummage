@@ -94,18 +94,16 @@
         var template = Handlebars.compile(source);
         var table = $('#events');
 
-//        $.get('/api/ScrumTasks?sprintId=' + , function (data) {
-//            data.forEach(function (task) {
-//                var taskRowHtml = template(task);
-//                $('#tasks tbody').append(taskRowHtml);
-//            });
-//        }).done(function() {
-//            table = table.DataTable({
-//                "order": [5, 'desc']
-//            });
-//        });
-
-        table = table.DataTable();
+        $.get('/Api/Event?teamId=' + @Model.Team.Id, function (data) {
+            data.forEach(function (event) {
+                var eventRowHtml = template(event);
+                $('#events tbody').append(eventRowHtml);
+            });
+        }).done(function() {
+            table = table.DataTable({
+                "order": [2, 'desc']
+            });
+        });
 
         $('#newEventForm').validate({
             submitHandler: function () {

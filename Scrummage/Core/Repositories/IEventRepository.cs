@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Scrummage.Core.Domain;
 
 namespace Scrummage.Core.Repositories
 {
-    public interface IEventRepository : IRepository<Event> {
+    public interface IEventRepository : IRepository<Event>
+    {
+        IEnumerable<Event> GetByTeamId(int teamId);
     }
 }
