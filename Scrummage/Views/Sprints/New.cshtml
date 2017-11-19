@@ -18,7 +18,7 @@
 }
 <hr/>
 
-@using (@Html.BeginForm("Save", "Sprint", "POST"))
+@using (@Html.BeginForm("Save", "Sprints", "POST"))
 {
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    @Html.HiddenFor(m => m.Team.Id)
+    @Html.HiddenFor(m => m.TeamId)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-default">Submit</button>
 }

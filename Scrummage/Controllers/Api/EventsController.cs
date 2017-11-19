@@ -12,11 +12,11 @@ using Scrummage.Presentation.Dtos;
 
 namespace Scrummage.Controllers.Api
 {
-    public class EventController : ApiController
+    public class EventsController : ApiController
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public EventController(IUnitOfWork unitOfWork)
+        public EventsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

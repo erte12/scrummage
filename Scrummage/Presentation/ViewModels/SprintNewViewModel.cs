@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Scrummage.Dtos;
+using Scrummage.Models;
 
 namespace Scrummage.ViewModels
 {
@@ -14,6 +15,8 @@ namespace Scrummage.ViewModels
 
         [MaxLength(1000)]
         public string Description { get; set; }
+
+        public int TeamId { get; set; }
 
         public TeamDto Team { get; set; }
 

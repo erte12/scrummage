@@ -14,12 +14,12 @@
             new { @class = "btn btn-primary btn-block" })
     </div>
     <div class="col-md-2">
-        @Html.ActionLink("Manage sprint", "Manage", "Sprint",
+        @Html.ActionLink("Manage sprint", "Manage", "Sprints",
             new { id = @Model.Id },
             new { @class = "btn btn-primary btn-block" })
     </div>
     <div class="col-md-2">
-        @Html.ActionLink("New sprint", "New", "Sprint",
+        @Html.ActionLink("New sprint", "New", "Sprints",
             new { teamId = @Model.Team.Id },
             new { @class = "btn btn-success btn-block" })
     </div>
@@ -35,7 +35,8 @@
      @Scripts.Render("~/bundles/highcharts")
 
     <script>
-        $.getJSON('http://localhost:59355/api/SprintBurndownCharts/' + @Model.Id, function (csv) {
+        $.getJSON('http://localhost:59355/' +
+            'Api/SprintsBurndownCharts/' + @Model.Id, function (csv) {
 
             Highcharts.chart('burndown', {
 

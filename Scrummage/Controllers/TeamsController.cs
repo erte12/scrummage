@@ -1,18 +1,20 @@
 ﻿using System.Linq;
 using System.Data.Entity;
 using System.Web.Mvc;
+using AutoMapper;
 using Scrummage.Core;
+using Scrummage.Dtos;
 using Scrummage.Models;
 using Scrummage.Persistance;
 using Scrummage.Presentation.ViewModels;
 
 namespace Scrummage.Controllers
 {
-    public class TeamController : Controller
+    public class TeamsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public TeamController(IUnitOfWork unitOfWork)
+        public TeamsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -22,7 +24,7 @@ namespace Scrummage.Controllers
             return View();
         }
    
-        [Route("teams/{id:regex(\\d)}")]
+        [Route("Teams/{id:regex(\\d)}")]
         public ActionResult Details(int id)
         {
             var team = _unitOfWork.Teams.GetWithMembers(id);

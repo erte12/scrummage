@@ -15,17 +15,17 @@
             new { @class = "btn btn-primary btn-block" })
     </div>
     <div class="col-lg-2">
-        @Html.ActionLink("Statistics", "Statistics", "Sprint", 
+        @Html.ActionLink("Statistics", "Statistics", "Sprints", 
             new { id = @Model.Id }, 
             new { @class = "btn btn-primary btn-block" })
     </div>
     <div class="col-lg-2">
-        @Html.ActionLink("New sprint", "New", "Sprint",
+        @Html.ActionLink("New sprint", "New", "Sprints",
             new {teamId = @Model.Team.Id},
             new {@class = "btn btn-success btn-block" })
     </div>
     <div class="col-lg-offset-4 col-lg-2">
-        @using(Html.BeginForm("Delete", "Sprint", FormMethod.Post)) {
+        @using(Html.BeginForm("Delete", "Sprints", FormMethod.Post)) {
             <button id="deleteButton" type="button" class="btn btn-danger btn-block">Delete this sprint</button>
             @Html.HiddenFor(m => m.Id)
         }
@@ -98,7 +98,7 @@
         var template = Handlebars.compile(source);
         var table = $('#tasks');
 
-        $.get('/api/ScrumTasks?sprintId=' + @Model.Id, function (data) {
+        $.get('/Api/ScrumTasks?sprintId=' + @Model.Id, function (data) {
             data.forEach(function (task) {
                 var taskRowHtml = template(task);
                 $('#tasks tbody').append(taskRowHtml);
@@ -114,7 +114,7 @@
             submitHandler: function () {
 
                 $.ajax({
-                        url: '/api/sprint/@Model.Id',
+                        url: '/Api/Sprints/@Model.Id',
                         method: 'patch',
                         data: $('#sprintForm').serialize()
                     })
@@ -135,7 +135,7 @@
             submitHandler: function () {
 
                 $.ajax({
-                        url: '/api/scrumtasks/',
+                        url: '/Api/ScrumTasks/',
                         method: 'post',
                         data: $('#newTask').serialize()
                     })

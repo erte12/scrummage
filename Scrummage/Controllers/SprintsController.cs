@@ -1,33 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Data.Entity;
-using System.Web;
+using System.Data.Entity.Validation;
 using System.Web.Mvc;
 using AutoMapper;
 using Scrummage.Core;
 using Scrummage.Core.Services;
 using Scrummage.Dtos;
 using Scrummage.Models;
-using Scrummage.Persistance;
 using Scrummage.Presentation.ViewModels;
 using Scrummage.Services.Validation;
 using Scrummage.ViewModels;
 
 namespace Scrummage.Controllers
 {
-    public class SprintController : Controller
+    public class SprintsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISprintService _sprintService;
 
-        public SprintController(IUnitOfWork unitOfWork, ISprintService sprintService)
+        public SprintsController(IUnitOfWork unitOfWork, ISprintService sprintService)
         {
             _unitOfWork = unitOfWork;
             _sprintService = sprintService;
             _sprintService.Initialize(new ValidationDictionaryMvc(ModelState));
         }
-        
+
         public ActionResult Index(int id = 0, int teamId = 24)
         {
             Sprint sprint;
@@ -67,9 +63,9 @@ namespace Scrummage.Controllers
         public ActionResult Save(SprintNewViewModel sprintNewViewModel)
         {
             var newSprint = Mapper.Map<Sprint>(sprintNewViewModel);
-
+            
             _sprintService.Create(newSprint);
-
+            
             if (!ModelState.IsValid)
                 return HttpNotFound();
 

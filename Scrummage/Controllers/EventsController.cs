@@ -8,11 +8,11 @@ using Scrummage.ViewModels;
 
 namespace Scrummage.Controllers
 {
-    public class EventController : Controller
+    public class EventsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public EventController(IUnitOfWork unitOfWork)
+        public EventsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

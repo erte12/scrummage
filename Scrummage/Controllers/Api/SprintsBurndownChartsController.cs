@@ -10,11 +10,11 @@ using Scrummage.Models;
 
 namespace Scrummage.Controllers.Api
 {
-    public class SprintBurndownChartsController : ApiController
+    public class SprintsBurndownChartsController : ApiController
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public SprintBurndownChartsController(IUnitOfWork unitOfWork)
+        public SprintsBurndownChartsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

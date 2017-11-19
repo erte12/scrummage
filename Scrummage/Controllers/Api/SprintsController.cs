@@ -12,11 +12,11 @@ using Scrummage.Persistance;
 
 namespace Scrummage.Controllers.Api
 {
-    public class SprintController : ApiController
+    public class SprintsController : ApiController
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public SprintController(IUnitOfWork unitOfWork)
+        public SprintsController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

@@ -23,7 +23,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Manage Teams", "Index", "Team")</li>
+                    <li>@Html.ActionLink("Manage Teams", "Index", "Teams")</li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Scrum Boards <span class="caret"></span></a>
                         <ul class="dropdown-menu" id="scrumBoardNavigation"></ul>
@@ -57,10 +57,10 @@
 <script>
     $.get('/api/Teams', function (data) {
         data.forEach(function (team) {
-            var scrumBoardMenuElement = createMenuElement('/Sprint/Index?id=0&teamId=' + team.id, team.name);
+            var scrumBoardMenuElement = createMenuElement('/Sprints/Index?id=0&teamId=' + team.id, team.name);
             scrumBoardMenuElement.appendTo('#scrumBoardNavigation');
 
-            var eventMenuElement = createMenuElement('/Event/Index?teamId=' + team.id, team.name);
+            var eventMenuElement = createMenuElement('/Events/Index?teamId=' + team.id, team.name);
             eventMenuElement.appendTo('#eventNavigation');
         });
     });

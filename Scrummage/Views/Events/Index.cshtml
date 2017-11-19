@@ -58,7 +58,7 @@
 
 <div class="row">
     <div class="col-lg-2">
-        @Html.ActionLink("Scrum Board", "Index", "Sprint", 
+        @Html.ActionLink("Scrum Board", "Index", "Sprints", 
             new { id = 0 }, 
             new { @class = "btn btn-primary btn-block" })
     </div>
@@ -95,7 +95,7 @@
         var template = Handlebars.compile(source);
         var table = $('#events');
 
-        $.get('/Api/Event?teamId=' + @Model.Team.Id, function (data) {
+        $.get('/Api/Events?teamId=' + @Model.Team.Id, function (data) {
             data.forEach(function (event) {
                 var eventRowHtml = template(event);
                 $('#events tbody').append(eventRowHtml);
@@ -109,19 +109,20 @@
         $('#newEventForm').validate({
             submitHandler: function () {
                 $.ajax({
-                    url: '/api/event',
+                    url: '/Api/Events',
                     method: 'post',
                     data: $('#newEventForm').serialize()
                 })
                 .done(function(newEvent) {
                     var newEventRowHtml = template(newEvent);
                     table.row.add($(newEventRowHtml)).draw();
+                    $('#newEventForm').find("input[type=text], textarea").val("");
+                    $('#newEventModal').modal('toggle');
                     toastr.success('New event has been created!');
                 })
                 .fail(function() {
                     toastr.error('Something went wrong!');
                 });
-                $('#newEventModal').modal('toggle');
                 return false;
             }
         });
@@ -160,7 +161,7 @@
                 callback: function (result) {
                     if (result === true) {
                         $.ajax({
-                            url: '/Api/Event/' + eventId,
+                            url: '/Api/Events/' + eventId,
                             method: 'delete'
                         })
                         .done(function() {
