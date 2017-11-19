@@ -253,6 +253,14 @@
     <Compile Include="Migrations\201711141439437_AddEventTableToDatabase.Designer.cs">
       <DependentUpon>201711141439437_AddEventTableToDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711191015511_ChangeEndsAtPropertyInEventsTableToRequired.cs" />
+    <Compile Include="Migrations\201711191015511_ChangeEndsAtPropertyInEventsTableToRequired.Designer.cs">
+      <DependentUpon>201711191015511_ChangeEndsAtPropertyInEventsTableToRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711191041386_AddCreatedAtPropertyToEventsTable.cs" />
+    <Compile Include="Migrations\201711191041386_AddCreatedAtPropertyToEventsTable.Designer.cs">
+      <DependentUpon>201711191041386_AddCreatedAtPropertyToEventsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistance\EntityConfiguration\EventConfiguration.cs" />
     <Compile Include="Persistance\Repositories\EventRepository.cs" />
     <Compile Include="Presentation\Dtos\ApplicationUserDto.cs" />
@@ -1104,6 +1112,7 @@
     <Content Include="Views\Sprint\_TaskRow.cshtml" />
     <Content Include="Views\Sprint\_TaskBox.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Event\_EventRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1159,6 +1168,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711141439437_AddEventTableToDatabase.resx">
       <DependentUpon>201711141439437_AddEventTableToDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711191015511_ChangeEndsAtPropertyInEventsTableToRequired.resx">
+      <DependentUpon>201711191015511_ChangeEndsAtPropertyInEventsTableToRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711191041386_AddCreatedAtPropertyToEventsTable.resx">
+      <DependentUpon>201711191041386_AddCreatedAtPropertyToEventsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

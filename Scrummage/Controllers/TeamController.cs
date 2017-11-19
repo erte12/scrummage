@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Scrummage.Core;
 using Scrummage.Models;
 using Scrummage.Persistance;
+using Scrummage.Presentation.ViewModels;
 
 namespace Scrummage.Controllers
 {

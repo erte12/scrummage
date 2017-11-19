@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model Scrummage.Presentation.ViewModels.EventViewModel
 
 @{
     ViewBag.Title = "Events";
@@ -6,19 +6,49 @@
 
 <!-- New event modal -->
 <div class="modal fade" id="newEventModal" tabindex="-1" role="dialog" aria-labelledby="newEventModal">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Create new event</h4>
             </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="newEventButton" type="button" class="btn btn-primary">Create</button>
-            </div>
+            <form id="newEventForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="eventContent">Content</label>
+                        <textarea id="eventContent" required type="text" name="content" class="form-control max-width"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="startsAt" class="control-label">Starts at:</label>
+                                <div class="input-group" date id="startsAt">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <input required name="startsAt" type="text" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="endsAt" class="control-label">Ends at:</label>
+                                <div class="input-group" date id="endsAt">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <input required name="endsAt" type="text" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input id="teamId" name="teamId" type="hidden" value="@Model.Team.Id"/>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="newEventButton" type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -37,7 +67,7 @@
     </div>   
 </div>
 <hr />
-<table class="table table-bordered table-hover">
+<table id="events" class="table table-bordered table-hover">
     <thead>
     <tr>
         <th>Event</th>
@@ -46,12 +76,69 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td class="event-content-col"></td>
-        <td class="date-col"></td>
-        <td class="date-col"></td>
-    </tr>
     </tbody>
 </table>
 
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/handlebars")
+    
+    @* Event Row template *@
+    <script id="eventRow" type="text/x-handlebars-template">
+        @Html.Partial("_EventRow")
+    </script>
+    
+    <script>
+        var source = $('#eventRow').html();
+        var template = Handlebars.compile(source);
+        var table = $('#events');
 
+//        $.get('/api/ScrumTasks?sprintId=' + , function (data) {
+//            data.forEach(function (task) {
+//                var taskRowHtml = template(task);
+//                $('#tasks tbody').append(taskRowHtml);
+//            });
+//        }).done(function() {
+//            table = table.DataTable({
+//                "order": [5, 'desc']
+//            });
+//        });
+
+        $('#newEventForm').validate({
+            submitHandler: function () {
+//                $.ajax({
+//                    url: '/api/',
+//                    method: 'post',
+//                    data: $('#newTeam').serialize()
+//                })
+//                .done(function(newTeam) {
+//                    toastr.success('New team has been created!');
+//
+//                    $('#newTeam').find('input').val('');
+//
+//                    createListItem(newTeam.id, newTeam.name);
+//                })
+//                .fail(function() {
+//                    toastr.error('Something went wrong!');
+//                });
+                $('#newEventModal').modal('close');
+                return false;
+            }
+        });
+
+        $('#startsAt').datetimepicker();
+        $('#endsAt').datetimepicker();
+
+        $('#startsAt').datetimepicker();
+        $('#endsAt').datetimepicker({
+            useCurrent: false //Important! See issue #1075
+        });
+        $("#startsAt").on("dp.change", function (e) {
+            $('#endsAt').data("DateTimePicker").minDate(e.date);
+        });
+        $("#endsAt").on("dp.change", function (e) {
+            $('#startsAt').data("DateTimePicker").maxDate(e.date);
+        });
+    </script>
+}

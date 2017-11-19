@@ -47,9 +47,9 @@ td.selectbox-params-col {
     cursor: move;
 }
 
-.bootbox-input.bootbox-input-textarea {
+.bootbox-input.bootbox-input-textarea, .max-width {
     min-width: 100%;
-    min-height: 180px;
+    min-height: 150px;
 }
 
 .ui-state-hover {
