@@ -43,5 +43,19 @@ namespace Scrummage.Controllers.Api
             var eventDto = Mapper.Map<IEnumerable<EventDto>>(events);
             return Ok(eventDto);
         }
+
+        [HttpDelete]
+        public IHttpActionResult DeleteEvent(int id)
+        {
+            var eventToDelete = _unitOfWork.Events.Get(id);
+
+            if (eventToDelete == null)
+                return NotFound();
+
+            _unitOfWork.Events.Remove(eventToDelete);
+            _unitOfWork.Complate();
+
+            return Ok();
+        }
     }
 }
