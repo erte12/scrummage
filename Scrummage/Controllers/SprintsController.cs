@@ -24,21 +24,20 @@ namespace Scrummage.Controllers
             _sprintService.Initialize(new ValidationDictionaryMvc(ModelState));
         }
 
-        [Route("Sprints/{id:regex(\\d)}")]
-        public ActionResult Index(int id = 0, int teamId = 0)
+        [Route("Sprints")]
+        public ActionResult RedirectToNewestSprintForTeam(int teamId)
         {
-            Sprint sprint;
+            var sprint = _unitOfWork.Sprints.GetNewestForTeam(teamId);
 
-            if (id == 0)
-            {
-                sprint = _unitOfWork.Sprints.GetNewestForTeam(teamId);
+            return sprint == null
+                ? RedirectToAction("New", new { teamId })
+                : RedirectToAction("Index", new { sprint.Id });
+        }
 
-                return sprint == null 
-                    ? RedirectToAction("New", new { teamId }) 
-                    : RedirectToAction("Index", new { sprint.Id });
-            }
-
-            sprint = _unitOfWork.Sprints.GetWithTeamAndUsers(id);
+        [Route("Sprints/{id:regex(\\d)}")]
+        public ActionResult Index(int id)
+        {
+            var sprint = _unitOfWork.Sprints.GetWithTeamAndUsers(id);
 
             if (sprint == null)
                 return HttpNotFound();

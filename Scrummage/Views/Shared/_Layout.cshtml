@@ -57,7 +57,7 @@
 <script>
     $.get('/api/Teams', function (data) {
         data.forEach(function (team) {
-            var scrumBoardMenuElement = createMenuElement('/Sprints/0?teamId=' + team.id, team.name);
+            var scrumBoardMenuElement = createMenuElement('/Sprints?teamId=' + team.id, team.name);
             scrumBoardMenuElement.appendTo('#scrumBoardNavigation');
 
             var eventMenuElement = createMenuElement('/Events?teamId=' + team.id, team.name);
