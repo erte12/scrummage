@@ -28,6 +28,7 @@ namespace Scrummage.Persistance
             Sprints = new SprintRepository(context);
             Estimations = new EstimationRepository(context);
             ScrumTasks = new ScrumTaskRepository(context);
+            Events = new EventRepository(context);
         }
 
         public int Complate()

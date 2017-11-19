@@ -46,7 +46,7 @@
                 <div class="modal-footer">
                     <input id="teamId" name="teamId" type="hidden" value="@Model.Team.Id"/>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button id="newEventButton" type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </div>
             </form>
         </div>
@@ -105,24 +105,24 @@
 //            });
 //        });
 
+        table = table.DataTable();
+
         $('#newEventForm').validate({
             submitHandler: function () {
-//                $.ajax({
-//                    url: '/api/',
-//                    method: 'post',
-//                    data: $('#newTeam').serialize()
-//                })
-//                .done(function(newTeam) {
-//                    toastr.success('New team has been created!');
-//
-//                    $('#newTeam').find('input').val('');
-//
-//                    createListItem(newTeam.id, newTeam.name);
-//                })
-//                .fail(function() {
-//                    toastr.error('Something went wrong!');
-//                });
-                $('#newEventModal').modal('close');
+                $.ajax({
+                    url: '/api/event',
+                    method: 'post',
+                    data: $('#newEventForm').serialize()
+                })
+                .done(function(newEvent) {
+                    var newEventRowHtml = template(newEvent);
+                    table.row.add($(newEventRowHtml)).draw();
+                    toastr.success('New event has been created!');
+                })
+                .fail(function() {
+                    toastr.error('Something went wrong!');
+                });
+                $('#newEventModal').modal('toggle');
                 return false;
             }
         });

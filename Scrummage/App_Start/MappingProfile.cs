@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Scrummage.Core.Domain;
 using Scrummage.Dtos;
 using Scrummage.Models;
 using Scrummage.Presentation.Dtos;
@@ -27,6 +28,8 @@ namespace Scrummage.App_Start
 
             CreateMap<Estimation, EstimationDto>();
 
+            CreateMap<Event, EventDto>();
+            CreateMap<EventDto, Event>();
         }
     }
 }

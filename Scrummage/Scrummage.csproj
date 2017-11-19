@@ -223,6 +223,7 @@
     <Compile Include="App_Start\UnityWebApiActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\EventController.cs" />
     <Compile Include="Controllers\Api\SprintBurndownChartsController.cs" />
     <Compile Include="Controllers\Api\SprintController.cs" />
     <Compile Include="Controllers\Api\ScrumTasksController.cs" />
@@ -265,6 +266,7 @@
     <Compile Include="Persistance\Repositories\EventRepository.cs" />
     <Compile Include="Presentation\Dtos\ApplicationUserDto.cs" />
     <Compile Include="Presentation\Dtos\EstimationDto.cs" />
+    <Compile Include="Presentation\Dtos\EventDto.cs" />
     <Compile Include="Presentation\Dtos\ScrumTaskDto.cs" />
     <Compile Include="Presentation\ViewModels\EventViewModel.cs" />
     <Compile Include="Presentation\ViewModels\SprintStatisticsViewModel.cs" />
