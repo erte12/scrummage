@@ -133,7 +133,6 @@ namespace Scrummage.Controllers
         public ActionResult Statistics(int id)
         {
             var sprint = _unitOfWork.Sprints.GetWithTeam(id);
-
             if (sprint == null)
                 return null;
 

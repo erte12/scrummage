@@ -9,15 +9,12 @@ namespace Scrummage.Dtos
 {
     public class ScrumTaskUpdateDto
     {
-        [MinLength(3)]
         public string Content { get; set; }
 
         public int? EstimationId { get; set; }
 
-        [Range(0, 5)]
         public byte? Priority { get; set; }
 
-        [Range(0, 2)]
         public TaskType? TaskType { get; set; }
 
         public int? TookId { get; set; }

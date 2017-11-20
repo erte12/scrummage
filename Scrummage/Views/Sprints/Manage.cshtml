@@ -142,6 +142,13 @@
         $("#sprintForm").enter();
 
         $('#newTask').validate({
+            rules: {
+                content: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 400
+                }
+            },
             submitHandler: function () {
 
                 $.ajax({
@@ -155,7 +162,8 @@
                         $('#newTask').find('textarea').val('').focus();
                         table.row.add($(taskRowHtml)).draw();
                     })
-                    .fail(function() {
+                    .fail(function (data) {
+                        console.log(data);
                         toastr.error('Something went wrong');
                     });
 

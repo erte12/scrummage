@@ -39,14 +39,14 @@ namespace Scrummage.Controllers.Api
             return Ok(csvData);
         }
 
-        private int GetIdealBurndown(int estimationsSum, IList<DateTime> dates)
+        private static int GetIdealBurndown(int estimationsSum, ICollection<DateTime> dates)
         {
             var daysNumber = dates.Count - 1;
 
             return (int)Math.Ceiling(1.0 * estimationsSum / daysNumber);
         }
 
-        private IList<DateTime> GetDates(DateTime startAt, DateTime endsAt)
+        private static IList<DateTime> GetDates(DateTime startAt, DateTime endsAt)
         {
             var dates = new List<DateTime>();
 
@@ -56,7 +56,7 @@ namespace Scrummage.Controllers.Api
             return dates;
         }
 
-        private string GetCsv(Sprint sprint, IList<DateTime> dates, Dictionary<DateTime?, List<ScrumTask>> tasks)
+        private static string GetCsv(Sprint sprint, IList<DateTime> dates, Dictionary<DateTime?, List<ScrumTask>> tasks)
         {
             var estimationsSum = sprint.Tasks.Sum(t => t.Estimation.Value);
             var idealBurndown = GetIdealBurndown(estimationsSum, dates);

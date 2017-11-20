@@ -27,13 +27,30 @@ namespace Scrummage.Services
             _validationDictionary = validationDictionary;
         }
 
+        private void Validate(ScrumTask task)
+        {
+            if (task.Content == null || task.Content.Trim().Length == 0)
+                _validationDictionary.AddError("Content", "Content is required.");
+            if (task.Content != null && task.Content.Trim().Length < 3)
+                _validationDictionary.AddError("Content", "Content must contain at least 3 characters.");
+            if (task.Content != null && task.Content.Trim().Length > 400)
+                _validationDictionary.AddError("Content", "Content must contain less than 400 characters.");
+            if (_unitOfWork.Sprints.Get(task.SprintId) == null)
+                _validationDictionary.AddError("SprintId", "Sprint with this id does not exist.");
+        }
+
         public ScrumTask Create(ScrumTaskNewDto taskDto)
         {
             var newScrumTask = Mapper.Map<ScrumTask>(taskDto);
             newScrumTask.CreatedAt = DateTime.Now;
 
-            _unitOfWork.ScrumTasks.Add(newScrumTask);
-            _unitOfWork.Complate();
+            Validate(newScrumTask);
+
+            if (_validationDictionary.IsValid)
+            {
+                _unitOfWork.ScrumTasks.Add(newScrumTask);
+                _unitOfWork.Complate();
+            }
 
             return newScrumTask;
         }
@@ -56,7 +73,10 @@ namespace Scrummage.Services
             if (taskDto.TaskType != null)
                 UpdateTaskType(taskFromDb, taskDto.TaskType.Value, taskDto.TookId);
 
-            _unitOfWork.Complate();
+            Validate(taskFromDb);
+
+            if(_validationDictionary.IsValid)
+                _unitOfWork.Complate();
 
             return taskFromDb;
         }

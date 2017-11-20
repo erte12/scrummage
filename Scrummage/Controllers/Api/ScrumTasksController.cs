@@ -19,15 +19,17 @@ namespace Scrummage.Controllers.Api
         {
             _unitOfWork = unitOfWork;
             _scrumTasksService = scrumTasksService;
+            _scrumTasksService.Initialize(new ValidationDictionaryWebApi(ModelState));
         }
 
         [HttpPost]
         public IHttpActionResult CreateScrumTask(ScrumTaskNewDto taskDto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
             var newScrumTask = _scrumTasksService.Create(taskDto);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var newScrumTaskDto = Mapper.Map<ScrumTaskDto>(newScrumTask);
             return Ok(newScrumTaskDto);
         }
@@ -35,13 +37,11 @@ namespace Scrummage.Controllers.Api
         [HttpPatch]
         public IHttpActionResult UpdateScrumTask(int id, ScrumTaskUpdateDto taskDto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
             var task = _scrumTasksService.Update(id, taskDto);
-
             if (task == null)
                 return NotFound();
+            if (!ModelState.IsValid)
+                return BadRequest();
 
             return Ok(new { took = task.Took?.Value });
         }
