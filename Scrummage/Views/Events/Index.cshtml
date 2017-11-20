@@ -15,29 +15,29 @@
             <form id="newEventForm">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="eventContent">Content</label>
-                        <textarea id="eventContent" required type="text" name="content" class="form-control max-width"></textarea>
+                        <label for="content">Content</label>
+                        <textarea id="content" type="text" name="content" class="form-control max-width"></textarea>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="startsAt" class="control-label">Starts at:</label>
-                                <div class="input-group" date id="startsAt">
+                                <div class="input-group" date id="starts">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
-                                    <input required name="startsAt" type="text" class="form-control"/>
+                                    <input id="startsAt" name="startsAt" type="text" class="form-control"/>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="endsAt" class="control-label">Ends at:</label>
-                                <div class="input-group" date id="endsAt">
+                                <div class="input-group" date id="ends">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
-                                    <input required name="endsAt" type="text" class="form-control"/>
+                                    <input id="endsAt" name="endsAt" type="text" class="form-control"/>
                                 </div>
                             </div>
                         </div>
@@ -107,6 +107,21 @@
         });
 
         $('#newEventForm').validate({
+            rules: {
+                content: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 200
+                },
+                startsAt: {
+                    required: true,
+                    date: true
+                },
+                endsAt: {
+                    required: true,
+                    date: true
+                }
+            },
             submitHandler: function () {
                 $.ajax({
                     url: '/Api/Events',
@@ -120,25 +135,23 @@
                     $('#newEventModal').modal('toggle');
                     toastr.success('New event has been created!');
                 })
-                .fail(function() {
+                .fail(function (data) {
+                    console.log(data);
                     toastr.error('Something went wrong!');
                 });
                 return false;
             }
         });
 
-        $('#startsAt').datetimepicker();
-        $('#endsAt').datetimepicker();
-
-        $('#startsAt').datetimepicker();
-        $('#endsAt').datetimepicker({
+        $('#starts').datetimepicker();
+        $('#ends').datetimepicker({
             useCurrent: false //Important! See issue #1075
         });
-        $("#startsAt").on("dp.change", function (e) {
-            $('#endsAt').data("DateTimePicker").minDate(e.date);
+        $("#starts").on("dp.change", function (e) {
+            $('#ends').data("DateTimePicker").minDate(e.date);
         });
-        $("#endsAt").on("dp.change", function (e) {
-            $('#startsAt').data("DateTimePicker").maxDate(e.date);
+        $("#ends").on("dp.change", function (e) {
+            $('#starts').data("DateTimePicker").maxDate(e.date);
         });
 
         $('#events tbody').on('click', '.js-delete', function () {

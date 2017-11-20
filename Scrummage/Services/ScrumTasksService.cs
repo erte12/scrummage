@@ -39,9 +39,8 @@ namespace Scrummage.Services
                 _validationDictionary.AddError("SprintId", "Sprint with this id does not exist.");
         }
 
-        public ScrumTask Create(ScrumTaskNewDto taskDto)
+        public ScrumTask Create(ScrumTask newScrumTask)
         {
-            var newScrumTask = Mapper.Map<ScrumTask>(taskDto);
             newScrumTask.CreatedAt = DateTime.Now;
 
             Validate(newScrumTask);

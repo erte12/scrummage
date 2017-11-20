@@ -5,6 +5,7 @@ using AutoMapper;
 using Scrummage.Core;
 using Scrummage.Core.Services;
 using Scrummage.Dtos;
+using Scrummage.Models;
 using Scrummage.Presentation.Dtos;
 using Scrummage.Services.Validation;
 
@@ -25,7 +26,8 @@ namespace Scrummage.Controllers.Api
         [HttpPost]
         public IHttpActionResult CreateScrumTask(ScrumTaskNewDto taskDto)
         {
-            var newScrumTask = _scrumTasksService.Create(taskDto);
+            var newScrumTask = Mapper.Map<ScrumTask>(taskDto);
+            _scrumTasksService.Create(newScrumTask);
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

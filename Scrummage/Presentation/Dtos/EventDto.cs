@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -13,8 +14,10 @@ namespace Scrummage.Presentation.Dtos
 
         public int TeamId { get; set; }
 
+        [Required(ErrorMessage = "Starting date is required.")]
         public DateTime StartsAt { get; set; }
 
+        [Required(ErrorMessage = "Ending date is required.")]
         public DateTime EndsAt { get; set; }
 
         public DateTime CreatedAt { get; set; }

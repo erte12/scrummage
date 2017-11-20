@@ -7,28 +7,34 @@ using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using Scrummage.Core.Domain;
+using Scrummage.Core.Services;
 using Scrummage.Models;
 using Scrummage.Presentation.Dtos;
+using Scrummage.Services.Validation;
 
 namespace Scrummage.Controllers.Api
 {
     public class EventsController : ApiController
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IEventService _eventService;
 
-        public EventsController(IUnitOfWork unitOfWork)
+        public EventsController(IUnitOfWork unitOfWork, IEventService eventService)
         {
             _unitOfWork = unitOfWork;
+            _eventService = eventService;
+            _eventService.Initialize(new ValidationDictionaryWebApi(ModelState));
         }
 
         [HttpPost]
         public IHttpActionResult CreateEvent(EventDto eventDto)
         {
             var newEvent = Mapper.Map<Event>(eventDto);
-            newEvent.CreatedAt = DateTime.Now;
 
-            _unitOfWork.Events.Add(newEvent);
-            _unitOfWork.Complate();
+            _eventService.Create(newEvent);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             eventDto = Mapper.Map<EventDto>(newEvent);
 

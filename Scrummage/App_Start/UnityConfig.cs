@@ -58,6 +58,7 @@ namespace Scrummage
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType<IScrumTasksService, ScrumTasksService>();
             container.RegisterType<ISprintService, SprintService>();
+            container.RegisterType<IEventService, EventService>();
 
             //TODO: Change
             container.RegisterType<AccountController>(new InjectionConstructor());
