@@ -95,7 +95,9 @@
             data.forEach(function (task) {
                 var taskBox = $(template(task));
 
-                if (task.taskType !== @((byte)TaskType.Done))
+                if (task.taskType === @((byte)TaskType.Done))
+                    taskBox.removeClass('js-taskbox');
+                else
                     taskBox.find('.js-done').hide();
 
                 var elementPosition = $('.js-user-row[data-user-id=' + task.user.id + ']')
@@ -142,7 +144,8 @@
 
                 if (taskType === '@((byte)@TaskType.Done)') {
                     bootbox.prompt({
-                        title: "How much took this task?",
+                        title: "How much took this task? " +
+                        "<div><strong>Note that this operation cannot be undone!</strong></div>",
                         inputType: 'select',
                         inputOptions: [
                             @foreach (var estimation in Model.Estimations)
@@ -195,20 +198,18 @@
         }
 
         function moveTaskBox(taskBox, destination, took) {
-
-            console.log(took);
-
             taskBox.find('js-took').text(took);
 
-            (destination === @((byte)TaskType.Done))
-                ? taskBox.find('.js-done').show()
-                : taskBox.find('.js-done').hide();
+            if (destination === @((byte)TaskType.Done)) {
+                taskBox.find('.js-done').show();
+                taskBox.removeClass('js-taskbox').draggable('disable');
+            }
 
             taskBox
                 .appendTo(taskBox.parents('tr.js-user-row').find('.scrum-task-col[data-type-id="' + destination + '"]'))
                 .removeAttr('style');
         }
-        
+
         @if (ViewBag.SprintDeleted == true)
         {
             @:bootbox.alert('Sprint successfully deleted');

@@ -107,6 +107,8 @@ namespace Scrummage.Services
 
         private void UpdateTaskType(ScrumTask task, TaskType taskType, int? tookId = null)
         {
+            if (taskType == TaskType.Done) return;
+
             if (tookId != null)
             {
                 var took = _unitOfWork.Estimations.Get(tookId.Value);
