@@ -7,6 +7,7 @@ using Scrummage.Models;
 
 namespace Scrummage.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         public ActionResult Index()

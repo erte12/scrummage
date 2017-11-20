@@ -263,6 +263,10 @@
     <Compile Include="Migrations\201711191041386_AddCreatedAtPropertyToEventsTable.Designer.cs">
       <DependentUpon>201711191041386_AddCreatedAtPropertyToEventsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711201731300_SeedUsers.cs" />
+    <Compile Include="Migrations\201711201731300_SeedUsers.Designer.cs">
+      <DependentUpon>201711201731300_SeedUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistance\EntityConfiguration\EventConfiguration.cs" />
     <Compile Include="Persistance\Repositories\EventRepository.cs" />
     <Compile Include="Presentation\Dtos\ApplicationUserDto.cs" />
@@ -1178,6 +1182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711191041386_AddCreatedAtPropertyToEventsTable.resx">
       <DependentUpon>201711191041386_AddCreatedAtPropertyToEventsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711201731300_SeedUsers.resx">
+      <DependentUpon>201711201731300_SeedUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
