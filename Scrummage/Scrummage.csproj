@@ -268,6 +268,10 @@
     <Compile Include="Migrations\201711201731300_SeedUsers.Designer.cs">
       <DependentUpon>201711201731300_SeedUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711201832226_AddDefaultTeamPropertyToApplicationUsersTable.cs" />
+    <Compile Include="Migrations\201711201832226_AddDefaultTeamPropertyToApplicationUsersTable.Designer.cs">
+      <DependentUpon>201711201832226_AddDefaultTeamPropertyToApplicationUsersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistance\EntityConfiguration\EventConfiguration.cs" />
     <Compile Include="Persistance\Repositories\EventRepository.cs" />
     <Compile Include="Presentation\Dtos\ApplicationUserDto.cs" />
@@ -1186,6 +1190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711201731300_SeedUsers.resx">
       <DependentUpon>201711201731300_SeedUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711201832226_AddDefaultTeamPropertyToApplicationUsersTable.resx">
+      <DependentUpon>201711201832226_AddDefaultTeamPropertyToApplicationUsersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

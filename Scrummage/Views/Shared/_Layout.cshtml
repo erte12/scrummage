@@ -1,4 +1,5 @@
-﻿@using Scrummage.Controllers
+﻿@using Microsoft.AspNet.Identity
+@using Scrummage.Controllers
 @using Scrummage.Core
 <!DOCTYPE html>
 <html>
@@ -71,12 +72,13 @@
 @Scripts.Render("~/bundles/lib")
     
 <script>
-    $.get('/api/Teams', function (data) {
+    $.get('/api/teams', function (data) {
         data.forEach(function (team) {
             var scrumBoardMenuElement = createMenuElement('/Sprints?teamId=' + team.id, team.name);
             scrumBoardMenuElement.appendTo('#scrumBoardNavigation');
 
             var teamsListElement = $('<option value="' + team.id + '">' + team.name + '</option>');
+
             teamsListElement.appendTo('#teams');
 
         });
@@ -91,8 +93,18 @@
         return menuElement;
     }
 
-    $('#teams').on('change', function() {
-        location.reload();
+    $('#teams').on('change', function () {
+        var teamId = $(this).val();
+
+        $.ajax({
+            url: '/api/users?teamId=' + teamId,
+            method: 'patch'
+        })
+        .done(function() {
+            location.reload();
+        });
+
+        
     });
 
 </script>   

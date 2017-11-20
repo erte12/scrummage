@@ -13,6 +13,9 @@ namespace Scrummage.Models
         public ICollection<Team> Teams { get; set; }
         public ICollection<ScrumTask> ScrumTasks { get; set; }
 
+        public int? DefaultTeamId { get; set; }
+        public Team DefaultTeam { get; set; }
+
         public ApplicationUser()
         {
             Teams = new List<Team>();
