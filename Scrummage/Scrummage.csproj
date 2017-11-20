@@ -237,6 +237,7 @@
     <Compile Include="Core\Domain\Event.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\Repositories\IEventRepository.cs" />
+    <Compile Include="Core\RoleName.cs" />
     <Compile Include="Core\Services\IEventService.cs" />
     <Compile Include="Core\Services\Validation\IValidationDictionary.cs" />
     <Compile Include="Core\Repositories\IApplicationUserRepository.cs" />

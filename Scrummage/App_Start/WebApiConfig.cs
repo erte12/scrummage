@@ -20,6 +20,9 @@ namespace Scrummage
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            // Authorize attribute
+            config.Filters.Add(new AuthorizeAttribute());
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

@@ -14,6 +14,7 @@ using Scrummage.Services.Validation;
 
 namespace Scrummage.Controllers.Api
 {
+    [Authorize(Roles = RoleName.ScrumMaster)]
     public class SprintsController : ApiController
     {
         private readonly IUnitOfWork _unitOfWork;

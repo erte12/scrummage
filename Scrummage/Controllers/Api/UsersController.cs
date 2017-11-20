@@ -13,6 +13,7 @@ using Scrummage.Presentation.Dtos;
 
 namespace Scrummage.Controllers.Api
 {
+    [Authorize(Roles = RoleName.ScrumMaster)]
     public class UsersController : ApiController
     {
         private readonly IUnitOfWork _unitOfWork;

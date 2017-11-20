@@ -10,6 +10,7 @@ using Scrummage.Presentation.ViewModels;
 
 namespace Scrummage.Controllers
 {
+    [Authorize(Roles = RoleName.ScrumMaster)]
     public class TeamsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

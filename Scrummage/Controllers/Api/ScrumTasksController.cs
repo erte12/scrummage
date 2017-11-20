@@ -24,6 +24,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleName.ScrumMaster)]
         public IHttpActionResult CreateScrumTask(ScrumTaskNewDto taskDto)
         {
             var newScrumTask = Mapper.Map<ScrumTask>(taskDto);
@@ -36,6 +37,7 @@ namespace Scrummage.Controllers.Api
             return Ok(newScrumTaskDto);
         }
 
+        //Todo: Devide into two methods: UpdateType and UpdateData
         [HttpPatch]
         public IHttpActionResult UpdateScrumTask(int id, ScrumTaskUpdateDto taskDto)
         {
@@ -60,6 +62,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpDelete]
+        [Authorize(Roles = RoleName.ScrumMaster)]
         public IHttpActionResult DeleteScrumTask(int id)
         {
             var task = _unitOfWork.ScrumTasks.Get(id);

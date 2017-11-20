@@ -61,6 +61,7 @@ namespace Scrummage.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleName.ScrumMaster)]
         public ActionResult Save(SprintNewViewModel sprintNewViewModel)
         {
             var team = _unitOfWork.Teams.Get(sprintNewViewModel.TeamId);
@@ -77,6 +78,7 @@ namespace Scrummage.Controllers
             return View("New", sprintNewViewModel);
         }
 
+        [Authorize(Roles = RoleName.ScrumMaster)]
         public ActionResult New(int teamId)
         {
             var team = _unitOfWork.Teams.GetWithSprints(teamId);
@@ -92,6 +94,7 @@ namespace Scrummage.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleName.ScrumMaster)]
         public ActionResult Delete(int id)
         {
             var sprint = _unitOfWork.Sprints.Get(id);
@@ -105,6 +108,7 @@ namespace Scrummage.Controllers
             return RedirectToAction("RedirectToNewestSprintForTeam", new {teamId = sprint.TeamId});
         }
 
+        [Authorize(Roles = RoleName.ScrumMaster)]
         public ActionResult Manage(int id)
         {
             var sprint = _unitOfWork.Sprints.GetWithTeamAndTasks(id);

@@ -23,6 +23,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleName.ScrumMaster)]
         public IHttpActionResult CreateTeam(TeamDto teamDto)
         {
             if (!ModelState.IsValid)
@@ -47,6 +48,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpDelete]
+        [Authorize(Roles = RoleName.ScrumMaster)]
         public IHttpActionResult DeleteTeam(int id)
         {
             var team = _unitOfWork.Teams.Get(id);
@@ -61,6 +63,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpPut]
+        [Authorize(Roles = RoleName.ScrumMaster)]
         public IHttpActionResult AddMember(MemberTeamDto memberTeam)
         {
             var user = _unitOfWork.Users.Get(memberTeam.MemberId);
@@ -80,6 +83,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpDelete]
+        [Authorize(Roles = RoleName.ScrumMaster)]
         public IHttpActionResult RemoveMember(MemberTeamDto memberTeam)
         {
             var user = _unitOfWork.Users.Get(memberTeam.MemberId);
