@@ -36,6 +36,11 @@
                 new {teamId = @Model.Team.Id},
                 new {@class = "btn btn-success btn-block" })
         </div>
+        <div class="col-lg-2">
+            @Html.ActionLink("Events", "Index", "Events",
+                new {teamId = @Model.Team.Id},
+                new {@class = "btn btn-warning btn-block" })
+        </div>
     </div>
 </div>
 <hr/>
