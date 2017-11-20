@@ -107,7 +107,7 @@ namespace Scrummage.Services
 
         private void UpdateTaskType(ScrumTask task, TaskType taskType, int? tookId = null)
         {
-            if (taskType == TaskType.Done) return;
+            if (task.TaskType == TaskType.Done) return;
 
             if (tookId != null)
             {
