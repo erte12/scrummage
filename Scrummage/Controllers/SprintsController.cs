@@ -102,7 +102,7 @@ namespace Scrummage.Controllers
             _unitOfWork.Sprints.Remove(sprint);
             _unitOfWork.Complate();
 
-            return RedirectToAction("Index", new {id = 0, teamId = sprint.TeamId});
+            return RedirectToAction("RedirectToNewestSprintForTeam", new {teamId = sprint.TeamId});
         }
 
         public ActionResult Manage(int id)
