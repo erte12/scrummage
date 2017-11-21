@@ -9,7 +9,6 @@
     <title>@ViewBag.Title - Scrummage App</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top">
@@ -79,6 +78,9 @@
 
             var teamsListElement = $('<option value="' + team.id + '">' + team.name + '</option>');
 
+            if (String(team.id) === '@User.Identity.GetDefaultTeamId()')
+                teamsListElement.attr('selected', true);
+
             teamsListElement.appendTo('#teams');
 
         });
@@ -95,18 +97,8 @@
 
     $('#teams').on('change', function () {
         var teamId = $(this).val();
-
-        $.ajax({
-            url: '/api/users?teamId=' + teamId,
-            method: 'patch'
-        })
-        .done(function() {
-            location.reload();
-        });
-
-        
+        window.location.href = '/Account/UpdateUserDefaultTeamIdAndRelog?defaultTeamId=' + teamId;
     });
-
 </script>   
 
 @RenderSection("scripts", required: false)

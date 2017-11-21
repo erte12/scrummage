@@ -235,6 +235,7 @@
     <Compile Include="Controllers\SprintsController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Core\Domain\Event.cs" />
+    <Compile Include="Core\Domain\Extensions\IdentityExtensions.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\Repositories\IEventRepository.cs" />
     <Compile Include="Core\RoleName.cs" />

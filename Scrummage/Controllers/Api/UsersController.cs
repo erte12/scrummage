@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using Scrummage.Core;
 using Scrummage.Dtos;
 using Scrummage.Models;
@@ -33,15 +37,26 @@ namespace Scrummage.Controllers.Api
                 .Select(Mapper.Map<ApplicationUser, ApplicationUserDto>));
         }
 
-        [HttpPatch]
-        public IHttpActionResult UpdateUserDefaultTeam(int teamId)
+        [Route("api/users/defaultteam")]
+        public IHttpActionResult GetUserDefaultTeamId()
         {
             var user = _unitOfWork.Users.Get(User.Identity.GetUserId());
-            user.DefaultTeamId = teamId;
-            _unitOfWork.Complate();
 
-            return Ok();
+            return Ok(user.DefaultTeamId);
         }
+
+//        [HttpPatch]
+//        public IHttpActionResult UpdateUserDefaultTeam(int teamId)
+//        {
+//
+//            var identity = (ClaimsIdentity)User.Identity;
+//
+//            var user = _unitOfWork.Users.Get(User.Identity.GetUserId());
+//            user.DefaultTeamId = teamId;
+//            _unitOfWork.Complate();
+//
+//            return Ok();
+//        }
 
         protected override void Dispose(bool disposing)
         {

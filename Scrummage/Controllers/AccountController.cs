@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Scrummage.Models;
 
@@ -414,6 +417,29 @@ namespace Scrummage.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        // GET: /Account/UpdateUserDefaultTeamIdAndRelog
+        [HttpGet]
+        public async Task<ActionResult> UpdateUserDefaultTeamIdAndRelog(int defaultTeamId)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            
+            user.DefaultTeamId = defaultTeamId != 0 
+                ? defaultTeamId
+                : (int?) null;
+
+            var result = await UserManager.UpdateAsync(user);
+
+            //Relog user
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            var identity = await user.GenerateUserIdentityAsync(UserManager);
+            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = true }, identity);
+
+            if (result.Succeeded && Request.UrlReferrer != null)
+                Response.Redirect(Request.UrlReferrer.ToString());
+
+            return HttpNotFound();
         }
 
         protected override void Dispose(bool disposing)
