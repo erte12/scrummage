@@ -1,6 +1,11 @@
 ﻿@using Microsoft.AspNet.Identity
 @using Scrummage.Controllers
 @using Scrummage.Core
+
+@{
+    var userTeamId = @User.Identity.GetDefaultTeamId();
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,24 +28,42 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-
-                    @if (User.IsInRole(RoleName.ScrumMaster))
-                    {
-                        <li>@Html.ActionLink("Manage teams", "Index", "Teams")</li>
-                    }
-
-@*                    Nav button example*@
-@*                    <li>                *@
-@*                        <p class="navbar-btn">*@
-@*                            <a href="#" class="btn btn-primary">I'm a link button!</a>*@
-@*                        </p>*@
-@*                    </li>*@
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Your teams <span class="caret"></span></a>
-                        <ul class="dropdown-menu" id="scrumBoardNavigation"></ul>
+                    <li>
+                        @Html.ActionLink("Home", "Index", "Home")
                     </li>
+                    
+@*                    TODO: Separate partial nav view*@
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (!string.IsNullOrWhiteSpace(userTeamId))
+                        {
+                            if (User.IsInRole(RoleName.ScrumMaster))
+                            {
+                                <li>
+                                    @Html.ActionLink("Manage teams", "Index", "Teams")
+                                </li>
+                            }
+                            <li>
+                                @Html.ActionLink("Scrum board", "RedirectToNewestSprintForTeam", "Sprints", new {teamId = userTeamId}, null)
+                            </li>
+                            if (User.IsInRole(RoleName.ScrumMaster))
+                            {
+                                <li>
+                                    @Html.ActionLink("Create new sprint", "New", "Sprints", new {teamId = userTeamId}, null)
+                                </li>
+                            }
+                            <li>
+                                @Html.ActionLink("Events", "Index", "Events", new {teamId = userTeamId}, null)
+                            </li>
+                        }else
+                        {
+                            <li><a><strong>Choose team first:</strong></a></li>
+                        }
+                    }
+                    
                 </ul>
+                @if (User.Identity.IsAuthenticated)
+                {
                 <div class="navbar-form navbar-nav">
                     <div class="form-group">
                         <select id="teams" class="form-control">
@@ -49,6 +72,8 @@
                         </select>
                     </div>
                 </div>
+                }
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

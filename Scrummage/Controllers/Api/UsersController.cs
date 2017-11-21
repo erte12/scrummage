@@ -37,27 +37,6 @@ namespace Scrummage.Controllers.Api
                 .Select(Mapper.Map<ApplicationUser, ApplicationUserDto>));
         }
 
-        [Route("api/users/defaultteam")]
-        public IHttpActionResult GetUserDefaultTeamId()
-        {
-            var user = _unitOfWork.Users.Get(User.Identity.GetUserId());
-
-            return Ok(user.DefaultTeamId);
-        }
-
-//        [HttpPatch]
-//        public IHttpActionResult UpdateUserDefaultTeam(int teamId)
-//        {
-//
-//            var identity = (ClaimsIdentity)User.Identity;
-//
-//            var user = _unitOfWork.Users.Get(User.Identity.GetUserId());
-//            user.DefaultTeamId = teamId;
-//            _unitOfWork.Complate();
-//
-//            return Ok();
-//        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
