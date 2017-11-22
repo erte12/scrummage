@@ -35,14 +35,14 @@
 @*                    TODO: Separate partial nav view*@
                     @if (User.Identity.IsAuthenticated)
                     {
+                        if (User.IsInRole(RoleName.ScrumMaster))
+                        {
+                            <li>
+                                @Html.ActionLink("Manage teams", "Index", "Teams")
+                            </li>
+                        }
                         if (!string.IsNullOrWhiteSpace(userTeamId))
                         {
-                            if (User.IsInRole(RoleName.ScrumMaster))
-                            {
-                                <li>
-                                    @Html.ActionLink("Manage teams", "Index", "Teams")
-                                </li>
-                            }
                             <li>
                                 @Html.ActionLink("Scrum board", "RedirectToNewestSprintForTeam", "Sprints", new {teamId = userTeamId}, null)
                             </li>
