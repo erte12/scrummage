@@ -15,16 +15,26 @@ td.scrum-task-col {
     width: 30%;
 }
 
-td.task-content-col, td.event-content-col {
-    width: 50%
+/*Manage tasks table*/
+td.task-title-col {
+    width: 20%
 }
 
-td.selectbox-user-col, td.date-col {
-    width: 25%
+td.task-content-col {
+    width: 40%
 }
 
-td.selectbox-params-col {
-    width: 12.5%
+td.task-user-col, td.date-col {
+    width: 15%
+}
+
+td.task-params-col, td.task-delete-col {
+    width: 8%
+}
+/*End of anage tasks table*/
+
+td.event-content-col {
+    width: 30%
 }
 
 .task-buttons-board {

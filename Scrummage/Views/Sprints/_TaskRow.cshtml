@@ -1,9 +1,12 @@
 ﻿@model Scrummage.ViewModels.SprintManageTaskRowViewModel
 <tr data-task-id="{{id}}" class="js-task-row">
+    <td class="task-title-col js-task-title">
+        <div class="js-editable" data-toggle="tooltip" title="Click to edit">{{title}}</div>
+    </td>
     <td class="task-content-col js-task-content">
         <div class="js-editable" data-toggle="tooltip" title="Click to edit">{{content}}</div>
     </td>
-    <td class="selectbox-user-col">
+    <td class="task-user-col">
         <select class="form-control js-members">
             {{#select user.id}}
             <option value="0">-</option>
@@ -16,7 +19,7 @@
             {{/select}}
         </select>
     </td>
-    <td class="selectbox-params-col">
+    <td class="task-params-col">
         <select class="form-control js-estimations">
             {{#select estimation.id}}
             <option value="0">-</option>
@@ -27,7 +30,7 @@
             {{/select}}
         </select>
     </td>
-    <td class="selectbox-params-col">
+    <td class="task-params-col">
         <select class="form-control js-priority">
             {{#select priority}}
             <option value="0">-</option>
@@ -38,7 +41,7 @@
             {{/select}}
         </select>
     </td>
-    <td>
+    <td class="task-delete-col">
         <button class="btn btn-sm btn-default center-block js-delete">
             <span class="glyphicon glyphicon-trash"></span>
         </button>

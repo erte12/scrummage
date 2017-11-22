@@ -43,8 +43,12 @@
         <h3>Add new task to backlog</h3>
         <form id="newTask">
             <div class="form-group">
-                <label class="control-label">Content</label>
-                <textarea rows="6" name="content" value="" class="form-control"></textarea>
+                <label class="control-label">Title</label>
+                <input type="text" id="title" name="title" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="content" class="control-label">Content</label>
+                <textarea name="content" id="content" rows="6" class="form-control"></textarea>
             </div>
             <input name="sprintId" type="hidden" value="@Model.Id"/>
             <button class="btn btn-primary">Submit</button>
@@ -59,7 +63,7 @@
             </div>
             <div class="form-group">
                 <label for="description" class="control-label">Description</label>
-                <textarea id="description" name="description" class="form-control">@Model.Description</textarea>
+                <textarea id="description" name="description" rows="6" class="form-control">@Model.Description</textarea>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
@@ -71,6 +75,7 @@
 <table id="tasks" class="table table-bordered table-hover vertical-align">
     <thead>
         <tr>
+            <th>Title</th>
             <th>Task content</th>
             <th>Who</th>
             <th>Estimation</th>
@@ -127,18 +132,18 @@
             },
             submitHandler: function () {
                 $.ajax({
-                        url: '/Api/Sprints/@Model.Id',
-                        method: 'patch',
-                        data: $('#sprintForm').serialize()
-                    })
-                    .done(function() {
-                        toastr.success('Changes has been saved');
-                    })
-                    .fail(function (data) {
-                        console.log(data.responseJSON.modelState);
+                    url: '/Api/Sprints/@Model.Id',
+                    method: 'patch',
+                    data: $('#sprintForm').serialize()
+                })
+                .done(function() {
+                    toastr.success('Changes has been saved');
+                })
+                .fail(function (data) {
+                    console.log(data.responseJSON.modelState);
 
-                        toastr.error('Something went wrong');
-                    });
+                    toastr.error('Something went wrong');
+                });
 
                 return false;
             }
@@ -148,6 +153,11 @@
 
         $('#newTask').validate({
             rules: {
+                title: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 40
+                },
                 content: {
                     required: true,
                     minlength: 3,
@@ -157,20 +167,21 @@
             submitHandler: function () {
 
                 $.ajax({
-                        url: '/Api/ScrumTasks/',
-                        method: 'post',
-                        data: $('#newTask').serialize()
-                    })
-                    .done(function(data) {
-                        toastr.success('New task has been created');
-                        var taskRowHtml = template(data);
-                        $('#newTask').find('textarea').val('').focus();
-                        table.row.add($(taskRowHtml)).draw();
-                    })
-                    .fail(function (data) {
-                        console.log(data);
-                        toastr.error('Something went wrong');
-                    });
+                    url: '/Api/ScrumTasks/',
+                    method: 'post',
+                    data: $('#newTask').serialize()
+                })
+                .done(function(data) {
+                    toastr.success('New task has been created');
+                    var taskRowHtml = template(data);
+                    $('#newTask').find("input[type=text], textarea").val("");
+                    $('#newTask').find("input[type=text]").focus();
+                    table.row.add($(taskRowHtml)).draw();
+                })
+                .fail(function (data) {
+                    console.log(data);
+                    toastr.error('Something went wrong');
+                });
 
                 return false;
             }
