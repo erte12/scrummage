@@ -436,8 +436,8 @@ namespace Scrummage.Controllers
             var identity = await user.GenerateUserIdentityAsync(UserManager);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = true }, identity);
 
-            if (result.Succeeded && Request.UrlReferrer != null)
-                Response.Redirect(Request.UrlReferrer.ToString());
+            if (result.Succeeded)
+                return RedirectToAction("Index", "Home");
 
             return HttpNotFound();
         }

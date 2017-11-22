@@ -1,7 +1,10 @@
-﻿<div data-task-id="{{id}}" class="col-lg-6 js-taskbox">
+﻿<div data-task-id="{{id}}" class="col-lg-6 js-taskbox moveable">
     <div class="panel panel-primary">
-        <div class="panel-body text-justify">
+        <div class="panel-body">
             {{content}}
+            <div>
+                <a href="#" class="js-task-details-button"><strong>Details</strong></a>
+            </div>
         </div>
         <div class="panel-footer">
             <div>
@@ -15,7 +18,7 @@
                     Took:
                     <js-took>
                         {{#if took}}
-                            {{took.value}}
+                        {{took.value}}
                         {{/if}}
                     </js-took>
                 </strong>

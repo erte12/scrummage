@@ -80,7 +80,7 @@
         @RenderBody()
     </div>
     
-<div class="container-fluid">
+<div class="container">
     @RenderSection("fullWidth", required: false)
 </div>
 
@@ -96,9 +96,6 @@
 <script>
     $.get('/api/teams', function (data) {
         data.forEach(function (team) {
-            var scrumBoardMenuElement = createMenuElement('/Sprints?teamId=' + team.id, team.name);
-            scrumBoardMenuElement.appendTo('#scrumBoardNavigation');
-
             var teamsListElement = $('<option value="' + team.id + '">' + team.name + '</option>');
 
             if (String(team.id) === '@User.Identity.GetDefaultTeamId()')
@@ -108,15 +105,6 @@
 
         });
     });
-
-    function createMenuElement(destination, text) {
-        var menuElement = $('<li><a></a></li>');
-        menuElement.find('a')
-            .attr('href', destination)
-            .text(text);
-
-        return menuElement;
-    }
 
     $('#teams').on('change', function () {
         var teamId = $(this).val();

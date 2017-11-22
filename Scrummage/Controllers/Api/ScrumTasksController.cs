@@ -61,6 +61,17 @@ namespace Scrummage.Controllers.Api
             return Ok(tasksDto);
         }
 
+        [HttpGet]
+        public IHttpActionResult GetScrumTask(int id)
+        {
+            var scrumTask = _unitOfWork.ScrumTasks.GetWithDetails(id);
+            if (scrumTask == null)
+                return NotFound();
+
+            var scrumTaskDto = Mapper.Map<ScrumTaskDto>(scrumTask);
+            return Ok(scrumTaskDto);
+        }
+
         [HttpDelete]
         [Authorize(Roles = RoleName.ScrumMaster)]
         public IHttpActionResult DeleteScrumTask(int id)

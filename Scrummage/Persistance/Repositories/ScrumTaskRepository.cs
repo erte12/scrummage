@@ -26,6 +26,15 @@ namespace Scrummage.Persistance.Repositories
                 .ToList();
         }
 
+        public ScrumTask GetWithDetails(int id)
+        {
+            return ApplicationDbContext.ScrumTasks
+                .Include(s => s.User)
+                .Include(s => s.Estimation)
+                .Include(s => s.Took)
+                .SingleOrDefault(s => s.Id == id);
+        }
+
         private IQueryable<ScrumTask> GetTasksBySprintIdQuery(int sprintId)
         {
             return ApplicationDbContext.ScrumTasks

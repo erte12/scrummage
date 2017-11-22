@@ -103,7 +103,7 @@
                 var taskBox = $(template(task));
 
                 if (task.taskType === @((byte)TaskType.Done))
-                    taskBox.removeClass('js-taskbox');
+                    taskBox.removeClass('moveable');
                 else
                     taskBox.find('.js-done').hide();
 
@@ -126,6 +126,25 @@
                         .children('.scrum-task-col')
                         .droppable('disable');
                 }
+            })
+            .on('click', '.js-task-details-button', function () {
+                var taskId = $(this).parents('.js-taskbox').attr('data-task-id');
+                
+                $.get('/api/ScrumTasks/GetScrumTaskContent?id=' + taskId, function (task) {
+                    var message = task.content + '<hr />' +
+                        '<div><strong>Priority: ' + task.priority + '</strong></div>' +
+                        '<div><strong>Estimation: ' + task.estimation.value + '</strong></div>' +
+                        '<div><strong>Who: ' + task.user.name + ' ' + task.user.surname + '</strong></div>';
+
+                    if(task.took != null)
+                        message += '<div><strong>Took: ' + task.took.value + '</strong></div>';
+
+                    bootbox.alert({
+                        size: "medium",
+                        title: "Your Title",
+                        message: message
+                    });
+                });
             });
 
             table.dataTable();
@@ -209,7 +228,7 @@
 
             if (destination === @((byte)TaskType.Done)) {
                 taskBox.find('.js-done').show();
-                taskBox.removeClass('js-taskbox').draggable('disable');
+                taskBox.removeClass('moveable').draggable('disable');
             }
 
             taskBox
