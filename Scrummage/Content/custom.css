@@ -33,8 +33,17 @@ td.task-params-col, td.task-delete-col {
 }
 /*End of anage tasks table*/
 
+/*Events table*/
 td.event-content-col {
-    width: 30%
+    width: 50%
+}
+
+td.event-date-col {
+    width: 20%
+}
+
+td.event-delete-col {
+    width: 10%
 }
 
 .task-buttons-board {
