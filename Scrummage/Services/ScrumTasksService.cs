@@ -67,6 +67,8 @@ namespace Scrummage.Services
             if (taskFromDb == null)
                 return null;
 
+            if (!string.IsNullOrWhiteSpace(taskDto.Title))
+                UpdateTitle(taskFromDb, taskDto.Title);
             if (!string.IsNullOrWhiteSpace(taskDto.Content))
                 UpdateContent(taskFromDb, taskDto.Content);
             if (!string.IsNullOrWhiteSpace(taskDto.UserId))
@@ -84,6 +86,11 @@ namespace Scrummage.Services
                 _unitOfWork.Complate();
 
             return taskFromDb;
+        }
+
+        private static void UpdateTitle(ScrumTask task, string title)
+        {
+            task.Title = title;
         }
 
         private static void UpdateContent(ScrumTask task, string content)

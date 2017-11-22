@@ -43,11 +43,11 @@
         <h3>Add new task to backlog</h3>
         <form id="newTask">
             <div class="form-group">
-                <label class="control-label">Title</label>
+                <label class="control-label">Title (required)</label>
                 <input type="text" id="title" name="title" class="form-control" />
             </div>
             <div class="form-group">
-                <label for="content" class="control-label">Content</label>
+                <label for="content" class="control-label">Content with definition of done (required)</label>
                 <textarea name="content" id="content" rows="6" class="form-control"></textarea>
             </div>
             <input name="sprintId" type="hidden" value="@Model.Id"/>
@@ -58,7 +58,7 @@
         <h3>Sprint Information</h3>
         <form id="sprintForm">
             <div class="form-group">
-                <label for="name" class="control-label">Name</label>
+                <label for="name" class="control-label">Name (required)</label>
                 <input type="text" id="name" name="name" value="@Model.Name" class="form-control"/>
             </div>
             <div class="form-group">
@@ -279,21 +279,22 @@
             var contentElement = $(this);
             var content = contentElement.text();
             var scrumTaskId = contentElement.parents('tr').attr('data-task-id');
+            var dataType = contentElement.parents('td').attr('data-type');
 
             bootbox.prompt({
-                title: "Edit task's content",
+                title: "Edit task's " + dataType,
                 inputType: 'textarea',
                 value: content,
-                callback: function (newContent) {
-                    if (newContent != null) {
+                callback: function (newValue) {
+                    if (newValue != null) {
                         $.ajax({
                             url: '/api/scrumtasks/' + scrumTaskId,
                             method: 'patch',
-                            data: { content: newContent }
+                            data: (dataType === 'content') ? { content: newValue } : { title: newValue } //TODO: change needed...
                         })
                         .done(function() {
-                            toastr.success('Content updated successfully');
-                            contentElement.html(newContent);
+                            toastr.success(dataType[0].toUpperCase() + dataType.substring(1) + ' updated successfully');
+                            contentElement.html(newValue);
                         })
                         .fail(function() {
                             toastr.error('Something went wrong');
