@@ -29,6 +29,12 @@ namespace Scrummage.Services
 
         private void Validate(ScrumTask task)
         {
+            if (task.Title == null || task.Title.Trim().Length == 0)
+                _validationDictionary.AddError("Content", "Title is required.");
+            if (task.Title != null && task.Title.Trim().Length < 3)
+                _validationDictionary.AddError("Content", "Title must contain at least 3 characters.");
+            if (task.Title != null && task.Title.Trim().Length > 40)
+                _validationDictionary.AddError("Content", "Title must contain less than 40 characters.");
             if (task.Content == null || task.Content.Trim().Length == 0)
                 _validationDictionary.AddError("Content", "Content is required.");
             if (task.Content != null && task.Content.Trim().Length < 3)

@@ -10,6 +10,8 @@ namespace Scrummage.Presentation.Dtos
     {
         public int Id { get; set; }
 
+        public string Title { get; set; }
+
         public string Content { get; set; }
 
         public ApplicationUserDto User { get; set; }

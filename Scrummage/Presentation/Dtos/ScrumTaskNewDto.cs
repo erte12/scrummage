@@ -9,6 +9,8 @@ namespace Scrummage.Dtos
 {
     public class ScrumTaskNewDto
     {
+        public string Title { get; set; }
+
         public string Content { get; set; }
 
         public int SprintId { get; set; }

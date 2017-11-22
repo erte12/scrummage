@@ -9,6 +9,8 @@ namespace Scrummage.Dtos
 {
     public class ScrumTaskUpdateDto
     {
+        public string Title { get; set; }
+
         public string Content { get; set; }
 
         public int? EstimationId { get; set; }
