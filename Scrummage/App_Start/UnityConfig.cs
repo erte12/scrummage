@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Scrummage.Controllers;
+using Scrummage.Controllers.MvcActionFilters;
 using Scrummage.Core;
 using Scrummage.Core.Repositories;
 using Scrummage.Core.Services;
@@ -59,6 +60,8 @@ namespace Scrummage
             container.RegisterType<IScrumTasksService, ScrumTasksService>();
             container.RegisterType<ISprintService, SprintService>();
             container.RegisterType<IEventService, EventService>();
+
+            //            container.RegisterType<TeamAccessActionFilter>();
 
             //TODO: Change
             container.RegisterType<AccountController>(new InjectionConstructor());

@@ -43,7 +43,6 @@ namespace Scrummage.Controllers.Api
         public IHttpActionResult GetTeams()
         {
             var teams = _unitOfWork.Teams.GetAll();
-
             return Ok(teams.Select(Mapper.Map<Team, TeamDto>));
         }
 
@@ -92,7 +91,7 @@ namespace Scrummage.Controllers.Api
                 return BadRequest();
 
             var team = _unitOfWork.Teams
-                .GetWithMembers(memberTeam.TeamId);
+                .GetWithMembersAndScrumMaster(memberTeam.TeamId);
 
             if (team == null)
                 return BadRequest();

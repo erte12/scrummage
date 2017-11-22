@@ -35,6 +35,7 @@ namespace Scrummage.Persistance.Repositories
             var sprint = ApplicationDbContext.Sprints
                 .Include(s => s.Team)
                 .Include(s => s.Team.Users)
+                .Include(s => s.Team.ScrumMaster)
                 .SingleOrDefault(s => s.Id == sprintId);
 
             return sprint;

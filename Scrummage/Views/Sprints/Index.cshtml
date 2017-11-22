@@ -113,7 +113,7 @@
                 taskBox.appendTo(elementPosition);
             });
         }).done(function() {
-            $('.js-taskbox').draggable({
+            $('.moveable').draggable({
                 revert: "invalid",
                 start: function(event, ui) {
                     ui.helper.css('z-index', 1);
@@ -126,8 +126,9 @@
                         .children('.scrum-task-col')
                         .droppable('disable');
                 }
-            })
-            .on('click', '.js-task-details-button', function () {
+            });
+
+            $('.js-taskbox').on('mousedown', '.js-task-details-button', function () {
                 var taskId = $(this).parents('.js-taskbox').attr('data-task-id');
                 
                 $.get('/api/ScrumTasks/GetScrumTaskContent?id=' + taskId, function (task) {

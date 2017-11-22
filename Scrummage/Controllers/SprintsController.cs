@@ -2,10 +2,12 @@
 using System.Data.Entity.Validation;
 using System.Web.Mvc;
 using AutoMapper;
+using Scrummage.Controllers.MvcActionFilters;
 using Scrummage.Core;
 using Scrummage.Core.Services;
 using Scrummage.Dtos;
 using Scrummage.Models;
+using Scrummage.Persistance;
 using Scrummage.Presentation.ViewModels;
 using Scrummage.Services.Validation;
 using Scrummage.ViewModels;
@@ -25,6 +27,7 @@ namespace Scrummage.Controllers
         }
 
         [Route("Sprints")]
+        [TeamAccessActionFilter]
         public ActionResult RedirectToNewestSprintForTeam(int teamId)
         {
             var sprint = _unitOfWork.Sprints.GetNewestForTeam(teamId);
@@ -35,6 +38,7 @@ namespace Scrummage.Controllers
         }
 
         [Route("Sprints/{id:regex(\\d)}")]
+        [SprintActionFilter]
         public ActionResult Index(int id)
         {
             var sprint = _unitOfWork.Sprints.GetWithTeamAndUsers(id);
@@ -60,9 +64,24 @@ namespace Scrummage.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = RoleName.ScrumMaster)]
+        [TeamAccessActionFilter]
+        public ActionResult New(int teamId)
+        {
+            var team = _unitOfWork.Teams.GetWithSprints(teamId);
+
+            if (!team.HasAnySprint)
+                ViewBag.TeamHasNoSprints = true;
+
+            var viewModel = new SprintNewViewModel { Team = Mapper.Map<TeamDto>(team) };
+
+            return View(viewModel);
+        }
+
         [HttpPost]
         [Authorize(Roles = RoleName.ScrumMaster)]
-        public ActionResult Save(SprintNewViewModel sprintNewViewModel)
+        [TeamAccessActionFilter]
+        public ActionResult Save(int teamId, SprintNewViewModel sprintNewViewModel)
         {
             var team = _unitOfWork.Teams.Get(sprintNewViewModel.TeamId);
             if (team == null)
@@ -78,23 +97,9 @@ namespace Scrummage.Controllers
             return View("New", sprintNewViewModel);
         }
 
-        [Authorize(Roles = RoleName.ScrumMaster)]
-        public ActionResult New(int teamId)
-        {
-            var team = _unitOfWork.Teams.GetWithSprints(teamId);
-
-            if (team == null)
-                return HttpNotFound();
-            if (!team.HasAnySprint)
-                ViewBag.TeamHasNoSprints = true;
-
-            var viewModel = new SprintNewViewModel { Team = Mapper.Map<TeamDto>(team) };
-
-            return View(viewModel);
-        }
-
         [HttpPost]
         [Authorize(Roles = RoleName.ScrumMaster)]
+        [SprintActionFilter]
         public ActionResult Delete(int id)
         {
             var sprint = _unitOfWork.Sprints.Get(id);
@@ -109,6 +114,7 @@ namespace Scrummage.Controllers
         }
 
         [Authorize(Roles = RoleName.ScrumMaster)]
+        [SprintActionFilter]
         public ActionResult Manage(int id)
         {
             var sprint = _unitOfWork.Sprints.GetWithTeamAndTasks(id);
@@ -134,6 +140,7 @@ namespace Scrummage.Controllers
             return View(viewModel);
         }
 
+        [SprintActionFilter]
         public ActionResult Statistics(int id)
         {
             var sprint = _unitOfWork.Sprints.GetWithTeam(id);

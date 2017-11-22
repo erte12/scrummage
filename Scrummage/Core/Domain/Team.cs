@@ -20,6 +20,10 @@ namespace Scrummage.Models
 
         public List<Sprint> Sprints { get; set; }
 
+        public ApplicationUser ScrumMaster { get; set; }
+
+        public string ScrumMasterId { get; set; }
+
         public Team()
         {
             Users = new List<ApplicationUser>();

@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Web.Mvc;
 using AutoMapper;
+using Scrummage.Controllers.MvcActionFilters;
 using Scrummage.Core;
 using Scrummage.Dtos;
 using Scrummage.Models;
@@ -26,9 +27,10 @@ namespace Scrummage.Controllers
         }
    
         [Route("Teams/{id:regex(\\d)}")]
+        [TeamAccessActionFilter]
         public ActionResult Details(int id)
         {
-            var team = _unitOfWork.Teams.GetWithMembers(id);
+            var team = _unitOfWork.Teams.GetWithMembersAndScrumMaster(id);
 
             if (team == null)
                 return HttpNotFound();

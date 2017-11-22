@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using AutoMapper;
+using Scrummage.Controllers.MvcActionFilters;
 using Scrummage.Core;
 using Scrummage.Dtos;
 using Scrummage.Models;
@@ -17,6 +18,7 @@ namespace Scrummage.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [TeamAccessActionFilter]
         public ActionResult Index(int teamId)
         {
             var team = _unitOfWork.Teams.Get(teamId);

@@ -24,6 +24,11 @@ namespace Scrummage.Models.Configuration
                     cs.MapRightKey("MemberId");
                     cs.ToTable("MemberTeam");
                 });
+
+            HasRequired(t => t.ScrumMaster)
+                .WithMany(u => u.ManagedTeams)
+                .HasForeignKey(t => t.ScrumMasterId)
+                .WillCascadeOnDelete(false);
         }
     }
 }
