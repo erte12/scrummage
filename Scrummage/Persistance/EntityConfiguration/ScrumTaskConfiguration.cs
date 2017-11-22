@@ -10,6 +10,10 @@ namespace Scrummage.Models.Configuration
     {
         public ScrumTaskConfiguration()
         {
+            Property(s => s.Title)
+                .IsRequired()
+                .HasMaxLength(40);
+
             Property(s => s.Content)
                 .IsRequired()
                 .HasMaxLength(400);

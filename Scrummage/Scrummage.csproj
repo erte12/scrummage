@@ -273,6 +273,10 @@
     <Compile Include="Migrations\201711201832226_AddDefaultTeamPropertyToApplicationUsersTable.Designer.cs">
       <DependentUpon>201711201832226_AddDefaultTeamPropertyToApplicationUsersTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711221633007_AddTitlePropertyToScrumTasksTable.cs" />
+    <Compile Include="Migrations\201711221633007_AddTitlePropertyToScrumTasksTable.Designer.cs">
+      <DependentUpon>201711221633007_AddTitlePropertyToScrumTasksTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistance\EntityConfiguration\EventConfiguration.cs" />
     <Compile Include="Persistance\Repositories\EventRepository.cs" />
     <Compile Include="Presentation\Dtos\ApplicationUserDto.cs" />
@@ -1195,6 +1199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711201832226_AddDefaultTeamPropertyToApplicationUsersTable.resx">
       <DependentUpon>201711201832226_AddDefaultTeamPropertyToApplicationUsersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711221633007_AddTitlePropertyToScrumTasksTable.resx">
+      <DependentUpon>201711221633007_AddTitlePropertyToScrumTasksTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
