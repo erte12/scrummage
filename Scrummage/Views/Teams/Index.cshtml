@@ -39,7 +39,7 @@
         }
 
         $.ajax({
-            url: '/api/teams',
+            url: '/Api/Teams',
             method: 'get'
         })
         .done(function(teams) {
@@ -51,7 +51,7 @@
         $('#newTeam').validate({
             submitHandler: function() {
                 $.ajax({
-                        url: '/api/teams',
+                        url: '/Api/Teams',
                         method: 'post',
                         data: $('#newTeam').serialize()
                 })
@@ -71,13 +71,14 @@
         });
 
         $('#teams').on('click', '.js-remove', function () {
+            console.log('click');
             var id = $(this).attr('data-team-id');
             var element = $(this).parent();
 
             bootbox.confirm('Are you sure?', function (result) {
                 if (result === true) {
                     $.ajax({
-                        url: '/api/teams/' + id,
+                        url: '/Api/Teams/' + id,
                         method: 'delete'
                     })
                     .done(function () {

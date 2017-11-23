@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Scrummage.Core;
 using Scrummage.Dtos;
 using Scrummage.Models;
@@ -30,8 +31,9 @@ namespace Scrummage.Controllers.Api
                 return BadRequest();
 
             var team = Mapper.Map<Team>(teamDto);
+            team.ScrumMasterId = User.Identity.GetUserId();
             team.CreatedAt = DateTime.Now;
-
+            
             _unitOfWork.Teams.Add(team);
             _unitOfWork.Complate();
 
@@ -42,8 +44,8 @@ namespace Scrummage.Controllers.Api
 
         public IHttpActionResult GetTeams()
         {
-            var teams = _unitOfWork.Teams.GetAll();
-            return Ok(teams.Select(Mapper.Map<Team, TeamDto>));
+            var teams = _unitOfWork.Teams.GetMyTeams();
+            return Ok(Mapper.Map<IEnumerable<TeamDto>>(teams));
         }
 
         [HttpDelete]

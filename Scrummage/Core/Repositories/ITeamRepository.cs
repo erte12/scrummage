@@ -11,5 +11,6 @@ namespace Scrummage.Core.Repositories
     {
         Team GetWithMembersAndScrumMaster(int id);
         Team GetWithSprints(int id);
+        IEnumerable<Team> GetMyTeams();
     }
 }

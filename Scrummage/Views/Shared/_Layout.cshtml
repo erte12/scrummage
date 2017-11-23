@@ -88,7 +88,7 @@
 @Scripts.Render("~/bundles/lib")
     
 <script>
-    $.get('/api/teams', function (data) {
+    $.get('/Api/Teams/GetMyTeams', function (data) {
         data.forEach(function (team) {
             var teamsListElement = $('<option value="' + team.id + '">' + team.name + '</option>');
 
