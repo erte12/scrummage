@@ -45,6 +45,14 @@ namespace Scrummage.Services
                 _validationDictionary.AddError("SprintId", "Sprint with this id does not exist.");
         }
 
+        private void CheckIfTaskTypeChangeIsPermitted(ScrumTask task)
+        {
+            var sprint = _unitOfWork.Sprints.Get(task.SprintId);
+
+            if (sprint != null && (sprint.StartsAt > DateTime.Today || sprint.EndsAt < DateTime.Today))
+                _validationDictionary.AddError("SprintId", "This sprint is inactive.");
+        }
+
         public ScrumTask Create(ScrumTask newScrumTask)
         {
             newScrumTask.CreatedAt = DateTime.Now;
@@ -136,6 +144,8 @@ namespace Scrummage.Services
             }
 
             task.TaskType = taskType;
+
+            CheckIfTaskTypeChangeIsPermitted(task);
         }
     }
 }

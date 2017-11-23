@@ -1,5 +1,5 @@
 using System.Web.Http;
-
+using Scrummage.Controllers.ApiActionFilters;
 using Unity.AspNet.WebApi;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Scrummage.UnityWebApiActivator), nameof(Scrummage.UnityWebApiActivator.Start))]
@@ -23,6 +23,8 @@ namespace Scrummage
             var resolver = new UnityDependencyResolver(UnityConfig.Container);
 
             GlobalConfiguration.Configuration.DependencyResolver = resolver;
+//            GlobalConfiguration.Configuration.Filters.Add(
+//                (SprintActionFilter)resolver.GetService(typeof(SprintActionFilter)));
         }
 
         /// <summary>

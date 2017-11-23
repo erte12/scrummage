@@ -2,7 +2,6 @@ using System;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Scrummage.Controllers;
-using Scrummage.Controllers.MvcActionFilters;
 using Scrummage.Core;
 using Scrummage.Core.Repositories;
 using Scrummage.Core.Services;
@@ -11,9 +10,10 @@ using Scrummage.Persistance;
 using Scrummage.Persistance.Repositories;
 using Scrummage.Services;
 using Unity;
-using Unity.AspNet.Mvc;
 using Unity.Injection;
 using Unity.Lifetime;
+using Scrummage.Controllers.ApiActionFilters;
+using Unity.AspNet.Mvc;
 
 namespace Scrummage
 {
@@ -56,12 +56,10 @@ namespace Scrummage
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
 
-            container.RegisterType<IUnitOfWork, UnitOfWork>();
-            container.RegisterType<IScrumTasksService, ScrumTasksService>();
-            container.RegisterType<ISprintService, SprintService>();
-            container.RegisterType<IEventService, EventService>();
-
-            //            container.RegisterType<TeamAccessActionFilter>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>(new PerRequestLifetimeManager());
+            container.RegisterType<IScrumTasksService, ScrumTasksService>(new PerRequestLifetimeManager());
+            container.RegisterType<ISprintService, SprintService>(new PerRequestLifetimeManager());
+            container.RegisterType<IEventService, EventService>(new PerRequestLifetimeManager());
 
             //TODO: Change
             container.RegisterType<AccountController>(new InjectionConstructor());

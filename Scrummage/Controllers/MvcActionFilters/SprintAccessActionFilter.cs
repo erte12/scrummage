@@ -8,7 +8,7 @@ using Unity.Attributes;
 
 namespace Scrummage.Controllers.MvcActionFilters
 {
-    public class SprintActionFilter : ActionFilterAttribute
+    public class SprintAccessActionFilter : ActionFilterAttribute
     {
         [Dependency]
         public IUnitOfWork UnitOfWork { private get; set; }

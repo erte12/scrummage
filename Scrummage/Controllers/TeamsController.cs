@@ -31,10 +31,6 @@ namespace Scrummage.Controllers
         public ActionResult Details(int id)
         {
             var team = _unitOfWork.Teams.GetWithMembersAndScrumMaster(id);
-
-            if (team == null)
-                return HttpNotFound();
-
             return View(team);
         }
 

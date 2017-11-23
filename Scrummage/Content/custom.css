@@ -79,3 +79,10 @@ td.event-delete-col {
     margin-right: 10px;
 }
 
+.disabled
+{
+    pointer-events: none;
+
+    /* for "disabled" effect */
+    opacity: 0.8;
+}

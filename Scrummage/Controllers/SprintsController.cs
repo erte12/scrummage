@@ -38,13 +38,10 @@ namespace Scrummage.Controllers
         }
 
         [Route("Sprints/{id:regex(\\d)}")]
-        [SprintActionFilter]
+        [SprintAccessActionFilter]
         public ActionResult Index(int id)
         {
             var sprint = _unitOfWork.Sprints.GetWithTeamAndUsers(id);
-
-            if (sprint == null)
-                return HttpNotFound();
 
             var estimations = _unitOfWork.Estimations.GetAll();
             var teamSprints = _unitOfWork.Sprints.GetByTeamId(sprint.TeamId);
@@ -84,8 +81,6 @@ namespace Scrummage.Controllers
         public ActionResult Save(int teamId, SprintNewViewModel sprintNewViewModel)
         {
             var team = _unitOfWork.Teams.Get(sprintNewViewModel.TeamId);
-            if (team == null)
-                return HttpNotFound();
 
             var newSprint = Mapper.Map<Sprint>(sprintNewViewModel);
             _sprintService.Create(newSprint);
@@ -99,13 +94,10 @@ namespace Scrummage.Controllers
 
         [HttpPost]
         [Authorize(Roles = RoleName.ScrumMaster)]
-        [SprintActionFilter]
+        [SprintAccessActionFilter]
         public ActionResult Delete(int id)
         {
             var sprint = _unitOfWork.Sprints.Get(id);
-
-            if (sprint == null)
-                return HttpNotFound();
 
             _unitOfWork.Sprints.Remove(sprint);
             _unitOfWork.Complate();
@@ -114,13 +106,10 @@ namespace Scrummage.Controllers
         }
 
         [Authorize(Roles = RoleName.ScrumMaster)]
-        [SprintActionFilter]
+        [SprintAccessActionFilter]
         public ActionResult Manage(int id)
         {
             var sprint = _unitOfWork.Sprints.GetWithTeamAndTasks(id);
-
-            if (sprint == null)
-                return HttpNotFound();
 
             var estimations = _unitOfWork.Estimations.GetAll();
 
@@ -140,15 +129,12 @@ namespace Scrummage.Controllers
             return View(viewModel);
         }
 
-        [SprintActionFilter]
+        [SprintAccessActionFilter]
         public ActionResult Statistics(int id)
         {
             var sprint = _unitOfWork.Sprints.GetWithTeam(id);
-            if (sprint == null)
-                return null;
 
             var sprintViewModel = Mapper.Map<SprintStatisticsViewModel>(sprint);
-
             return View(sprintViewModel);
         }
 

@@ -223,7 +223,8 @@
     <Compile Include="App_Start\UnityWebApiActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\MvcActionFilters\SprintActionFilter.cs" />
+    <Compile Include="Controllers\ApiActionFilters\SprintActionFilter.cs" />
+    <Compile Include="Controllers\MvcActionFilters\SprintAccessActionFilter.cs" />
     <Compile Include="Controllers\MvcActionFilters\TeamAccessActionFilter.cs" />
     <Compile Include="Controllers\Api\EventsController.cs" />
     <Compile Include="Controllers\Api\SprintsBurndownChartsController.cs" />

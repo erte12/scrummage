@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using Scrummage.Controllers.ApiActionFilters;
 using Scrummage.Core;
 using Scrummage.Core.Services;
 using Scrummage.Dtos;
@@ -28,6 +29,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpPatch]
+//        [SprintActionFilter]
         public IHttpActionResult UpdateSprint(int id, SprintDto sprintDto)
         {
             var sprint = _sprintService.Update(id, sprintDto);

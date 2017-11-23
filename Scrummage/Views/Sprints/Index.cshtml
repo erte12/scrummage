@@ -4,9 +4,11 @@
 
 @{
     ViewBag.Title = "Scrum Board";
+    var sprintNotStartedYet = Model.StartsAt > DateTime.Today;
+    var sprintIsFinished = Model.EndsAt < DateTime.Today;
+    var sprintIsInactive = sprintNotStartedYet || sprintIsFinished;
 }
-@section fullWidth
-{
+
 <h2>Scrum board - @Model.Name (@Model.StartsAt.ToString("d") - @Model.EndsAt.ToString("d")) - Team: @Model.Team.Name</h2>
 <hr/>
 <div class="row">
@@ -51,7 +53,27 @@
     </div>
 </div>
 <hr/>
-<table id="scrumBoard" class="table table-bordered">
+
+@if (sprintIsInactive)
+{
+    <div class="row">
+        <div class="col-md-5">
+            <div class="alert alert-warning" role="alert">
+                <span class="glyphicon glyphicon-alert"></span>
+                @if (sprintNotStartedYet)
+                {
+                    <text>This sprint starts at @Model.StartsAt.ToString("d") and is inactive now.</text>
+                }
+                else
+                {
+                    <text>This sprint was completed at @Model.EndsAt.ToString("d") and is inactive.</text>
+}
+            </div> 
+        </div>
+    </div>
+}
+
+<table id="scrumBoard" class="table table-bordered@((sprintIsInactive) ? " disabled" : null)">
     <thead>
     <tr>
         <th>Who</th>
@@ -80,7 +102,7 @@
     }
     </tbody>
 </table> 
-}
+
 
 @section scripts
 {

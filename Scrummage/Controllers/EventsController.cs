@@ -22,11 +22,8 @@ namespace Scrummage.Controllers
         public ActionResult Index(int teamId)
         {
             var team = _unitOfWork.Teams.Get(teamId);
-            if (team == null)
-                return HttpNotFound();
 
             var viewModel = new EventViewModel {Team = Mapper.Map<TeamDto>(team)};
-
             return View(viewModel);
         }
     }
