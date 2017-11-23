@@ -14,7 +14,7 @@
 <div class="row">
     <div class="container pull-left">
         <div class="col-lg-3">
-            <select id="sprintsList" class="form-control">
+            <select id="sprintsList" class="form-control center-block">
                 @foreach (var sprint in @Model.TeamSprints)
                 {
                     <option @((sprint.Id == Model.Id)
@@ -112,7 +112,7 @@
 
     @* Task Box template *@
     <script id="taskBox" type="text/x-handlebars-template">
-        @Html.Partial("_TaskBox")
+        @Html.Partial("_TaskBox")    
     </script>
 
     <script>
@@ -134,21 +134,11 @@
 
                 taskBox.appendTo(elementPosition);
             });
-        }).done(function() {
-            $('.moveable').draggable({
-                revert: "invalid",
-                start: function(event, ui) {
-                    ui.helper.css('z-index', 1);
-                    ui.helper.parents('.js-user-row')
-                        .children('.scrum-task-col')
-                        .droppable('enable');
-                },
-                stop: function(event, ui) {
-                    ui.helper.parents('.js-user-row')
-                        .children('.scrum-task-col')
-                        .droppable('disable');
-                }
-            });
+        }).done(function () {
+            @if (!sprintIsInactive)
+            {
+                @:makeTaskBoxesDraggable();
+            }
 
             $('.js-taskbox').on('mousedown', '.js-task-details-button', function () {
                 var taskId = $(this).parents('.js-taskbox').attr('data-task-id');
@@ -173,10 +163,27 @@
             table.dataTable();
         });
 
+        function makeTaskBoxesDraggable() {
+            $('.moveable').draggable({
+                revert: "invalid",
+                start: function(event, ui) {
+                    ui.helper.css('z-index', 1);
+                    ui.helper.parents('.js-user-row')
+                        .children('.scrum-task-col')
+                        .droppable('enable');
+                },
+                stop: function(event, ui) {
+                    ui.helper.parents('.js-user-row')
+                        .children('.scrum-task-col')
+                        .droppable('disable');
+                }
+            });
+        }
+
         $('#sprintsList').on('change', function () {
             location.href = '/Sprints/' + $(this).val();
         });
-
+        
         $('.scrum-task-col').droppable({
             classes: {
                 "ui-droppable-hover": "ui-state-hover"
