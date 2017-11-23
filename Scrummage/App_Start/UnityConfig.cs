@@ -60,6 +60,7 @@ namespace Scrummage
             container.RegisterType<IScrumTasksService, ScrumTasksService>(new PerRequestLifetimeManager());
             container.RegisterType<ISprintService, SprintService>(new PerRequestLifetimeManager());
             container.RegisterType<IEventService, EventService>(new PerRequestLifetimeManager());
+            container.RegisterType<ITeamsService, TeamsService>(new PerRequestLifetimeManager());
 
             //TODO: Change
             container.RegisterType<AccountController>(new InjectionConstructor());

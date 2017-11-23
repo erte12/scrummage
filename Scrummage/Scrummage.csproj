@@ -243,6 +243,7 @@
     <Compile Include="Core\Repositories\IEventRepository.cs" />
     <Compile Include="Core\RoleName.cs" />
     <Compile Include="Core\Services\IEventService.cs" />
+    <Compile Include="Core\Services\ITeamsService.cs" />
     <Compile Include="Core\Services\Validation\IValidationDictionary.cs" />
     <Compile Include="Core\Repositories\IApplicationUserRepository.cs" />
     <Compile Include="Core\Repositories\IEstimationRepository.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="Presentation\ViewModels\EventViewModel.cs" />
     <Compile Include="Presentation\ViewModels\SprintStatisticsViewModel.cs" />
     <Compile Include="Services\EventService.cs" />
+    <Compile Include="Services\TeamsService.cs" />
     <Compile Include="Services\Validation\ValidationDictionaryMvc.cs" />
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.cs" />
     <Compile Include="Migrations\201710311321509_ChangeTookPropertyToEstimationinScrumTasksTable.Designer.cs">

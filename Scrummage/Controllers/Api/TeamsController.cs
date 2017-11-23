@@ -8,37 +8,37 @@ using System.Web.Http;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Scrummage.Core;
+using Scrummage.Core.Services;
 using Scrummage.Dtos;
 using Scrummage.Models;
 using Scrummage.Persistance;
+using Scrummage.Services.Validation;
 
 namespace Scrummage.Controllers.Api
 {
     public class TeamsController : ApiController
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ITeamsService _teamsService;
 
-        public TeamsController(IUnitOfWork unitOfWork)
+        public TeamsController(IUnitOfWork unitOfWork, ITeamsService teamsService)
         {
             _unitOfWork = unitOfWork;
+            _teamsService = teamsService;
+            _teamsService.Initialize(new ValidationDictionaryWebApi(ModelState));
         }
 
         [HttpPost]
         [Authorize(Roles = RoleName.ScrumMaster)]
         public IHttpActionResult CreateTeam(TeamDto teamDto)
         {
+            var team = Mapper.Map<Team>(teamDto);
+            _teamsService.Create(team);
+
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var team = Mapper.Map<Team>(teamDto);
-            team.ScrumMasterId = User.Identity.GetUserId();
-            team.CreatedAt = DateTime.Now;
-            
-            _unitOfWork.Teams.Add(team);
-            _unitOfWork.Complate();
-
-            teamDto.Id = team.Id;
-
+            teamDto = Mapper.Map<TeamDto>(team);
             return Ok(teamDto);
         }
 
@@ -52,13 +52,10 @@ namespace Scrummage.Controllers.Api
         [Authorize(Roles = RoleName.ScrumMaster)]
         public IHttpActionResult DeleteTeam(int id)
         {
-            var team = _unitOfWork.Teams.Get(id);
-
-            if (team == null)
-                return NotFound();
-
-            _unitOfWork.Teams.Remove(team);
-            _unitOfWork.Complate();
+            var success = _teamsService.DeleteTeam(id);
+            
+            if (!success)
+                return BadRequest();
 
             return Ok();
         }
@@ -67,18 +64,9 @@ namespace Scrummage.Controllers.Api
         [Authorize(Roles = RoleName.ScrumMaster)]
         public IHttpActionResult AddMember(MemberTeamDto memberTeam)
         {
-            var user = _unitOfWork.Users.Get(memberTeam.MemberId);
-
-            if (user == null)
-                return NotFound();
-
-            var team = _unitOfWork.Teams.Get(memberTeam.TeamId);
-
-            if (team == null)
-                return NotFound();
-
-            team.Users.Add(user);
-            _unitOfWork.Complate();
+            var success = _teamsService.AddMember(memberTeam.TeamId, memberTeam.MemberId);
+            if (!success)
+                return BadRequest();
 
             return Ok();
         }
@@ -87,19 +75,9 @@ namespace Scrummage.Controllers.Api
         [Authorize(Roles = RoleName.ScrumMaster)]
         public IHttpActionResult RemoveMember(MemberTeamDto memberTeam)
         {
-            var user = _unitOfWork.Users.Get(memberTeam.MemberId);
-
-            if (user == null)
+            var success = _teamsService.RemoveMember(memberTeam.TeamId, memberTeam.MemberId);
+            if (!success)
                 return BadRequest();
-
-            var team = _unitOfWork.Teams
-                .GetWithMembersAndScrumMaster(memberTeam.TeamId);
-
-            if (team == null)
-                return BadRequest();
-
-            team.Users.Remove(user);
-            _unitOfWork.Complate();
 
             return Ok();
         }
