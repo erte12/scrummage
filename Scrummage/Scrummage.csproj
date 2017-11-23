@@ -405,6 +405,8 @@
     <Compile Include="Presentation\ViewModels\Account\VerifyPhoneNumberViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="403.html" />
+    <Content Include="404.html" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -602,6 +604,8 @@
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Content\bootswatch\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\403.jpg" />
+    <Content Include="Content\images\404.jpg" />
     <Content Include="Content\images\702.jpg" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
