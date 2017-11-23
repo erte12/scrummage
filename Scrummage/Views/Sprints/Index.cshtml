@@ -57,23 +57,23 @@
 @if (sprintIsInactive)
 {
     <div class="row">
-        <div class="col-md-5">
-            <div class="alert alert-warning" role="alert">
+        <div class="col-md-offset-3 col-md-6">
+            <div class="text-center alert@(sprintNotStartedYet ? " alert-info" : " alert-success")" role="alert">
                 <span class="glyphicon glyphicon-alert"></span>
                 @if (sprintNotStartedYet)
                 {
-                    <text>This sprint starts at @Model.StartsAt.ToString("d") and is inactive now.</text>
+                    <text>This sprint starts at @Model.StartsAt.ToString("d") and is not active yet.</text>
                 }
                 else
                 {
-                    <text>This sprint was completed at @Model.EndsAt.ToString("d") and is inactive.</text>
+                    <text>This sprint was completed at @Model.EndsAt.ToString("d") and is no longer active.</text>
 }
             </div> 
         </div>
     </div>
 }
 
-<table id="scrumBoard" class="table table-bordered@((sprintIsInactive) ? " disabled" : null)">
+<table id="scrumBoard" class="table table-bordered@(sprintIsInactive ? " disabled" : null)">
     <thead>
     <tr>
         <th>Who</th>
