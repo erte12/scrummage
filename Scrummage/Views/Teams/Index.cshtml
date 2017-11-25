@@ -55,22 +55,47 @@
             table = table.DataTable();
         });
 
+        $('#newTeamButton').on('click', function() {
+            bootbox.prompt({ 
+                size: "small",
+                title: "Team name:", 
+                callback: function(name) {
+                    if (name != null) {
+                        $.ajax({
+                            url: '/Api/Teams',
+                            method: 'post',
+                            data: {name: name}
+                        })
+                        .done(function(newTeam) {
+                            toastr.success('New team has been created!');
+                            var teamRowHtml = template(newTeam);
+                            table.row.add($(teamRowHtml)).draw();
+                            //TODO: Validation
+                        })
+                        .fail(function() {
+                            toastr.error('Something went wrong!');
+                        });
+                    }
+                }
+            });
+        });
+
         $('#newTeam').validate({
             submitHandler: function() {
                 $.ajax({
-                        url: '/Api/Teams',
-                        method: 'post',
-                        data: $('#newTeam').serialize()
-                    })
-                    .done(function(newTeam) {
-                        toastr.success('New team has been created!');
-                        $('#newTeam').find('input').val('');
+                    url: '/Api/Teams',
+                    method: 'post',
+                    data: $('#newTeam').serialize()
+                })
+                .done(function(newTeam) {
+                    toastr.success('New team has been created!');
+                    $('#newTeam').find('input').val('');
 
-                        //TODO: Insert new team to table
-                    })
-                    .fail(function() {
-                        toastr.error('Something went wrong!');
-                    });
+                    //TODO: Insert new team to table
+                })
+                .fail(function() {
+                    toastr.error('Something went wrong!');
+                });
 
                 return false;
             }
@@ -95,16 +120,16 @@
                 callback: function (result) {
                     if (result === true) {
                         $.ajax({
-                            url: '/Api/Teams/' + teamId,
-                            method: 'delete'
-                        })
-                        .done(function() {
-                            toastr.success('Team successfully deleted');
-                            table.rows(teamRow).remove().draw();
-                        })
-                        .fail(function() {
-                            toastr.error('Something went wrong');
-                        });
+                                url: '/Api/Teams/' + teamId,
+                                method: 'delete'
+                            })
+                            .done(function() {
+                                toastr.success('Team successfully deleted');
+                                table.rows(teamRow).remove().draw();
+                            })
+                            .fail(function() {
+                                toastr.error('Something went wrong');
+                            });
                     }
                 }
             });
