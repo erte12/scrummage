@@ -49,7 +49,6 @@
         $.get('/Api/Teams', function (data) {
             data.forEach(function (team) {
                 var teamRowHtml = template(team);
-                console.log(teamRowHtml);
                 $('#teamsTable tbody').append(teamRowHtml);
             });
         }).done(function() {
@@ -77,25 +76,36 @@
             }
         });
 
-        $('#teams').on('click', '.js-remove', function () {
-            console.log('click');
-            var id = $(this).attr('data-team-id');
-            var element = $(this).parent();
+        $('#teamsTable tbody').on('click', '.js-delete', function () {
 
-            bootbox.confirm('Are you sure?', function (result) {
-                if (result === true) {
-                    $.ajax({
-                            url: '/Api/Teams/' + id,
+            var teamRow = $(this).parents('tr');
+            var teamId = teamRow.attr('data-team-id');
+
+            bootbox.confirm({
+                title: "Delete team?",
+                message: "Do you want to delete this team? This cannot be undone.",
+                buttons: {
+                    cancel: {
+                        label: '<i class="fa fa-times"></i> Cancel'
+                    },
+                    confirm: {
+                        label: '<i class="fa fa-check"></i> Confirm'
+                    }
+                },
+                callback: function (result) {
+                    if (result === true) {
+                        $.ajax({
+                            url: '/Api/Teams/' + teamId,
                             method: 'delete'
                         })
-                        .done(function () {
-                            toastr.success('Team successfully deleted.');
-
-                            element.remove();
+                        .done(function() {
+                            toastr.success('Team successfully deleted');
+                            table.rows(teamRow).remove().draw();
                         })
-                        .fail(function () {
-                            toastr.error('Something went wrong!');
+                        .fail(function() {
+                            toastr.error('Something went wrong');
                         });
+                    }
                 }
             });
         });
