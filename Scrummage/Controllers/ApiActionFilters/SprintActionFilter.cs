@@ -8,6 +8,7 @@ using System.Web.Http.Controllers;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Scrummage.Core;
+using Scrummage.Persistance;
 using Unity.Attributes;
 using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
 

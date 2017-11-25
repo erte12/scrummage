@@ -1,4 +1,5 @@
-﻿@using Scrummage.Core
+﻿@using Microsoft.AspNet.Identity
+@using Scrummage.Core
 @using Scrummage.Models
 @model Scrummage.ViewModels.SprintBoardViewModel
 
@@ -28,26 +29,26 @@
         {
             <div class="col-lg-2">
                 @Html.ActionLink("Manage sprint", "Manage", "Sprints",
-                    new {id = @Model.Id},
+                    new {id = Model.Id},
                     new {@class = "btn btn-primary btn-block"})
             </div>
         }
         <div class="col-lg-2">
             @Html.ActionLink("Statistics", "Statistics", "Sprints",
-                new { id = @Model.Id },
+                new { id = Model.Id },
                 new {@class = "btn btn-primary btn-block"})
         </div>
         @if (User.IsInRole(RoleName.ScrumMaster))
         {
             <div class="col-lg-2">
                 @Html.ActionLink("New sprint", "New", "Sprints",
-                    new {teamId = @Model.Team.Id},
+                    new {teamId = Model.Team.Id},
                     new {@class = "btn btn-success btn-block" })
             </div>
         }
         <div class="col-lg-2">
             @Html.ActionLink("Events", "Index", "Events",
-                new {teamId = @Model.Team.Id},
+                new {teamId = Model.Team.Id},
                 new {@class = "btn btn-warning btn-block" })
         </div>
     </div>
@@ -125,7 +126,7 @@
                 var taskBox = $(template(task));
 
                 if (task.taskType === @((byte)TaskType.Done))
-                    taskBox.removeClass('moveable');
+                    taskBox.removeClass('js-moveable');
                 else
                     taskBox.find('.js-done').hide();
 
@@ -142,7 +143,7 @@
 
             $('.js-taskbox').on('mousedown', '.js-task-details-button', function () {
                 var taskId = $(this).parents('.js-taskbox').attr('data-task-id');
-                
+
                 $.get('/api/ScrumTasks/GetScrumTaskContent?id=' + taskId, function (task) {
                     var message = task.content + '<hr />' +
                         '<div><strong>Priority: ' + task.priority + '</strong></div>' +
@@ -164,26 +165,27 @@
         });
 
         function makeTaskBoxesDraggable() {
-            $('.moveable').draggable({
-                revert: "invalid",
-                start: function(event, ui) {
-                    ui.helper.css('z-index', 1);
-                    ui.helper.parents('.js-user-row')
-                        .children('.scrum-task-col')
-                        .droppable('enable');
-                },
-                stop: function(event, ui) {
-                    ui.helper.parents('.js-user-row')
-                        .children('.scrum-task-col')
-                        .droppable('disable');
-                }
-            });
+            $('.js-user-row[data-user-id="@User.Identity.GetUserId()"]').find('.js-moveable')
+                .draggable({
+                    revert: "invalid",
+                    start: function(event, ui) {
+                        ui.helper.css('z-index', 1);
+                        ui.helper.parents('.js-user-row')
+                            .children('.scrum-task-col')
+                            .droppable('enable');
+                    },
+                    stop: function(event, ui) {
+                        ui.helper.parents('.js-user-row')
+                            .children('.scrum-task-col')
+                            .droppable('disable');
+                    }
+            }).addClass('move-cursor');
         }
 
         $('#sprintsList').on('change', function () {
             location.href = '/Sprints/' + $(this).val();
         });
-        
+
         $('.scrum-task-col').droppable({
             classes: {
                 "ui-droppable-hover": "ui-state-hover"
@@ -258,7 +260,7 @@
 
             if (destination === @((byte)TaskType.Done)) {
                 taskBox.find('.js-done').show();
-                taskBox.removeClass('moveable').draggable('disable');
+                taskBox.removeClass('move-cursor').draggable('disable');
             }
 
             taskBox

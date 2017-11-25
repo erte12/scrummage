@@ -75,7 +75,7 @@ td.event-delete-col {
     font-weight: bold;
 }
 
-.moveable {
+.move-cursor {
     cursor: move;
 }
 
