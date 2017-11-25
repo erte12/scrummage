@@ -6,46 +6,54 @@
 
 <h2>Manage Teams</h2>
 <hr/>
-<h3>Add new team</h3>
-<form id ="newTeam">
-    <div class="form-group">
-        <label class="control-label">Name</label>
-        <input name="name" required type="text" value="" class="form-control" />
-    </div>
-    <button class="btn btn-primary">Submit</button>
-</form>
-<hr/>
-<h3>Your teams</h3>
+
 <div class="row">
-    <div class="col-md-4">
-        <div id="teamsList" class="list-group">
-        </div>
+    <div class="col-md-2">
+        <button id="newTeamButton" type="button" class="btn btn-success btn-block">New team</button>
+    </div>
+</div>
+<hr/>
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>Your teams</h3>
+        <table id="teamsTable" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Team</th>
+                <th>Number of members</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 </div>
 
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/handlebars")
+
+    @* Task Row template *@
+    <script id="teamRow" type="text/x-handlebars-template">
+        @Html.Partial("_TeamRow")
+    </script>
 
     <script>
-        function createListItem(teamId, teamName) {
-            $('#teamsList')
-                .append(
-                    '<div class="list-group-item">' +
-                    '<a href="/teams/' + teamId + '">' + teamName + '</a>' +
-                    '<span data-team-id="' + teamId + '" class="glyphicon glyphicon-remove js-remove pull-right"></span>' +
-                    '</div>'
-                );
-        }
+        var source = $('#teamRow').html();
+        var template = Handlebars.compile(source);
+        var table = $('#teamsTable');
 
-        $.ajax({
-            url: '/Api/Teams',
-            method: 'get'
-        })
-        .done(function(teams) {
-            teams.forEach(function (team) {
-                createListItem(team.id, team.name);
+        $.get('/Api/Teams', function (data) {
+            data.forEach(function (team) {
+                var teamRowHtml = template(team);
+                console.log(teamRowHtml);
+                $('#teamsTable tbody').append(teamRowHtml);
             });
+        }).done(function() {
+            table = table.DataTable();
         });
 
         $('#newTeam').validate({
@@ -54,17 +62,16 @@
                         url: '/Api/Teams',
                         method: 'post',
                         data: $('#newTeam').serialize()
-                })
-                .done(function(newTeam) {
-                    toastr.success('New team has been created!');
+                    })
+                    .done(function(newTeam) {
+                        toastr.success('New team has been created!');
+                        $('#newTeam').find('input').val('');
 
-                    $('#newTeam').find('input').val('');
-
-                    createListItem(newTeam.id, newTeam.name);
-                })
-                .fail(function() {
-                    toastr.error('Something went wrong!');
-                });
+                        //TODO: Insert new team to table
+                    })
+                    .fail(function() {
+                        toastr.error('Something went wrong!');
+                    });
 
                 return false;
             }
@@ -78,17 +85,17 @@
             bootbox.confirm('Are you sure?', function (result) {
                 if (result === true) {
                     $.ajax({
-                        url: '/Api/Teams/' + id,
-                        method: 'delete'
-                    })
-                    .done(function () {
-                        toastr.success('Team successfully deleted.');
+                            url: '/Api/Teams/' + id,
+                            method: 'delete'
+                        })
+                        .done(function () {
+                            toastr.success('Team successfully deleted.');
 
-                        element.remove();
-                    })
-                    .fail(function () {
-                        toastr.error('Something went wrong!');
-                    });
+                            element.remove();
+                        })
+                        .fail(function () {
+                            toastr.error('Something went wrong!');
+                        });
                 }
             });
         });

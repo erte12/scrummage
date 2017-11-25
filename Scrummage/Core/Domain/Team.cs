@@ -24,6 +24,8 @@ namespace Scrummage.Models
 
         public string ScrumMasterId { get; set; }
 
+        public int NumberOfMembers => Users.Count + 1; //plus Scrum Master
+
         public Team()
         {
             Users = new List<ApplicationUser>();

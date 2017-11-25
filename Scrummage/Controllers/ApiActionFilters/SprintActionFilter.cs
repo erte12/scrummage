@@ -16,7 +16,7 @@ namespace Scrummage.Controllers.ApiActionFilters
     public class SprintActionFilter : ActionFilterAttribute
     {
         [Dependency]
-        public IUnitOfWork UnitOfWork { private get; set; }
+        public IUnitOfWork UnitOfWork { get; set; }
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {

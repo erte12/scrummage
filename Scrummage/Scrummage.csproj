@@ -224,6 +224,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiActionFilters\SprintActionFilter.cs" />
+    <Compile Include="App_Start\WebApiUnityActionFilterProvider.cs" />
     <Compile Include="Controllers\MvcActionFilters\SprintAccessActionFilter.cs" />
     <Compile Include="Controllers\MvcActionFilters\TeamAccessActionFilter.cs" />
     <Compile Include="Controllers\Api\EventsController.cs" />
@@ -1145,6 +1146,7 @@
     <Content Include="Views\Sprints\_TaskBox.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
     <Content Include="Views\Events\_EventRow.cshtml" />
+    <Content Include="Views\Teams\_TeamRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,5 +12,7 @@ namespace Scrummage.Dtos
 
         [Required]
         public string Name { get; set; }
+
+        public string NumberOfMembers { get; set; }
     }
 }

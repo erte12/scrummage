@@ -15,6 +15,19 @@ td.scrum-task-col {
     width: 30%;
 }
 
+/*Teams table*/
+td.team-name-col {
+    width: 40%
+}
+
+td.team-number-col {
+    width: 40%
+}
+
+td.team-delete-col {
+    width: 20%
+}
+
 /*Manage tasks table*/
 td.task-title-col {
     width: 20%
