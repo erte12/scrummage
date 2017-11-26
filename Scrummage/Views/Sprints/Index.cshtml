@@ -88,7 +88,14 @@
     {
         <tr class="js-user-row" data-user-id="@user.Id">
             <td class="scrum-who-col">
-                @user.Name @user.Surname
+                @if (user.Id.Equals(User.Identity.GetUserId()))
+                {
+                    <strong>@user.Name @user.Surname</strong>
+                }
+                else
+                {
+                    <text>@user.Name @user.Surname</text>
+}
             </td>
             <td data-type-id="@((byte)TaskType.Awaiting)" class="scrum-task-col">
 
