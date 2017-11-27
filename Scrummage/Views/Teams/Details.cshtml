@@ -71,7 +71,7 @@
             source: users
         }).on('typeahead:select', function(e, user) {
             $.ajax({
-                url: '/api/teams',
+                url: '/Api/Teams',
                 method: 'put',
                 data: {
                     memberId: user.id,
