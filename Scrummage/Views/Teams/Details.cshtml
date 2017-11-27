@@ -4,7 +4,7 @@
     ViewBag.Title = "Team details";
 }
 
-<h2>Team Details - @Model.Name</h2>
+<h2>Team details - @Model.Name</h2>
 <hr/>
 @Html.ActionLink("Back to 'Manage Teams'", "Index", "Teams", null, new {@class="btn btn-primary"})
 <hr/>
@@ -13,6 +13,9 @@
     <div class="col-md-4">
         <h3>Members</h3>
         <div id="members" class="list-group">
+            <div class="list-group-item">
+                @Model.ScrumMaster.Name @Model.ScrumMaster.Surname <strong>(Scrum Master)</strong>
+            </div>
             @foreach (var member in Model.Users)
             {
                 <div class="list-group-item">
@@ -41,7 +44,7 @@
             $('#members')
                 .append(
                     '<div class="list-group-item">' +
-                     user.name + ' ' + user.surname + 
+                     user.name + ' ' + user.surname +
                     '<span data-member-id="' + user.id + '" class="glyphicon glyphicon-remove js-remove pull-right"></span>' +
                     '</div>'
                 );
@@ -51,8 +54,9 @@
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name' + 'surname'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             remote: {
-                url: '/api/users?query=%QUERY',
-                wildcard: '%QUERY'
+                url: '/api/users?query=%QUERY&exceptTeamId=@Model.Id',
+                wildcard: '%QUERY',
+                cache: false
             }
         });
 
@@ -66,7 +70,6 @@
             },
             source: users
         }).on('typeahead:select', function(e, user) {
-            
             $.ajax({
                 url: '/api/teams',
                 method: 'put',
@@ -74,13 +77,11 @@
                     memberId: user.id,
                     teamId: @Model.Id
                 }
-            })
-            .done(function() {
+            }).done(function () {
                 toastr.success('New member successfully added.');
                 $('#user').typeahead('val', '');
                 createListItem(user);
-            })
-            .error(function() {
+            }).error(function() {
                 toastr.error('Something went wrong!');
             });
         });

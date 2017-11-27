@@ -28,9 +28,9 @@ namespace Scrummage.Controllers.Api
         }
 
         [Authorize(Roles = RoleName.ScrumMaster)]
-        public IHttpActionResult GetUsers(string query = null)
+        public IHttpActionResult GetUsers(string query = null, int? exceptTeamId = null)
         {
-            var users = _unitOfWork.Users.GetAllByQuery(query);
+            var users = _unitOfWork.Users.GetAllByQuery(query, exceptTeamId);
          
             return Ok(users
                 .ToList()

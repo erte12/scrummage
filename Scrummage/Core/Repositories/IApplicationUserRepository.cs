@@ -10,6 +10,6 @@ namespace Scrummage.Core.Repositories
     public interface IApplicationUserRepository : IRepository<ApplicationUser>
     {
         ApplicationUser Get(string id);
-        IEnumerable<ApplicationUser> GetAllByQuery(string query);
+        IEnumerable<ApplicationUser> GetAllByQuery(string query, int? exceptTeamId);
     }
 }

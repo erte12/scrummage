@@ -33,13 +33,5 @@ namespace Scrummage.Controllers
             var team = _unitOfWork.Teams.GetWithMembersAndScrumMaster(id);
             return View(team);
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if(disposing)
-                _unitOfWork.Dispose();
-
-            base.Dispose(disposing);
-        }
     }
 }
