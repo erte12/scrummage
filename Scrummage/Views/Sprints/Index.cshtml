@@ -274,10 +274,5 @@
                 .appendTo(taskBox.parents('tr.js-user-row').find('.scrum-task-col[data-type-id="' + destination + '"]'))
                 .removeAttr('style');
         }
-
-        @if (ViewBag.SprintDeleted == true)
-        {
-            @:bootbox.alert('Sprint successfully deleted');
-        }
     </script>
 }
