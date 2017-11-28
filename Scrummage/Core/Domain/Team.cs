@@ -26,6 +26,9 @@ namespace Scrummage.Models
 
         public int NumberOfMembers => Users.Count + 1; //plus Scrum Master
 
+        public IEnumerable<ApplicationUser> UsersWithScrumMaster => 
+            Users.Concat(new List<ApplicationUser>{ScrumMaster});
+
         public Team()
         {
             Users = new List<ApplicationUser>();

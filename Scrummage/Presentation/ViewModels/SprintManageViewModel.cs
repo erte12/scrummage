@@ -18,9 +18,7 @@ namespace Scrummage.ViewModels
         [MaxLength(1000)]
         public string Description { get; set; }
 
-        public List<ApplicationUser> Users { get; set; }
-
-        public List<ScrumTask> Tasks { get; set; }
+        public IEnumerable<ApplicationUser> Users { get; set; }
 
         public IEnumerable<Estimation> Estimations { get; set; }
 

@@ -50,7 +50,7 @@ namespace Scrummage.Controllers
                 StartsAt = sprint.StartsAt,
                 EndsAt = sprint.EndsAt,
                 Team = sprint.Team,
-                Users = sprint.Team.Users,
+                Users = sprint.Team.UsersWithScrumMaster,
                 TeamSprints = teamSprints,
                 Estimations = estimations
             };
@@ -110,13 +110,13 @@ namespace Scrummage.Controllers
 
             var estimations = _unitOfWork.Estimations.GetAll();
 
+            //TODO: Mapping to dto
             var viewModel = new SprintManageViewModel
             {
                 Id = sprint.Id,
                 Name = sprint.Name,
                 Description = sprint.Description,
-                Users = sprint.Team.Users,
-                Tasks = sprint.Tasks,
+                Users = sprint.Team.UsersWithScrumMaster,
                 Estimations = estimations,
                 Team = sprint.Team,
                 StartsAt = sprint.StartsAt.Date,
