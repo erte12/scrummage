@@ -24,7 +24,7 @@ namespace Scrummage
             // Authorize attribute
             config.Filters.Add(new AuthorizeAttribute());
             
-//            WebApiUnityActionFilterProvider.RegisterFilterProviders(config);
+            WebApiUnityActionFilterProvider.RegisterFilterProviders(config);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

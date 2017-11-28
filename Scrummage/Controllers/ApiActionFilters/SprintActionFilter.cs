@@ -8,6 +8,7 @@ using System.Web.Http.Controllers;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Scrummage.Core;
+using Scrummage.Models;
 using Scrummage.Persistance;
 using Unity.Attributes;
 using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
@@ -16,8 +17,16 @@ namespace Scrummage.Controllers.ApiActionFilters
 {
     public class SprintActionFilter : ActionFilterAttribute
     {
-        [Dependency]
-        public IUnitOfWork UnitOfWork { get; set; }
+//        [Dependency]
+//        public IUnitOfWork UnitOfWork { get; set; }
+
+        private readonly IUnitOfWork _unitOfWork;
+
+        public SprintActionFilter()
+        {
+            //TODO: Implement dependency injection
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        }
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
@@ -25,7 +34,7 @@ namespace Scrummage.Controllers.ApiActionFilters
                 ? (int)actionContext.ActionArguments["sprintId"]
                 : (int)actionContext.ActionArguments["id"];
 
-            var sprint = UnitOfWork.Sprints.GetWithTeamAndUsers(sprintId);
+            var sprint = _unitOfWork.Sprints.GetWithTeamAndUsers(sprintId);
 
             if (sprint == null)
             {

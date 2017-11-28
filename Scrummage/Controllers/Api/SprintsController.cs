@@ -29,7 +29,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpPatch]
-//        [SprintActionFilter]
+        [SprintActionFilter]
         public IHttpActionResult UpdateSprint(int id, SprintDto sprintDto)
         {
             var sprint = _sprintService.Update(id, sprintDto);

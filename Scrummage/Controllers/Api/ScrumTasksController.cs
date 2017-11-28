@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
+using Scrummage.Controllers.ApiActionFilters;
 using Scrummage.Core;
 using Scrummage.Core.Services;
 using Scrummage.Dtos;
@@ -25,9 +26,12 @@ namespace Scrummage.Controllers.Api
 
         [HttpPost]
         [Authorize(Roles = RoleName.ScrumMaster)]
-        public IHttpActionResult CreateScrumTask(ScrumTaskNewDto taskDto)
+        [SprintActionFilter]
+        public IHttpActionResult CreateScrumTask(int sprintId, ScrumTaskNewDto taskDto)
         {
             var newScrumTask = Mapper.Map<ScrumTask>(taskDto);
+            newScrumTask.SprintId = sprintId;
+
             _scrumTasksService.Create(newScrumTask);
 
             if (!ModelState.IsValid)
@@ -51,6 +55,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpGet]
+        [SprintActionFilter]
         public IHttpActionResult GetScrumTasksForSprint(int sprintId, bool onlyActive = false)
         {
             var tasks = onlyActive
@@ -83,14 +88,6 @@ namespace Scrummage.Controllers.Api
             _unitOfWork.ScrumTasks.Remove(task);
             _unitOfWork.Complate();
             return Ok();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-                _unitOfWork.Dispose();
-
-            base.Dispose(disposing);
         }
     }
 }

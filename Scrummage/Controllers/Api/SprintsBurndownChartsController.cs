@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http;
+using Scrummage.Controllers.ApiActionFilters;
 using Scrummage.Core;
 using Scrummage.Models;
 
@@ -20,6 +21,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpGet]
+        [SprintActionFilter]
         public IHttpActionResult Index(int id)
         {
             var sprint = _unitOfWork.Sprints.GetWithActiveTasks(id);

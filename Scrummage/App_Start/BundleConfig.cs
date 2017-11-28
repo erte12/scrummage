@@ -47,8 +47,9 @@ namespace Scrummage
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.enter-submit.js",
-                        "~/Scripts/jquery.validate*"));
+                "~/Scripts/jquery.enter-submit.js",
+                "~/Scripts/jquery.validate*"
+            ));
 
             //Views
             bundles.Add(new ScriptBundle("~/bundles/views/teams/index").Include(
@@ -69,16 +70,16 @@ namespace Scrummage
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootswatch/cosmo/bootstrap.min.css",
-                      "~/Content/toastr.css",
-                      "~/Content/datatables/css/datatables.bootstrap.css",
-                      "~/Content/typeahead.css",
-                      "~/Content/custom.css",
-                      "~/Content/bootstrap-datetimepicker.css",
-                      "~/Content/site.css"));
+                "~/Content/bootswatch/cosmo/bootstrap.min.css",
+                "~/Content/toastr.css",
+                "~/Content/datatables/css/datatables.bootstrap.css",
+                "~/Content/typeahead.css",
+                "~/Content/custom.css",
+                "~/Content/bootstrap-datetimepicker.css",
+                "~/Content/site.css"));
         }
     }
 }

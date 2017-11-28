@@ -137,13 +137,5 @@ namespace Scrummage.Controllers
             var sprintViewModel = Mapper.Map<SprintStatisticsViewModel>(sprint);
             return View(sprintViewModel);
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if(disposing)
-                _unitOfWork.Dispose();
-
-            base.Dispose(disposing);
-        }
     }
 }

@@ -70,7 +70,7 @@ function loadScrumTasksTableData(sprintId) {
     });
 }
 
-function bindScrumTasksCreateEvent() {
+function bindScrumTasksCreateEvent(sprintId) {
     $('#newTask').validate({
         rules: {
             title: {
@@ -85,9 +85,8 @@ function bindScrumTasksCreateEvent() {
             }
         },
         submitHandler: function () {
-
             $.ajax({
-                    url: '/Api/ScrumTasks/',
+                    url: '/Api/ScrumTasks?sprintId=' + sprintId,
                     method: 'post',
                     data: $('#newTask').serialize()
                 })
