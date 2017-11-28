@@ -1,13 +1,6 @@
-﻿using System.Linq;
-using System.Data.Entity;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using System.Web.Mvc;
 using Scrummage.Controllers.MvcActionFilters;
 using Scrummage.Core;
-using Scrummage.Dtos;
-using Scrummage.Models;
-using Scrummage.Persistance;
-using Scrummage.Presentation.ViewModels;
 
 namespace Scrummage.Controllers
 {

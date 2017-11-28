@@ -1,13 +1,10 @@
-﻿using System;
-using System.Data.Entity.Validation;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using AutoMapper;
 using Scrummage.Controllers.MvcActionFilters;
 using Scrummage.Core;
 using Scrummage.Core.Services;
 using Scrummage.Dtos;
 using Scrummage.Models;
-using Scrummage.Persistance;
 using Scrummage.Presentation.ViewModels;
 using Scrummage.Services.Validation;
 using Scrummage.ViewModels;

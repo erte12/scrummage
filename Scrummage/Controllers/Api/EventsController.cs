@@ -1,15 +1,10 @@
 ﻿using Scrummage.Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using Scrummage.Controllers.ApiActionFilters;
 using Scrummage.Core.Domain;
 using Scrummage.Core.Services;
-using Scrummage.Models;
 using Scrummage.Presentation.Dtos;
 using Scrummage.Services.Validation;
 

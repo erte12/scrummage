@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http.Controllers;
-using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Scrummage.Core;
 using Scrummage.Models;
 using Scrummage.Persistance;
-using Unity.Attributes;
 using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
 
 namespace Scrummage.Controllers.ApiActionFilters

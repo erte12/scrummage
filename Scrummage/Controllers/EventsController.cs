@@ -3,9 +3,7 @@ using AutoMapper;
 using Scrummage.Controllers.MvcActionFilters;
 using Scrummage.Core;
 using Scrummage.Dtos;
-using Scrummage.Models;
 using Scrummage.Presentation.ViewModels;
-using Scrummage.ViewModels;
 
 namespace Scrummage.Controllers
 {
