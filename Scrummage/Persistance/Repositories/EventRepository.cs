@@ -20,6 +20,14 @@ namespace Scrummage.Persistance.Repositories
             return ApplicationDbContext.Events.Where(e => e.TeamId == teamId).ToList();
         }
 
+        public Event GetWithTeam(int id)
+        {
+            return ApplicationDbContext.Events
+                .Include(e => e.Team)
+                .Include(e => e.Team.Users)
+                .SingleOrDefault(e => e.Id == id);
+        }
+
         public ApplicationDbContext ApplicationDbContext => Context as ApplicationDbContext;
     }
 }

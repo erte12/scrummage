@@ -223,6 +223,7 @@
     <Compile Include="App_Start\UnityWebApiActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiActionFilters\EventAccessActionFilter.cs" />
     <Compile Include="Controllers\ApiActionFilters\ScrumTaskAccessActionFilter.cs" />
     <Compile Include="Controllers\ApiActionFilters\SprintAccessActionFilter.cs" />
     <Compile Include="App_Start\WebApiUnityActionFilterProvider.cs" />

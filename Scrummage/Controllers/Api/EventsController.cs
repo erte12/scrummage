@@ -55,6 +55,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpDelete]
+        [EventAccessActionFilter]
         public IHttpActionResult DeleteEvent(int id)
         {
             var eventToDelete = _unitOfWork.Events.Get(id);
