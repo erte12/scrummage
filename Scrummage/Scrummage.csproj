@@ -1103,6 +1103,7 @@
     <Content Include="Scripts\typeahead.bundle.min.js" />
     <Content Include="Scripts\typeahead.jquery.js" />
     <Content Include="Scripts\typeahead.jquery.min.js" />
+    <Content Include="Scripts\Views\Teams\details.js" />
     <Content Include="Scripts\Views\Teams\index.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

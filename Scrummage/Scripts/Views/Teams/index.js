@@ -2,7 +2,7 @@
 var template = Handlebars.compile(source);
 var table = $('#teamsTable');
 
-function LoadTeamsTableData() {
+function loadTeamsTableData() {
     $.get('/Api/Teams', function (data) {
         data.forEach(function (team) {
             var teamRowHtml = template(team);
@@ -13,7 +13,7 @@ function LoadTeamsTableData() {
     });
 }
 
-function BindTeamCreateEvent() {
+function bindTeamCreateEvent() {
     $('#newTeamButton').on('click', function () {
         bootbox.prompt({
             size: "small",
@@ -61,7 +61,7 @@ function BindTeamCreateEvent() {
     });
 }
 
-function BindTeamDeleteEvent()
+function bindTeamDeleteEvent()
 {
     $('#teamsTable tbody').on('click', '.js-delete', function () {
 
