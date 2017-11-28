@@ -54,6 +54,9 @@ namespace Scrummage
             bundles.Add(new ScriptBundle("~/bundles/views/sprints/index").Include(
                 "~/Scripts/Views/Sprints/index.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/views/sprints/manage").Include(
+                "~/Scripts/Views/Sprints/manage.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(

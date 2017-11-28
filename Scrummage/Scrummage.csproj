@@ -1105,6 +1105,7 @@
     <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Scripts\Views\Events\index.js" />
     <Content Include="Scripts\Views\Sprints\index.js" />
+    <Content Include="Scripts\Views\Sprints\manage.js" />
     <Content Include="Scripts\Views\Teams\details.js" />
     <Content Include="Scripts\Views\Teams\index.js" />
     <Content Include="Web.config" />
