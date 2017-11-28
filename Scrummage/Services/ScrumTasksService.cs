@@ -49,7 +49,7 @@ namespace Scrummage.Services
         {
             var sprint = _unitOfWork.Sprints.Get(task.SprintId);
 
-            if (sprint != null && (sprint.StartsAt > DateTime.Today || sprint.EndsAt < DateTime.Today))
+            if (sprint != null && (sprint.StartsAt > DateTime.Now || sprint.EndsAt < DateTime.Now))
                 _validationDictionary.AddError("SprintId", "This sprint is inactive.");
         }
 

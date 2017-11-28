@@ -5,8 +5,8 @@
 
 @{
     ViewBag.Title = "Scrum Board";
-    var sprintNotStartedYet = Model.StartsAt > DateTime.Today;
-    var sprintIsFinished = Model.EndsAt < DateTime.Today;
+    var sprintNotStartedYet = Model.StartsAt > DateTime.Now;
+    var sprintIsFinished = Model.EndsAt < DateTime.Now;
     var sprintIsInactive = sprintNotStartedYet || sprintIsFinished;
 }
 
@@ -114,165 +114,28 @@
 
 @section scripts
 {
-    
-@Scripts.Render("~/bundles/jquery-ui")
-@Scripts.Render("~/bundles/handlebars")
-
     @* Task Box template *@
     <script id="taskBox" type="text/x-handlebars-template">
         @Html.Partial("_TaskBox")    
     </script>
+    
+    @Scripts.Render("~/bundles/jquery-ui")
+    @Scripts.Render("~/bundles/handlebars")
+    @Scripts.Render("~/bundles/views/sprints/index")
 
     <script>
-        var source = $('#taskBox').html();
-        var template = Handlebars.compile(source);
-        var table = $('#scrumBoard');
-
-        $.get('/api/ScrumTasks?sprintId=' + @Model.Id + '&onlyActive=true', function (data) {
-            data.forEach(function (task) {
-                var taskBox = $(template(task));
-
-                if (task.taskType === @((byte)TaskType.Done))
-                    taskBox.removeClass('js-moveable');
-                else
-                    taskBox.find('.js-done').hide();
-
-                var elementPosition = $('.js-user-row[data-user-id=' + task.user.id + ']')
-                    .find('.scrum-task-col[data-type-id=' + task.taskType + ']');
-
-                taskBox.appendTo(elementPosition);
-            });
-        }).done(function () {
-            @if (!sprintIsInactive)
+        var tookOptions = [
+            @foreach (var estimation in Model.Estimations)
             {
-                @:makeTaskBoxesDraggable();
+                @:{
+                @:    text: @estimation.Value,
+                @:    value: @estimation.Id
+                @:},
             }
+        ];
 
-            $('.js-taskbox').on('mousedown', '.js-task-details-button', function () {
-                var taskId = $(this).parents('.js-taskbox').attr('data-task-id');
-
-                $.get('/api/ScrumTasks/GetScrumTaskContent?id=' + taskId, function (task) {
-                    var message = task.content + '<hr />' +
-                        '<div><strong>Priority: ' + task.priority + '</strong></div>' +
-                        '<div><strong>Estimation: ' + task.estimation.value + '</strong></div>' +
-                        '<div><strong>Who: ' + task.user.name + ' ' + task.user.surname + '</strong></div>';
-
-                    if(task.took != null)
-                        message += '<div><strong>Took: ' + task.took.value + '</strong></div>';
-
-                    bootbox.alert({
-                        size: "medium",
-                        title: task.title,
-                        message: message
-                    });
-                });
-            });
-
-            table.dataTable();
-        });
-
-        function makeTaskBoxesDraggable() {
-            $('.js-user-row[data-user-id="@User.Identity.GetUserId()"]').find('.js-moveable')
-                .draggable({
-                    revert: "invalid",
-                    start: function(event, ui) {
-                        ui.helper.css('z-index', 1);
-                        ui.helper.parents('.js-user-row')
-                            .children('.scrum-task-col')
-                            .droppable('enable');
-                    },
-                    stop: function(event, ui) {
-                        ui.helper.parents('.js-user-row')
-                            .children('.scrum-task-col')
-                            .droppable('disable');
-                    }
-            }).addClass('move-cursor');
-        }
-
-        $('#sprintsList').on('change', function () {
-            location.href = '/Sprints/' + $(this).val();
-        });
-
-        $('.scrum-task-col').droppable({
-            classes: {
-                "ui-droppable-hover": "ui-state-hover"
-            },
-            drop: function (event, ui) {
-                var taskType = $(this).attr('data-type-id');
-                var taskBox = ui.draggable;
-                var scrumTaskId = taskBox.attr('data-task-id');
-
-                if (taskType === taskBox.parents('.scrum-task-col').attr('data-type-id')) {
-                    taskBox.removeAttr('style');
-                    return;
-                }
-
-                if (taskType === '@((byte)@TaskType.Done)') {
-                    bootbox.prompt({
-                        title: "How much took this task? " +
-                        "<div><strong>Note that this operation cannot be undone!</strong></div>",
-                        inputType: 'select',
-                        inputOptions: [
-                            @foreach (var estimation in Model.Estimations)
-                            {
-                                @:{
-                                @:    text: @estimation.Value,
-                                @:    value: @estimation.Id
-                                @:},
-                            }
-                        ],
-                        callback: function (took) {
-                            if (took == null) {
-                                taskBox.removeAttr('style');
-                                return;
-                            } else
-                                updateScrumTask(taskBox, scrumTaskId, taskType, took);
-                        }
-                    });
-                } else
-                    updateScrumTask(taskBox, scrumTaskId, taskType);
-
-            }
-        }).droppable('disable');
-
-        function updateScrumTask(taskBox, scrumTaskId, taskType, took) {
-            $.ajax({
-                    url: '/api/scrumtasks/' + scrumTaskId,
-                    method: 'patch',
-                    data: { taskType: taskType, tookId: took }
-                })
-                .done(function(data) {
-                    switch(taskType) {
-                    case '@((byte)TaskType.Awaiting)':
-                        moveTaskBox(taskBox, @((byte)TaskType.Awaiting));
-                        break;
-                    case '@((byte)TaskType.Done)':
-                        moveTaskBox(taskBox, @((byte)TaskType.Done), data.took);
-                        break;
-                    case '@((byte)TaskType.Ongoing)':
-                        moveTaskBox(taskBox, @((byte)TaskType.Ongoing));
-                        break;
-                    }
-
-                    toastr.success('Task status changed successfully');
-                })
-
-                .fail(function() {
-                    toastr.error('Something went wrong');
-                });
-        }
-
-        function moveTaskBox(taskBox, destination, took) {
-            taskBox.find('js-took').text(took);
-
-            if (destination === @((byte)TaskType.Done)) {
-                taskBox.find('.js-done').show();
-                taskBox.removeClass('move-cursor').draggable('disable');
-            }
-
-            taskBox
-                .appendTo(taskBox.parents('tr.js-user-row').find('.scrum-task-col[data-type-id="' + destination + '"]'))
-                .removeAttr('style');
-        }
+        loadScrumTasksTableData(@Model.Id, @sprintIsInactive.ToString().ToLower(), '@User.Identity.GetUserId()');
+        bindSprintSelectboxEvent();
+        bindUpdateScrumTaskEvent(tookOptions);
     </script>
 }
