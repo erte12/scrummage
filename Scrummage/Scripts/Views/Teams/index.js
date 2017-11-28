@@ -29,6 +29,9 @@ function bindTeamCreateEvent() {
                             toastr.success('New team has been created!');
                             var teamRowHtml = template(newTeam);
                             table.row.add($(teamRowHtml)).draw();
+
+                            var teamsListElement = $('<option value="' + newTeam.id + '">' + newTeam.name + '</option>');
+                            teamsListElement.appendTo('#teams');
                             //TODO: Validation
                         })
                         .fail(function () {
