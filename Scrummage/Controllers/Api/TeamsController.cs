@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
+using Scrummage.Controllers.ApiActionFilters;
 using Scrummage.Core;
 using Scrummage.Core.Services;
 using Scrummage.Dtos;
@@ -50,6 +51,7 @@ namespace Scrummage.Controllers.Api
 
         [HttpDelete]
         [Authorize(Roles = RoleName.ScrumMaster)]
+        [TeamAccessActionFilter]
         public IHttpActionResult DeleteTeam(int id)
         {
             var success = _teamsService.DeleteTeam(id);
@@ -62,9 +64,10 @@ namespace Scrummage.Controllers.Api
 
         [HttpPut]
         [Authorize(Roles = RoleName.ScrumMaster)]
-        public IHttpActionResult AddMember(MemberTeamDto memberTeam)
+        [TeamAccessActionFilter]
+        public IHttpActionResult AddMember(int teamId, string memberId)
         {
-            var success = _teamsService.AddMember(memberTeam.TeamId, memberTeam.MemberId);
+            var success = _teamsService.AddMember(teamId, memberId);
             if (!success)
                 return BadRequest();
 
@@ -73,9 +76,10 @@ namespace Scrummage.Controllers.Api
 
         [HttpDelete]
         [Authorize(Roles = RoleName.ScrumMaster)]
-        public IHttpActionResult RemoveMember(MemberTeamDto memberTeam)
+        [TeamAccessActionFilter]
+        public IHttpActionResult RemoveMember(int teamId, string memberId)
         {
-            var success = _teamsService.RemoveMember(memberTeam.TeamId, memberTeam.MemberId);
+            var success = _teamsService.RemoveMember(teamId, memberId);
             if (!success)
                 return BadRequest();
 

@@ -12,8 +12,6 @@ namespace Scrummage.Presentation.Dtos
 
         public string Content { get; set; }
 
-        public int TeamId { get; set; }
-
         [Required(ErrorMessage = "Starting date is required.")]
         public DateTime StartsAt { get; set; }
 

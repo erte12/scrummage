@@ -15,7 +15,7 @@ function loadEventsTableData(teamId) {
     });
 }
 
-function bindEventCreateEvent() {
+function bindEventCreateEvent(teamId) {
     $('#newEventForm').validate({
         rules: {
             content: {
@@ -34,7 +34,7 @@ function bindEventCreateEvent() {
         },
         submitHandler: function () {
             $.ajax({
-                    url: '/Api/Events',
+                    url: '/Api/Events?teamId=' + teamId,
                     method: 'post',
                     data: $('#newEventForm').serialize()
                 })

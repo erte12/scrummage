@@ -26,7 +26,7 @@ namespace Scrummage.Controllers.Api
 
         [HttpPost]
         [Authorize(Roles = RoleName.ScrumMaster)]
-        [SprintActionFilter]
+        [SprintAccessActionFilter]
         public IHttpActionResult CreateScrumTask(int sprintId, ScrumTaskNewDto taskDto)
         {
             var newScrumTask = Mapper.Map<ScrumTask>(taskDto);
@@ -55,7 +55,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpGet]
-        [SprintActionFilter]
+        [SprintAccessActionFilter]
         public IHttpActionResult GetScrumTasksForSprint(int sprintId, bool onlyActive = false)
         {
             var tasks = onlyActive

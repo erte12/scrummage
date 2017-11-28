@@ -20,13 +20,9 @@
         source: users
     }).on('typeahead:select', function (e, user) {
         $.ajax({
-            url: '/Api/Teams',
-            method: 'put',
-            data: {
-                memberId: user.id,
-                teamId: teamId
-            }
-            }).done(function () {
+            url: '/Api/Teams?teamId=' + teamId + '&memberId=' + user.id,
+            method: 'put'
+        }).done(function () {
             toastr.success('New member successfully added.');
             $('#user').typeahead('val', '');
             $('#members').append(
@@ -50,9 +46,9 @@ function bindUserDeleteEvent(teamId) {
             function (result) {
                 if (result === true) {
                     $.ajax({
-                        url: '/api/teams',
+                        url: '/Api/Teams?teamId=' + teamId + '&memberId=' + memberId,
                         method: 'delete',
-                        data: { memberId: memberId, teamId: teamId }
+                        data: {teamId : teamId, memberId : memberId}
                     })
                     .done(function () {
                         toastr.success('Member successfully deleted.');

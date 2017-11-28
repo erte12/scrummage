@@ -15,14 +15,14 @@ using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
 
 namespace Scrummage.Controllers.ApiActionFilters
 {
-    public class SprintActionFilter : ActionFilterAttribute
+    public class SprintAccessActionFilter : ActionFilterAttribute
     {
 //        [Dependency]
 //        public IUnitOfWork UnitOfWork { get; set; }
 
         private readonly IUnitOfWork _unitOfWork;
 
-        public SprintActionFilter()
+        public SprintAccessActionFilter()
         {
             //TODO: Implement dependency injection
             _unitOfWork = new UnitOfWork(new ApplicationDbContext());

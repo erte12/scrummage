@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using Scrummage.Controllers.ApiActionFilters;
 using Scrummage.Core.Domain;
 using Scrummage.Core.Services;
 using Scrummage.Models;
@@ -27,9 +28,11 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpPost]
-        public IHttpActionResult CreateEvent(EventDto eventDto)
+        [TeamAccessActionFilter]
+        public IHttpActionResult CreateEvent(int teamId, EventDto eventDto)
         {
             var newEvent = Mapper.Map<Event>(eventDto);
+            newEvent.TeamId = teamId;
 
             _eventService.Create(newEvent);
 
@@ -42,6 +45,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpGet]
+        [TeamAccessActionFilter]
         public IHttpActionResult GetEventsForTeam(int teamId)
         {
             var events = _unitOfWork.Events.GetByTeamId(teamId);
