@@ -35,6 +35,13 @@ namespace Scrummage.Persistance.Repositories
                 .SingleOrDefault(s => s.Id == id);
         }
 
+        public ScrumTask GetWithScrumMaster(int id)
+        {
+            return ApplicationDbContext.ScrumTasks
+                .Include(s => s.Sprint.Team.ScrumMaster)
+                .SingleOrDefault(s => s.Id == id);
+        }
+
         private IQueryable<ScrumTask> GetTasksBySprintIdQuery(int sprintId)
         {
             return ApplicationDbContext.ScrumTasks

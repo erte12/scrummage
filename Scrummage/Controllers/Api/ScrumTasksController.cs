@@ -43,6 +43,7 @@ namespace Scrummage.Controllers.Api
 
         //Todo: Devide into two methods: UpdateType and UpdateData
         [HttpPatch]
+        [ScrumTaskAccessActionFilter]
         public IHttpActionResult UpdateScrumTask(int id, ScrumTaskUpdateDto taskDto)
         {
             var task = _scrumTasksService.Update(id, taskDto);
@@ -67,6 +68,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpGet]
+        [ScrumTaskAccessActionFilter]
         public IHttpActionResult GetScrumTask(int id)
         {
             var scrumTask = _unitOfWork.ScrumTasks.GetWithDetails(id);
@@ -79,6 +81,7 @@ namespace Scrummage.Controllers.Api
 
         [HttpDelete]
         [Authorize(Roles = RoleName.ScrumMaster)]
+        [ScrumTaskAccessActionFilter]
         public IHttpActionResult DeleteScrumTask(int id)
         {
             var task = _unitOfWork.ScrumTasks.Get(id);

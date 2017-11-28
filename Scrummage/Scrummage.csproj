@@ -223,6 +223,7 @@
     <Compile Include="App_Start\UnityWebApiActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiActionFilters\ScrumTaskAccessActionFilter.cs" />
     <Compile Include="Controllers\ApiActionFilters\SprintAccessActionFilter.cs" />
     <Compile Include="App_Start\WebApiUnityActionFilterProvider.cs" />
     <Compile Include="Controllers\ApiActionFilters\TeamAccessActionFilter.cs" />
@@ -310,7 +311,6 @@
     <Compile Include="Migrations\201711082030570_StartAtAndEndsAtColumnsAddedToSprintsTable.Designer.cs">
       <DependentUpon>201711082030570_StartAtAndEndsAtColumnsAddedToSprintsTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\Dtos\MemberTeamDto.cs" />
     <Compile Include="Presentation\Dtos\ScrumTaskNewDto.cs" />
     <Compile Include="Presentation\Dtos\SprintDto.cs" />
     <Compile Include="Presentation\Dtos\TeamDto.cs" />
