@@ -9,17 +9,26 @@ namespace Scrummage
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
-                        "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/bootstrap.js",
-                        "~/Scripts/bootbox.js",
-                        "~/Scripts/datatables/jquery.datatables.js",
-                        "~/Scripts/datatables/datatables.bootstrap.js",
-                        "~/Scripts/respond.js",
-                        "~/Scripts/toastr.js",
-                        "~/Scripts/moment.js",
-                        "~/Scripts/bootstrap-datetimepicker.js",
-                        "~/Scripts/typeahead.bundle.js"
-                        ));
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/bootbox.js",
+                "~/Scripts/respond.js",
+                "~/Scripts/toastr.js"
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+                "~/Scripts/datatables/jquery.datatables.js",
+                "~/Scripts/datatables/datatables.bootstrap.js"
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/datepicker").Include(
+                "~/Scripts/moment.js",
+                "~/Scripts/bootstrap-datetimepicker.js"
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/typeahead").Include(
+                "~/Scripts/typeahead.bundle.js"
+            ));
 
             bundles.Add(new ScriptBundle("~/bundles/highcharts").Include(
                 "~/Scripts/highcharts/5.0.14/highcharts.js",
