@@ -1,4 +1,5 @@
-﻿@model Scrummage.Models.RegisterViewModel
+﻿@using Scrummage.Core
+@model Scrummage.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
@@ -27,6 +28,16 @@
         @Html.LabelFor(m => m.Surname, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Role, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Role, new List<SelectListItem>
+            {
+                new SelectListItem{Text = @"Developer"},
+                new SelectListItem{Text = @"Scrum Master", Value = RoleName.ScrumMaster}
+            }, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">

@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Scrummage.Core;
 using Scrummage.Models;
 
 namespace Scrummage.Controllers
@@ -162,7 +163,8 @@ namespace Scrummage.Controllers
 //                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
 //                    var roleManager = new RoleManager<IdentityRole>(roleStore);
 //                    await roleManager.CreateAsync(new IdentityRole("ScrumMaster"));
-//                    await UserManager.AddToRoleAsync(user.Id, "ScrumMaster");
+                    if(model.Role.Equals(RoleName.ScrumMaster))
+                        await UserManager.AddToRoleAsync(user.Id, RoleName.ScrumMaster);
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
