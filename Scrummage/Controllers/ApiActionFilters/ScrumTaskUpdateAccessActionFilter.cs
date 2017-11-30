@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http.Controllers;
@@ -11,14 +10,14 @@ using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
 
 namespace Scrummage.Controllers.ApiActionFilters
 {
-    public class SprintAccessActionFilter : ActionFilterAttribute
+    public class ScrumTaskUpdateAccessActionFilter : ActionFilterAttribute
     {
-//        [Dependency]
-//        public IUnitOfWork UnitOfWork { get; set; }
+        //        [Dependency]
+        //        public IUnitOfWork UnitOfWork { get; set; }
 
         private readonly IUnitOfWork _unitOfWork;
 
-        public SprintAccessActionFilter()
+        public ScrumTaskUpdateAccessActionFilter()
         {
             //TODO: Implement dependency injection
             _unitOfWork = new UnitOfWork(new ApplicationDbContext());
@@ -26,13 +25,13 @@ namespace Scrummage.Controllers.ApiActionFilters
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            var sprintId = actionContext.ActionArguments.ContainsKey("sprintId")
-                ? (int)actionContext.ActionArguments["sprintId"]
+            var taskId = actionContext.ActionArguments.ContainsKey("taskId")
+                ? (int)actionContext.ActionArguments["taskId"]
                 : (int)actionContext.ActionArguments["id"];
 
-            var sprint = _unitOfWork.Sprints.GetWithTeamAndUsers(sprintId);
+            var scrumTask = _unitOfWork.ScrumTasks.GetWithScrumMaster(taskId);
 
-            if (sprint == null)
+            if (scrumTask == null)
             {
                 actionContext.Response = new HttpResponseMessage(HttpStatusCode.NotFound);
                 return;
@@ -40,7 +39,7 @@ namespace Scrummage.Controllers.ApiActionFilters
 
             var currentUserId = HttpContext.Current.User.Identity.GetUserId();
 
-            if (!(sprint.Team.Users.Select(u => u.Id).Contains(currentUserId) || sprint.Team.ScrumMasterId.Equals(currentUserId)))
+            if (!scrumTask.Sprint.Team.ScrumMaster.Id.Equals(currentUserId))
                 actionContext.Response = new HttpResponseMessage(HttpStatusCode.Forbidden);
 
             base.OnActionExecuting(actionContext);

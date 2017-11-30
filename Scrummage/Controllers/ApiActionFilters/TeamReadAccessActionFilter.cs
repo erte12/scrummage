@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http.Controllers;
@@ -10,14 +11,11 @@ using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
 
 namespace Scrummage.Controllers.ApiActionFilters
 {
-    public class ScrumTaskAccessActionFilter : ActionFilterAttribute
+    public class TeamReadAccessActionFilter : ActionFilterAttribute
     {
-        //        [Dependency]
-        //        public IUnitOfWork UnitOfWork { get; set; }
-
         private readonly IUnitOfWork _unitOfWork;
 
-        public ScrumTaskAccessActionFilter()
+        public TeamReadAccessActionFilter()
         {
             //TODO: Implement dependency injection
             _unitOfWork = new UnitOfWork(new ApplicationDbContext());
@@ -25,13 +23,13 @@ namespace Scrummage.Controllers.ApiActionFilters
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            var taskId = actionContext.ActionArguments.ContainsKey("taskId")
-                ? (int)actionContext.ActionArguments["taskId"]
+            var teamId = actionContext.ActionArguments.ContainsKey("teamId")
+                ? (int)actionContext.ActionArguments["teamId"]
                 : (int)actionContext.ActionArguments["id"];
 
-            var scrumTask = _unitOfWork.ScrumTasks.GetWithScrumMaster(taskId);
+            var team = _unitOfWork.Teams.GetWithMembersAndScrumMaster(teamId);
 
-            if (scrumTask == null)
+            if (team == null)
             {
                 actionContext.Response = new HttpResponseMessage(HttpStatusCode.NotFound);
                 return;
@@ -39,7 +37,7 @@ namespace Scrummage.Controllers.ApiActionFilters
 
             var currentUserId = HttpContext.Current.User.Identity.GetUserId();
 
-            if (!scrumTask.Sprint.Team.ScrumMaster.Id.Equals(currentUserId))
+            if (!(team.Users.Select(u => u.Id).Contains(currentUserId) || team.ScrumMasterId.Equals(currentUserId)))
                 actionContext.Response = new HttpResponseMessage(HttpStatusCode.Forbidden);
 
             base.OnActionExecuting(actionContext);

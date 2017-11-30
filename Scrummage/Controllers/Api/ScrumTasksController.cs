@@ -25,7 +25,7 @@ namespace Scrummage.Controllers.Api
 
         [HttpPost]
         [Authorize(Roles = RoleName.ScrumMaster)]
-        [SprintAccessActionFilter]
+        [SprintUpdateAccessActionFilter]
         public IHttpActionResult CreateScrumTask(int sprintId, ScrumTaskNewDto taskDto)
         {
             var newScrumTask = Mapper.Map<ScrumTask>(taskDto);
@@ -42,7 +42,7 @@ namespace Scrummage.Controllers.Api
 
         //Todo: Devide into two methods: UpdateType and UpdateData
         [HttpPatch]
-        [ScrumTaskAccessActionFilter]
+        [ScrumTaskUpdateAccessActionFilter]
         public IHttpActionResult UpdateScrumTask(int id, ScrumTaskUpdateDto taskDto)
         {
             var task = _scrumTasksService.Update(id, taskDto);
@@ -55,7 +55,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpGet]
-        [SprintAccessActionFilter]
+        [SprintReadAccessActionFilter]
         public IHttpActionResult GetScrumTasksForSprint(int sprintId, bool onlyActive = false)
         {
             var tasks = onlyActive
@@ -67,7 +67,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpGet]
-        [ScrumTaskAccessActionFilter]
+        [ScrumTaskUpdateAccessActionFilter]
         public IHttpActionResult GetScrumTask(int id)
         {
             var scrumTask = _unitOfWork.ScrumTasks.GetWithDetails(id);
@@ -80,7 +80,7 @@ namespace Scrummage.Controllers.Api
 
         [HttpDelete]
         [Authorize(Roles = RoleName.ScrumMaster)]
-        [ScrumTaskAccessActionFilter]
+        [ScrumTaskUpdateAccessActionFilter]
         public IHttpActionResult DeleteScrumTask(int id)
         {
             var task = _unitOfWork.ScrumTasks.Get(id);

@@ -11,11 +11,14 @@ using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
 
 namespace Scrummage.Controllers.ApiActionFilters
 {
-    public class TeamAccessActionFilter : ActionFilterAttribute
+    public class SprintReadAccessActionFilter : ActionFilterAttribute
     {
+//        [Dependency]
+//        public IUnitOfWork UnitOfWork { get; set; }
+
         private readonly IUnitOfWork _unitOfWork;
 
-        public TeamAccessActionFilter()
+        public SprintReadAccessActionFilter()
         {
             //TODO: Implement dependency injection
             _unitOfWork = new UnitOfWork(new ApplicationDbContext());
@@ -23,13 +26,13 @@ namespace Scrummage.Controllers.ApiActionFilters
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            var teamId = actionContext.ActionArguments.ContainsKey("teamId")
-                ? (int)actionContext.ActionArguments["teamId"]
+            var sprintId = actionContext.ActionArguments.ContainsKey("sprintId")
+                ? (int)actionContext.ActionArguments["sprintId"]
                 : (int)actionContext.ActionArguments["id"];
 
-            var team = _unitOfWork.Teams.GetWithMembersAndScrumMaster(teamId);
+            var sprint = _unitOfWork.Sprints.GetWithTeamAndUsers(sprintId);
 
-            if (team == null)
+            if (sprint == null)
             {
                 actionContext.Response = new HttpResponseMessage(HttpStatusCode.NotFound);
                 return;
@@ -37,7 +40,7 @@ namespace Scrummage.Controllers.ApiActionFilters
 
             var currentUserId = HttpContext.Current.User.Identity.GetUserId();
 
-            if (!(team.Users.Select(u => u.Id).Contains(currentUserId) || team.ScrumMasterId.Equals(currentUserId)))
+            if (!(sprint.Team.Users.Select(u => u.Id).Contains(currentUserId) || sprint.Team.ScrumMasterId.Equals(currentUserId)))
                 actionContext.Response = new HttpResponseMessage(HttpStatusCode.Forbidden);
 
             base.OnActionExecuting(actionContext);

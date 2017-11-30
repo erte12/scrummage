@@ -19,7 +19,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpGet]
-        [SprintAccessActionFilter]
+        [SprintReadAccessActionFilter]
         public IHttpActionResult Index(int id)
         {
             var sprint = _unitOfWork.Sprints.GetWithActiveTasks(id);

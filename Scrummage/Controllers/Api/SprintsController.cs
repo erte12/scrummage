@@ -21,7 +21,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpPatch]
-        [SprintAccessActionFilter]
+        [SprintUpdateAccessActionFilter]
         public IHttpActionResult UpdateSprint(int id, SprintDto sprintDto)
         {
             var sprint = _sprintService.Update(id, sprintDto);

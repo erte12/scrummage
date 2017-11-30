@@ -23,7 +23,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpPost]
-        [TeamAccessActionFilter]
+        [TeamReadAccessActionFilter]
         public IHttpActionResult CreateEvent(int teamId, EventDto eventDto)
         {
             var newEvent = Mapper.Map<Event>(eventDto);
@@ -40,7 +40,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpGet]
-        [TeamAccessActionFilter]
+        [TeamReadAccessActionFilter]
         public IHttpActionResult GetEventsForTeam(int teamId)
         {
             var events = _unitOfWork.Events.GetByTeamId(teamId);
