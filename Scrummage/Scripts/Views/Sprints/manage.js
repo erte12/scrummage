@@ -2,6 +2,25 @@
 var template = Handlebars.compile(source);
 var table = $('#tasks');
 
+function loadScrumTasksTableData(sprintId) {
+    $.get('/Api/ScrumTasks?sprintId=' + sprintId, function (data) {
+        data.forEach(function (task) {
+            var taskRowHtml = $(template(task));
+
+            if(task.taskType === 2)
+                taskRowHtml.find('select')
+                    .attr('disabled', true)
+                    .attr('title', 'This task is already done!');
+
+            $('#tasks tbody').append(taskRowHtml);
+        });
+    }).done(function () {
+        table = table.DataTable({
+            "order": [6, 'desc']
+        });
+    });
+}
+
 function bindSprintUpdateEvent(sprintId) {
     $('#sprintForm').validate({
         rules: {
@@ -53,19 +72,6 @@ function bindSprintDeleteEvent() {
                 if (result === true)
                     $('#deleteButton').parents('form').submit();
             }
-        });
-    });
-}
-
-function loadScrumTasksTableData(sprintId) {
-    $.get('/Api/ScrumTasks?sprintId=' + sprintId, function (data) {
-        data.forEach(function (task) {
-            var taskRowHtml = template(task);
-            $('#tasks tbody').append(taskRowHtml);
-        });
-    }).done(function () {
-        table = table.DataTable({
-            "order": [6, 'desc']
         });
     });
 }

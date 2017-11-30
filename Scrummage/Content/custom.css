@@ -67,7 +67,7 @@ td.event-delete-col {
     vertical-align: middle;
 }
 
-.js-editable {
+.js-editable, .js-remove {
     cursor: pointer;
 }
 

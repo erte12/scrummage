@@ -26,5 +26,10 @@ namespace Scrummage.Controllers
             var team = _unitOfWork.Teams.GetWithMembersAndScrumMaster(id);
             return View(team);
         }
+
+        public ActionResult Join()
+        {
+            return View();
+        }
     }
 }

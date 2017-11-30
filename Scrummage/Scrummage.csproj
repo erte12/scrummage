@@ -1160,6 +1160,7 @@
     <Content Include="Views\Events\_EventRow.cshtml" />
     <Content Include="Views\Teams\_TeamRow.cshtml" />
     <Content Include="Views\Events\_NewEventModal.cshtml" />
+    <Content Include="Views\Teams\Join.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

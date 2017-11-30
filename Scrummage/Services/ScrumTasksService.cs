@@ -108,18 +108,27 @@ namespace Scrummage.Services
 
         private void UpdateUser(ScrumTask task, string userId)
         {
+            if (task.TaskType == TaskType.Done)
+                return;
+
             var user = _unitOfWork.Users.Get(userId);
             task.UserId = user?.Id;
         }
 
         private void UpdateEstimation(ScrumTask task, int estimationId)
         {
+            if (task.TaskType == TaskType.Done)
+                return;
+
             var estimation = _unitOfWork.Estimations.Get(estimationId);
             task.EstimationId = estimation?.Id;
         }
 
         private static void UpdatePriority(ScrumTask task, byte priority)
         {
+            if (task.TaskType == TaskType.Done)
+                return;
+
             if (!Enumerable.Range(1, 5).Contains(priority))
                 task.Priority = null;
 
@@ -128,7 +137,8 @@ namespace Scrummage.Services
 
         private void UpdateTaskType(ScrumTask task, TaskType taskType, int? tookId = null)
         {
-            if (task.TaskType == TaskType.Done) return;
+            if (task.TaskType == TaskType.Done)
+                return;
 
             if (tookId != null)
             {
