@@ -16,7 +16,7 @@ namespace Scrummage.Models.Configuration
 
             Property(s => s.Content)
                 .IsRequired()
-                .HasMaxLength(400);
+                .HasMaxLength(2000);
 
             HasOptional(s => s.User)
                 .WithMany(m => m.ScrumTasks)

@@ -81,7 +81,7 @@ function bindScrumTasksCreateEvent(sprintId) {
             content: {
                 required: true,
                 minlength: 3,
-                maxlength: 400
+                maxlength: 2000
             }
         },
         submitHandler: function () {

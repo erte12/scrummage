@@ -39,8 +39,8 @@ namespace Scrummage.Services
                 _validationDictionary.AddError("Content", "Content is required.");
             if (task.Content != null && task.Content.Trim().Length < 3)
                 _validationDictionary.AddError("Content", "Content must contain at least 3 characters.");
-            if (task.Content != null && task.Content.Trim().Length > 400)
-                _validationDictionary.AddError("Content", "Content must contain less than 400 characters.");
+            if (task.Content != null && task.Content.Trim().Length > 2000)
+                _validationDictionary.AddError("Content", "Content must contain less than 2000 characters.");
             if (_unitOfWork.Sprints.Get(task.SprintId) == null)
                 _validationDictionary.AddError("SprintId", "Sprint with this id does not exist.");
         }

@@ -289,6 +289,10 @@
     <Compile Include="Migrations\201711222044041_AddScrumMasterIdPropertyToTeamsTable.Designer.cs">
       <DependentUpon>201711222044041_AddScrumMasterIdPropertyToTeamsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711301520265_ChangeScrumTaskDescriptionMasLengthTo2000Characters.cs" />
+    <Compile Include="Migrations\201711301520265_ChangeScrumTaskDescriptionMasLengthTo2000Characters.Designer.cs">
+      <DependentUpon>201711301520265_ChangeScrumTaskDescriptionMasLengthTo2000Characters.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistance\EntityConfiguration\EventConfiguration.cs" />
     <Compile Include="Persistance\Repositories\EventRepository.cs" />
     <Compile Include="Presentation\Dtos\ApplicationUserDto.cs" />
@@ -1229,6 +1233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711222044041_AddScrumMasterIdPropertyToTeamsTable.resx">
       <DependentUpon>201711222044041_AddScrumMasterIdPropertyToTeamsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711301520265_ChangeScrumTaskDescriptionMasLengthTo2000Characters.resx">
+      <DependentUpon>201711301520265_ChangeScrumTaskDescriptionMasLengthTo2000Characters.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
