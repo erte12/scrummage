@@ -16,6 +16,8 @@ namespace Scrummage.Models
 
         public List<ApplicationUser> Users { get; set; }
 
+        public List<ApplicationUser> WaitingUsers { get; set; }
+
         public List<ApplicationUser> UsersWithThisAsDefault { get; set; }
 
         public List<Sprint> Sprints { get; set; }

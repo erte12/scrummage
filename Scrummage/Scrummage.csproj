@@ -298,6 +298,10 @@
     <Compile Include="Migrations\201711301520265_ChangeScrumTaskDescriptionMasLengthTo2000Characters.Designer.cs">
       <DependentUpon>201711301520265_ChangeScrumTaskDescriptionMasLengthTo2000Characters.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711301805202_AddJoinTeamRequestsTableToDatabase.cs" />
+    <Compile Include="Migrations\201711301805202_AddJoinTeamRequestsTableToDatabase.Designer.cs">
+      <DependentUpon>201711301805202_AddJoinTeamRequestsTableToDatabase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Persistance\EntityConfiguration\EventConfiguration.cs" />
     <Compile Include="Persistance\Repositories\EventRepository.cs" />
     <Compile Include="Presentation\Dtos\ApplicationUserDto.cs" />
@@ -1242,6 +1246,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711301520265_ChangeScrumTaskDescriptionMasLengthTo2000Characters.resx">
       <DependentUpon>201711301520265_ChangeScrumTaskDescriptionMasLengthTo2000Characters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711301805202_AddJoinTeamRequestsTableToDatabase.resx">
+      <DependentUpon>201711301805202_AddJoinTeamRequestsTableToDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

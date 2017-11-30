@@ -25,6 +25,15 @@ namespace Scrummage.Models.Configuration
                     cs.ToTable("MemberTeam");
                 });
 
+            HasMany(t => t.WaitingUsers)
+                .WithMany(u => u.RequestedTeams)
+                .Map(cs =>
+                {
+                    cs.MapLeftKey("TeamId");
+                    cs.MapRightKey("MemberId");
+                    cs.ToTable("JoinTeamRequests");
+                });
+
             HasRequired(t => t.ScrumMaster)
                 .WithMany(u => u.ManagedTeams)
                 .HasForeignKey(t => t.ScrumMasterId)
