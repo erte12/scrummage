@@ -41,8 +41,9 @@ namespace Scrummage.Controllers.Api
         }
 
         //Todo: Devide into two methods: UpdateType and UpdateData
+        //Temporarly ReadAccess
         [HttpPatch]
-        [ScrumTaskUpdateAccessActionFilter]
+        [ScrumTaskReadAccessActionFilter]
         public IHttpActionResult UpdateScrumTask(int id, ScrumTaskUpdateDto taskDto)
         {
             var task = _scrumTasksService.Update(id, taskDto);
@@ -67,7 +68,7 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpGet]
-        [ScrumTaskUpdateAccessActionFilter]
+        [ScrumTaskReadAccessActionFilter]
         public IHttpActionResult GetScrumTask(int id)
         {
             var scrumTask = _unitOfWork.ScrumTasks.GetWithDetails(id);

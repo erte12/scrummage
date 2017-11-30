@@ -13,5 +13,6 @@ namespace Scrummage.Core.Repositories
         IEnumerable<ScrumTask> GetActiveScrumTasksBySprintId(int sprintId);
         ScrumTask GetWithDetails(int id);
         ScrumTask GetWithScrumMaster(int id);
+        ScrumTask GetWithTeamMembersAndScrumMaster(int id);
     }
 }
