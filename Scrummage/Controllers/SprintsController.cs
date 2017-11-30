@@ -60,7 +60,7 @@ namespace Scrummage.Controllers
         }
 
         [Authorize(Roles = RoleName.ScrumMaster)]
-        [TeamReadAccessActionFilter]
+        [TeamUpdateAccessActionFilter]
         public ActionResult New(int teamId)
         {
             var team = _unitOfWork.Teams.GetWithSprints(teamId);
@@ -75,7 +75,7 @@ namespace Scrummage.Controllers
 
         [HttpPost]
         [Authorize(Roles = RoleName.ScrumMaster)]
-        [TeamReadAccessActionFilter]
+        [TeamUpdateAccessActionFilter]
         public ActionResult Save(int teamId, SprintNewViewModel sprintNewViewModel)
         {
             var team = _unitOfWork.Teams.Get(sprintNewViewModel.TeamId);
