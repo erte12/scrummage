@@ -16,7 +16,7 @@ namespace Scrummage.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [TeamAccessActionFilter]
+        [TeamReadAccessActionFilter]
         public ActionResult Index(int teamId)
         {
             var team = _unitOfWork.Teams.Get(teamId);

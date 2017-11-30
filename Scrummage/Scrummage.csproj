@@ -230,8 +230,9 @@
     <Compile Include="Controllers\ApiActionFilters\SprintUpdateAccessActionFiltercs.cs" />
     <Compile Include="Controllers\ApiActionFilters\TeamReadAccessActionFilter.cs" />
     <Compile Include="Controllers\ApiActionFilters\TeamUpdateAccessActionFilter.cs" />
-    <Compile Include="Controllers\MvcActionFilters\SprintAccessActionFilter.cs" />
-    <Compile Include="Controllers\MvcActionFilters\TeamAccessActionFilter.cs" />
+    <Compile Include="Controllers\MvcActionFilters\SprintReadAccessActionFilter.cs" />
+    <Compile Include="Controllers\MvcActionFilters\SprintUpdateAccessActionFilter.cs" />
+    <Compile Include="Controllers\MvcActionFilters\TeamReadAccessActionFilter.cs" />
     <Compile Include="Controllers\Api\EventsController.cs" />
     <Compile Include="Controllers\Api\SprintsBurndownChartsController.cs" />
     <Compile Include="Controllers\Api\SprintsController.cs" />

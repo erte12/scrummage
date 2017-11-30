@@ -42,8 +42,7 @@ function bindSprintUpdateEvent(sprintId) {
                 .done(function () {
                     toastr.success('Changes has been saved');
                 })
-                .fail(function (data) {
-                    console.log(data.responseJSON.modelState);
+                .fail(function () {
                     toastr.error('Something went wrong');
                 });
 

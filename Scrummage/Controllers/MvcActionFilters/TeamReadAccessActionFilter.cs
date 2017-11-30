@@ -8,20 +8,20 @@ using Unity.Attributes;
 
 namespace Scrummage.Controllers.MvcActionFilters
 {
-    public class SprintAccessActionFilter : ActionFilterAttribute
+    public class TeamReadAccessActionFilter: ActionFilterAttribute
     {
         [Dependency]
         public IUnitOfWork UnitOfWork { private get; set; }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var sprintId = filterContext.ActionParameters.ContainsKey("sprintId")
-                ? (int)filterContext.ActionParameters["sprintId"]
-                : (int)filterContext.ActionParameters["id"];
+            var teamId = filterContext.ActionParameters.ContainsKey("teamId")
+                ? (int) filterContext.ActionParameters["teamId"]
+                : (int) filterContext.ActionParameters["id"];
 
-            var sprint = UnitOfWork.Sprints.GetWithTeamAndUsers(sprintId);
+            var team = UnitOfWork.Teams.GetWithMembersAndScrumMaster(teamId);
 
-            if (sprint == null)
+            if (team == null)
             {
                 filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.NotFound);
                 return;
@@ -29,7 +29,7 @@ namespace Scrummage.Controllers.MvcActionFilters
 
             var currentUserId = HttpContext.Current.User.Identity.GetUserId();
 
-            if (!(sprint.Team.Users.Select(u => u.Id).Contains(currentUserId) || sprint.Team.ScrumMasterId.Equals(currentUserId)))
+            if (!(team.Users.Select(u => u.Id).Contains(currentUserId) || team.ScrumMasterId.Equals(currentUserId)))
                 filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.Forbidden);
 
             base.OnActionExecuting(filterContext);

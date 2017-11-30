@@ -24,7 +24,7 @@ namespace Scrummage.Controllers
         }
 
         [Route("Sprints")]
-        [TeamAccessActionFilter]
+        [TeamReadAccessActionFilter]
         public ActionResult RedirectToNewestSprintForTeam(int teamId)
         {
             var sprint = _unitOfWork.Sprints.GetNewestForTeam(teamId);
@@ -35,7 +35,7 @@ namespace Scrummage.Controllers
         }
 
         [Route("Sprints/{id:regex(\\d)}")]
-        [SprintAccessActionFilter]
+        [SprintReadAccessActionFilter]
         public ActionResult Index(int id)
         {
             var sprint = _unitOfWork.Sprints.GetWithTeamAndUsers(id);
@@ -60,7 +60,7 @@ namespace Scrummage.Controllers
         }
 
         [Authorize(Roles = RoleName.ScrumMaster)]
-        [TeamAccessActionFilter]
+        [TeamReadAccessActionFilter]
         public ActionResult New(int teamId)
         {
             var team = _unitOfWork.Teams.GetWithSprints(teamId);
@@ -75,7 +75,7 @@ namespace Scrummage.Controllers
 
         [HttpPost]
         [Authorize(Roles = RoleName.ScrumMaster)]
-        [TeamAccessActionFilter]
+        [TeamReadAccessActionFilter]
         public ActionResult Save(int teamId, SprintNewViewModel sprintNewViewModel)
         {
             var team = _unitOfWork.Teams.Get(sprintNewViewModel.TeamId);
@@ -92,7 +92,7 @@ namespace Scrummage.Controllers
 
         [HttpPost]
         [Authorize(Roles = RoleName.ScrumMaster)]
-        [SprintAccessActionFilter]
+        [SprintUpdateAccessActionFilter]
         public ActionResult Delete(int id)
         {
             var sprint = _unitOfWork.Sprints.Get(id);
@@ -104,7 +104,7 @@ namespace Scrummage.Controllers
         }
 
         [Authorize(Roles = RoleName.ScrumMaster)]
-        [SprintAccessActionFilter]
+        [SprintUpdateAccessActionFilter]
         public ActionResult Manage(int id)
         {
             var sprint = _unitOfWork.Sprints.GetWithTeamAndTasks(id);
@@ -127,7 +127,7 @@ namespace Scrummage.Controllers
             return View(viewModel);
         }
 
-        [SprintAccessActionFilter]
+        [SprintReadAccessActionFilter]
         public ActionResult Statistics(int id)
         {
             var sprint = _unitOfWork.Sprints.GetWithTeam(id);

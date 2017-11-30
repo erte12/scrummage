@@ -20,7 +20,7 @@ namespace Scrummage.Controllers
         }
    
         [Route("Teams/{id:regex(\\d)}")]
-        [TeamAccessActionFilter]
+        [TeamReadAccessActionFilter]
         public ActionResult Details(int id)
         {
             var team = _unitOfWork.Teams.GetWithMembersAndScrumMaster(id);
