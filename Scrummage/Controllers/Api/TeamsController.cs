@@ -44,7 +44,7 @@ namespace Scrummage.Controllers.Api
 
         [HttpDelete]
         [Authorize(Roles = RoleName.ScrumMaster)]
-        [TeamAccessActionFilter]
+        [TeamUpdateAccessActionFilter]
         public IHttpActionResult DeleteTeam(int id)
         {
             var success = _teamsService.DeleteTeam(id);
@@ -57,7 +57,7 @@ namespace Scrummage.Controllers.Api
 
         [HttpPut]
         [Authorize(Roles = RoleName.ScrumMaster)]
-        [TeamAccessActionFilter]
+        [TeamUpdateAccessActionFilter]
         public IHttpActionResult AddMember(int teamId, string memberId)
         {
             var success = _teamsService.AddMember(teamId, memberId);
@@ -69,7 +69,7 @@ namespace Scrummage.Controllers.Api
 
         [HttpDelete]
         [Authorize(Roles = RoleName.ScrumMaster)]
-        [TeamAccessActionFilter]
+        [TeamUpdateAccessActionFilter]
         public IHttpActionResult RemoveMember(int teamId, string memberId)
         {
             var success = _teamsService.RemoveMember(teamId, memberId);

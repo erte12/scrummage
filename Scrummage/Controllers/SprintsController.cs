@@ -51,6 +51,7 @@ namespace Scrummage.Controllers
                 EndsAt = sprint.EndsAt,
                 Team = sprint.Team,
                 Users = sprint.Team.UsersWithScrumMaster,
+                ScrumMaster = sprint.Team.ScrumMaster,
                 TeamSprints = teamSprints,
                 Estimations = estimations
             };

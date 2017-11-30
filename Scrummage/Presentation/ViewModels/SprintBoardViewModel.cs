@@ -18,6 +18,8 @@ namespace Scrummage.ViewModels
 
         public Team Team { get; set; }
 
+        public ApplicationUser ScrumMaster { get; set; }
+
         public IEnumerable<Sprint> TeamSprints { get; set; }
 
         public IEnumerable<ApplicationUser> Users { get; set; }
