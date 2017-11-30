@@ -243,6 +243,7 @@
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MvcActionFilters\TeamUpdateAccessActionFilter.cs" />
     <Compile Include="Controllers\SprintsController.cs" />
     <Compile Include="Controllers\TeamsController.cs" />
     <Compile Include="Core\Domain\Event.cs" />

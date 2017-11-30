@@ -43,7 +43,7 @@
                             </li>
                             if (User.IsInRole(RoleName.ScrumMaster))
                             {
-                                <li>
+                                <li id="newSprintMenuItem" style="display: none;">
                                     @Html.ActionLink("Create new sprint", "New", "Sprints", new {teamId = userTeamId}, null)
                                 </li>
                             }
@@ -98,6 +98,11 @@
             teamsListElement.appendTo('#teams');
 
         });
+    });
+
+    $.get('/Api/Teams/IsScrumMasterOfTheTeam/@User.Identity.GetDefaultTeamId()', function (result) {
+        if (result === true)
+            $('#newSprintMenuItem').show();
     });
 
     $('#teams').on('change', function () {

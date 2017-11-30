@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Scrummage.Controllers.ApiActionFilters;
 using Scrummage.Core;
 using Scrummage.Core.Services;
@@ -40,6 +41,17 @@ namespace Scrummage.Controllers.Api
         {
             var teams = _unitOfWork.Teams.GetMyTeams();
             return Ok(Mapper.Map<IEnumerable<TeamDto>>(teams));
+        }
+
+        [HttpGet]
+        [TeamReadAccessActionFilter]
+        [Route("Api/Teams/IsScrumMasterOfTheTeam/{id}")]
+        public IHttpActionResult IsLoggedUserScrumMasterOfTheTeam(int id)
+        {
+            var team = _unitOfWork.Teams.Get(id);
+            var loggedUserId = User.Identity.GetUserId();
+
+            return Ok(team.ScrumMasterId.Equals(loggedUserId));
         }
 
         [HttpDelete]

@@ -25,7 +25,7 @@
             </select>
         </div>
         
-        @if (User.IsInRole(RoleName.ScrumMaster))
+        @if (Model.ScrumMaster.Id.Equals(User.Identity.GetUserId()))
         {
             <div class="col-lg-2">
                 @Html.ActionLink("Manage sprint", "Manage", "Sprints",
@@ -38,7 +38,7 @@
                 new { id = Model.Id },
                 new {@class = "btn btn-primary btn-block"})
         </div>
-        @if (User.IsInRole(RoleName.ScrumMaster))
+        @if (Model.ScrumMaster.Id.Equals(User.Identity.GetUserId()))
         {
             <div class="col-lg-2">
                 @Html.ActionLink("New sprint", "New", "Sprints",
