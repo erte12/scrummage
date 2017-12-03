@@ -43,7 +43,7 @@ namespace Scrummage.Controllers.Api
         {
             var daysNumber = dates.Count - 1;
 
-            return (int)Math.Ceiling(1.0 * estimationsSum / daysNumber);
+            return (int)Math.Floor(1.0 * estimationsSum / daysNumber);
         }
 
         private static IList<DateTime> GetDates(DateTime startAt, DateTime endsAt)

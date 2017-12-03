@@ -37,6 +37,7 @@ namespace Scrummage.Controllers.Api
             return Ok(teamDto);
         }
 
+        [HttpGet]
         public IHttpActionResult GetTeams()
         {
             var teams = _unitOfWork.Teams.GetMyTeams();
@@ -76,6 +77,12 @@ namespace Scrummage.Controllers.Api
             if (!success)
                 return BadRequest();
 
+            return Ok();
+        }
+
+        [HttpPut]
+        public IHttpActionResult SendRequest(int id)
+        {
             return Ok();
         }
 
