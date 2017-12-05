@@ -21,6 +21,8 @@ namespace Scrummage.Models
         public ApplicationUser()
         {
             Teams = new List<Team>();
+            RequestedTeams = new List<Team>();
+            ManagedTeams = new List<Team>();
             ScrumTasks = new List<ScrumTask>();
         }
 
