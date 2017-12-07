@@ -3,7 +3,7 @@
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name' + 'surname'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-            url: '/api/users?query=%QUERY&exceptTeamId=@Model.Id',
+            url: '/api/users?query=%QUERY&exceptTeamId=' + teamId,
             wildcard: '%QUERY',
             cache: false
         }

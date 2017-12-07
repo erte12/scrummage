@@ -4,7 +4,6 @@ using Scrummage.Core;
 
 namespace Scrummage.Controllers
 {
-    [Authorize(Roles = RoleName.ScrumMaster)]
     public class TeamsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -14,12 +13,14 @@ namespace Scrummage.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [Authorize(Roles = RoleName.ScrumMaster)]
         public ActionResult Index()
         {
             return View();
         }
 
         [Route("Teams/{id:regex(\\d)}")]
+        [Authorize(Roles = RoleName.ScrumMaster)]
         [TeamUpdateAccessActionFilter]
         public ActionResult Details(int id)
         {

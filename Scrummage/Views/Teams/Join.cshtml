@@ -20,8 +20,18 @@
 <form id="requestTeamForm">
     <div class="form-group">
         <div class="tt-container">
-            <input id="teamName" name="teamName" type="text" class="form-control" />
+            <input id="team" name="name" type="text" class="form-control" />
         </div>
     </div>
 </form>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/typeahead");
+    @Scripts.Render("~/bundles/views/teams/join");
+
+    <script>
+        bindTeamSearchEvent();
+    </script>
+}
 
