@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model IEnumerable<Scrummage.Dtos.TeamDto>
 
 @{
     ViewBag.Title = "Join team";
@@ -10,7 +10,13 @@
     <div class="col-md-4">
         <h3>Requested teams</h3>
         <div id="requestedTeams" class="list-group">
-
+            @foreach (var team in Model)
+            {
+                <div class="list-group-item">
+                    @team.Name
+                    <span data-member-id="@team.Id" class="glyphicon glyphicon-remove js-remove pull-right"></span>
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -27,8 +33,8 @@
 
 @section scripts
 {
-    @Scripts.Render("~/bundles/typeahead");
-    @Scripts.Render("~/bundles/views/teams/join");
+    @Scripts.Render("~/bundles/typeahead")
+    @Scripts.Render("~/bundles/views/teams/join")
 
     <script>
         bindTeamSearchEvent();

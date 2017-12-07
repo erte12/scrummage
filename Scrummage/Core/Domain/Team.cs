@@ -34,6 +34,7 @@ namespace Scrummage.Models
         public Team()
         {
             Users = new List<ApplicationUser>();
+            WaitingUsers = new List<ApplicationUser>();
             Sprints = new List<Sprint>();
         }
 

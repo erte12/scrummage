@@ -91,6 +91,9 @@ namespace Scrummage.Controllers.Api
         [HttpPut]
         public IHttpActionResult SendRequest(int id)
         {
+            var success = _teamsService.AddUserToWaitingList(id);
+            if (!success)
+                return BadRequest();
             return Ok();
         }
 

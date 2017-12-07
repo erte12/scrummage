@@ -63,6 +63,20 @@ namespace Scrummage.Services
             return true;
         }
 
+        public bool AddUserToWaitingList(int id)
+        {
+            var team = _unitOfWork.Teams.Get(id);
+            var user = _unitOfWork.Users.Get(HttpContext.Current.User.Identity.GetUserId());
+
+            if (team == null || user == null)
+                return false;
+
+            team.WaitingUsers.Add(user);
+            _unitOfWork.Complate();
+
+            return true;
+        }
+
         public bool RemoveMember(int teamId, string memberId)
         {
             var team = _unitOfWork.Teams.GetWithMembers(teamId);

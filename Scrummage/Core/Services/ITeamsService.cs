@@ -14,5 +14,6 @@ namespace Scrummage.Core.Services
         bool AddMember(int teamId, string newMemberId);
         bool RemoveMember(int teamId, string memberId);
         bool DeleteTeam(int teamId);
+        bool AddUserToWaitingList(int id);
     }
 }

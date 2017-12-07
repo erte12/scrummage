@@ -1,6 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using AutoMapper;
 using Scrummage.Controllers.MvcActionFilters;
 using Scrummage.Core;
+using Scrummage.Dtos;
 
 namespace Scrummage.Controllers
 {
@@ -30,7 +33,8 @@ namespace Scrummage.Controllers
 
         public ActionResult Join()
         {
-            return View();
+            var requestedTeams = _unitOfWork.Teams.GetMyRequestedTeams();
+            return View(Mapper.Map<IEnumerable<TeamDto>>(requestedTeams));
         }
     }
 }
