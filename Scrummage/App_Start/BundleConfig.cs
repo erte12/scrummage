@@ -58,6 +58,9 @@ namespace Scrummage
             bundles.Add(new ScriptBundle("~/bundles/views/teams/details").Include(
                 "~/Scripts/Views/Teams/details.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/views/teams/join").Include(
+                "~/Scripts/Views/Teams/join.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/views/events/index").Include(
                 "~/Scripts/Views/Events/index.js"));
 

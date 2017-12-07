@@ -1123,6 +1123,7 @@
     <Content Include="Scripts\Views\Sprints\manage.js" />
     <Content Include="Scripts\Views\Teams\details.js" />
     <Content Include="Scripts\Views\Teams\index.js" />
+    <Content Include="Scripts\Views\Teams\join.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

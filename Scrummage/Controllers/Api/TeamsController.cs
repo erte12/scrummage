@@ -38,9 +38,17 @@ namespace Scrummage.Controllers.Api
         }
 
         [HttpGet]
-        public IHttpActionResult GetTeams()
+        public IHttpActionResult GetMyTeams()
         {
             var teams = _unitOfWork.Teams.GetMyTeams();
+            return Ok(Mapper.Map<IEnumerable<TeamDto>>(teams));
+        }
+
+        [HttpGet]
+        [Route("Api/Teams/GetTeamsByQuery/{query}")]
+        public IHttpActionResult GetTeamsByQuery(string query = null)
+        {
+            var teams = _unitOfWork.Teams.GetTeamsByQuery(query);
             return Ok(Mapper.Map<IEnumerable<TeamDto>>(teams));
         }
 
